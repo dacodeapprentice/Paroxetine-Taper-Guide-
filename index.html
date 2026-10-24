@@ -2156,11 +2156,16 @@
               </div>
             </div>
 
-            <!-- VIEW 2: DAILY ENTRY MENU (When day is pressed for the first time or editing) -->
+            <!-- VIEW 2: DAILY ENTRY MENU (Accessible for any day; intake is independent of plans) -->
             <form id="day-log-form" onsubmit="app.saveDayLog(event)">
               <!-- Hidden form inputs for dose and formulation to prevent null querySelector errors -->
               <input type="hidden" id="input-dose" value="10.0" />
               <input type="hidden" id="input-formulation" value="white-half" />
+
+              <!-- Orientation Guide Banner (Informs user of orientation target without restricting intake) -->
+              <div id="form-orientation-banner" style="background: #111e33; border: 1px solid #1e3a5f; border-radius: 0.5rem; padding: 0.7rem 0.85rem; margin-bottom: 0.9rem; font-size: 0.775rem; color: #94a3b8; line-height: 1.45;">
+                <!-- Dynamically populated in selectDate() -->
+              </div>
 
               <!-- Quick Pill Amount Picker Buttons -->
               <div class="form-group">
@@ -2259,81 +2264,14 @@
               </div>
             </form>
 
-            <!-- VIEW 3: LOCKED DAY WINDOW WITH SCHEDULED PLAN ORIENTATION -->
-            <div class="panel-locked-view" id="panel-view-locked" style="display: none;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.6rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                  <span style="font-size: 1.25rem;">🔒</span>
-                  <div>
-                    <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin: 0;">Day Locked for Entry</h3>
-                    <div style="font-size: 0.7rem; color: #94a3b8;">Preceding daily dose must be submitted first</div>
-                  </div>
-                </div>
-                <span class="status-chip chip-warning" style="font-size: 0.65rem; padding: 0.2rem 0.5rem;" id="locked-plan-badge">
-                  🎯 Target Plan
-                </span>
-              </div>
-
-              <!-- Orientation Card showing Scheduled Plan -->
-              <div id="locked-plan-orientation-card" style="background: #0f172a; border: 1px solid #1e293b; border-radius: 0.6rem; padding: 0.9rem; margin-bottom: 0.85rem;">
-                <div style="font-size: 0.68rem; text-transform: uppercase; font-weight: 700; color: #38bdf8; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
-                  🗓️ Scheduled Roadmap for this Date
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.55rem;">
-                  <span style="font-size: 0.8rem; color: var(--text-secondary);">Target Dosage</span>
-                  <span id="locked-plan-dose" style="font-size: 1.35rem; font-weight: 800; font-family: var(--font-mono); color: #38bdf8;">
-                    10.0 mg
-                  </span>
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.55rem; padding-top: 0.45rem; border-top: 1px solid #1e293b;">
-                  <span style="font-size: 0.8rem; color: var(--text-secondary);">Seroxat Formulation</span>
-                  <span id="locked-plan-pill" style="font-size: 0.825rem; font-weight: 700; color: #f1f5f9; text-align: right;">
-                    🌗 1/2 White Half (10mg)
-                  </span>
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.55rem; padding-top: 0.45rem; border-top: 1px solid #1e293b;">
-                  <span style="font-size: 0.8rem; color: var(--text-secondary);">Governing Plan</span>
-                  <span id="locked-plan-name" style="font-size: 0.775rem; font-weight: 600; color: var(--teal-primary); max-width: 65%; text-align: right;">
-                    Phase 1: 10mg Stabilization Hold
-                  </span>
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.45rem; border-top: 1px solid #1e293b;">
-                  <span style="font-size: 0.8rem; color: var(--text-secondary);">Scheduled Day</span>
-                  <span id="locked-plan-dayname" style="font-size: 0.775rem; font-weight: 600; color: #cbd5e1;">
-                    Friday
-                  </span>
-                </div>
-
-                <!-- Conflict Alert Box (hidden unless active conflict exists) -->
-                <div id="locked-plan-conflict-alert" style="display: none; margin-top: 0.75rem; background: rgba(244, 63, 94, 0.12); border: 1px solid #f43f5e; border-radius: 0.4rem; padding: 0.5rem 0.65rem; font-size: 0.75rem; color: #fda4af;">
-                  ⚠️ <strong>Scheduling Conflict:</strong> Overlapping active plans have specified conflicting doses on this date.
-                </div>
-              </div>
-
-              <!-- Orientation Explanation Callout -->
-              <div style="background: #111e33; border: 1px solid #1e3a5f; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 1rem; font-size: 0.775rem; color: #94a3b8; line-height: 1.45;">
-                <span style="color: #67e8f9; font-weight: 600;">🧭 Orientation Guide:</span>
-                This day is locked for intake submission to maintain strict sequential adherence. Review your upcoming reduction plan above to prepare split pill amounts in advance. This date unlocks automatically as soon as previous daily logs are entered.
-              </div>
-
-              <!-- Action buttons -->
-              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <button class="btn btn-primary btn-sm" onclick="app.goToLatestUnlockedDay()" style="justify-content: center;">
-                  Go to Active Day (Log Dosage)
-                </button>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                  <button class="btn btn-secondary btn-sm" onclick="app.scrollToPlans()" style="justify-content: center; font-size: 0.725rem;">
-                    ⚙️ Edit Plans
-                  </button>
-                  <button class="btn btn-secondary btn-sm" onclick="app.manuallyUnlockSelectedDate()" style="justify-content: center; font-size: 0.725rem;">
-                    🔓 Unlock Day
-                  </button>
-                </div>
-              </div>
+            <!-- Hidden container for orientation element references -->
+            <div id="panel-view-locked" style="display: none !important;">
+              <span id="locked-plan-badge"></span>
+              <span id="locked-plan-dose"></span>
+              <span id="locked-plan-pill"></span>
+              <span id="locked-plan-name"></span>
+              <span id="locked-plan-dayname"></span>
+              <div id="locked-plan-conflict-alert"></div>
             </div>
           </div>
         </div>
@@ -2628,7 +2566,7 @@
             if (saved) {
               const parsed = JSON.parse(saved);
               if (parsed.logs) this.state.logs = parsed.logs;
-              if (parsed.plans && Array.isArray(parsed.plans) && parsed.plans.length > 0) {
+              if (parsed.plans && Array.isArray(parsed.plans)) {
                 this.state.plans = parsed.plans;
               }
               if (parsed.plan) this.state.plan = parsed.plan;
@@ -2756,29 +2694,8 @@
         },
 
         isDateUnlocked(dateStr) {
-          // Explicit manual unlock
-          if (this.state.unlockedDates && this.state.unlockedDates[dateStr]) return true;
-
-          // If date has an existing intake record, it is unlocked (and concluded)
-          if (this.state.logs[dateStr] && this.state.logs[dateStr].dose !== undefined && this.state.logs[dateStr].dose !== null) {
-            return true;
-          }
-
-          const latestLogged = this.getLatestLoggedDate();
-          if (!latestLogged) {
-            // If no logs exist, unlock today or earlier
-            return dateStr <= '2026-10-02';
-          }
-
-          // Historical dates on or before latest logged date can be viewed/filled
-          if (dateStr <= latestLogged) return true;
-
-          // The very next date after the latest logged intake is unlocked and active!
-          const nextActiveDay = this.getNextDateStr(latestLogged);
-          if (dateStr === nextActiveDay) return true;
-
-          // Dates beyond nextActiveDay are locked until preceding day dosage input is provided
-          return false;
+          // Intake is independent of plans; user can make their pill registry freely on any date
+          return true;
         },
 
         goToLatestUnlockedDay() {
@@ -2961,43 +2878,34 @@
           if (dateStr === '2026-10-02') cell.classList.add('today');
           if (dateStr === this.state.selectedDate) cell.classList.add('selected');
 
-          const isUnlocked = this.isDateUnlocked(dateStr);
           const log = this.state.logs[dateStr];
           const plannedInfo = this.getPlannedDoseForDate(dateStr);
 
           // Assign distinct color codes:
-          // 1. Overlapping plans
-          // 2. Both meds taken and scheduled plan (in sync)
+          // 1. Overlapping plans (conflict / review)
+          // 2. Both meds taken & matches scheduled plan (in sync — ideal for taper success!)
           // 3. Meds taken only (logged intake without plan or off-plan)
-          // 4. Plan only (scheduled upcoming or target on locked/unlocked days)
+          // 4. Plan only (scheduled upcoming orientation target)
           let colorClass = '';
           let codeBadgeHtml = '';
 
           if (plannedInfo && plannedInfo.hasConflict) {
             colorClass = 'day-color-overlapping';
-            codeBadgeHtml = `<span class="day-code-badge" title="Scheduling conflict between active plans">⚠️ Overlap</span>`;
+            codeBadgeHtml = `<span class="day-code-badge" title="Scheduling conflict between active orientation plans">⚠️ Overlap</span>`;
           } else if (log && plannedInfo && Math.abs(Number(log.dose) - Number(plannedInfo.dose)) <= 0.1) {
             colorClass = 'day-color-both';
-            codeBadgeHtml = `<span class="day-code-badge" title="Medication taken & in sync with active plan">✓ Both Taken & Plan</span>`;
+            codeBadgeHtml = `<span class="day-code-badge" title="Medication taken & in sync with active plan (ideal for taper success)">✓ Both Taken & Plan</span>`;
           } else if (log) {
             colorClass = 'day-color-taken-only';
             codeBadgeHtml = `<span class="day-code-badge" title="Medication taken (${Number(log.dose).toFixed(1)}mg)">✓ Taken (${Number(log.dose).toFixed(0)}mg)</span>`;
           } else if (plannedInfo) {
             colorClass = 'day-color-plan-only';
-            codeBadgeHtml = `<span class="day-code-badge" title="Scheduled plan: ${plannedInfo.dose.toFixed(1)}mg">📅 Plan (${plannedInfo.dose.toFixed(0)}mg)</span>`;
+            codeBadgeHtml = `<span class="day-code-badge" title="Orientation plan target: ${plannedInfo.dose.toFixed(1)}mg">📅 Plan (${plannedInfo.dose.toFixed(0)}mg)</span>`;
           }
 
           if (colorClass) cell.classList.add(colorClass);
-
-          if (!isUnlocked) {
-            cell.classList.add('day-locked');
-          } else if (log) {
-            cell.classList.add('day-concluded');
-          }
-
-          if (plannedInfo && plannedInfo.hasConflict) {
-            cell.classList.add('day-conflict');
-          }
+          if (log) cell.classList.add('day-concluded');
+          if (plannedInfo && plannedInfo.hasConflict) cell.classList.add('day-conflict');
 
           cell.onclick = () => this.selectDate(dateStr);
 
@@ -3007,21 +2915,7 @@
           let avgSymptom = 0;
           let iconBadges = '';
 
-          if (!isUnlocked) {
-            if (plannedInfo) {
-              if (plannedInfo.hasConflict) {
-                const dosesText = plannedInfo.allMatches.map(m => `${m.dose}mg`).join('/');
-                doseDisplay = `<span class="day-dose-conflict" style="font-size:0.75rem;" title="Plan conflict on locked date">⚠️ Conflict (${dosesText})</span>`;
-                pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem;">🔒 Overlapping Plans</span>`;
-              } else {
-                doseDisplay = `<span style="color:#93c5fd; font-weight:700; font-size:0.775rem; font-family:var(--font-mono);" title="Scheduled plan: ${plannedInfo.dose.toFixed(1)}mg (Locked for entry until prior day completed)">🔒 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
-                pillVisual = `<span style="font-size:0.65rem; color:#94a3b8; font-weight:500;">${this.getPillIcon(plannedInfo.dose)} ${this.getPillLabel(plannedInfo.dose)}</span>`;
-              }
-            } else {
-              doseDisplay = `<span class="day-locked-tag">🔒 No Plan Set</span>`;
-              pillVisual = `<span style="font-size:0.625rem; color:#64748b;">Awaiting schedule</span>`;
-            }
-          } else if (log) {
+          if (log) {
             doseDisplay = `✓ ${Number(log.dose).toFixed(1)} mg`;
             pillVisual = `${this.getPillIcon(log.dose)} ${this.getPillLabel(log.dose)}`;
             const s = log.symptoms || {};
@@ -3041,7 +2935,7 @@
               doseDisplay = `<span class="day-dose-conflict" title="Schedule conflict between active plans">⚠️ Conflict (${dosesText})</span>`;
               pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem;">Overlapping Plans</span>`;
             } else {
-              doseDisplay = `<span class="day-dose-planned" style="color:#60a5fa; font-weight:700;">⏳ Take: ${plannedInfo.dose.toFixed(1)}mg</span>`;
+              doseDisplay = `<span class="day-dose-planned" style="color:#60a5fa; font-weight:700;">📅 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
               pillVisual = `<span class="day-dose-planned">${this.getPillIcon(plannedInfo.dose)} ${this.getPillLabel(plannedInfo.dose)}</span>`;
             }
           } else {
@@ -3052,7 +2946,7 @@
             <div class="day-top-row">
               <span class="day-number">${dayNum}</span>
               ${codeBadgeHtml}
-              ${(isUnlocked && log) ? `<span class="day-status-pill day-symptoms-fill ${symptomColorClass}" title="Avg Symptom: ${avgSymptom.toFixed(1)}/10"></span>` : ''}
+              ${log ? `<span class="day-status-pill day-symptoms-fill ${symptomColorClass}" title="Avg Symptom: ${avgSymptom.toFixed(1)}/10"></span>` : ''}
             </div>
             <div>
               <div class="day-dose-tag">${doseDisplay || '&nbsp;'}</div>
@@ -3060,7 +2954,7 @@
               <div class="day-symptom-tag-list">${iconBadges}</div>
             </div>
             <div class="day-symptoms-bar">
-              ${(isUnlocked && log) ? `<div class="day-symptoms-fill ${symptomColorClass}" style="width: ${Math.max(12, avgSymptom * 10)}%;"></div>` : ''}
+              ${log ? `<div class="day-symptoms-fill ${symptomColorClass}" style="width: ${Math.max(12, avgSymptom * 10)}%;"></div>` : ''}
             </div>
           `;
 
@@ -3113,7 +3007,6 @@
 
           document.getElementById('panel-date-str').textContent = this.formatDisplayDate(dateStr);
 
-          const isUnlocked = this.isDateUnlocked(dateStr);
           const log = this.state.logs[dateStr];
           const plannedInfo = this.getPlannedDoseForDate(dateStr);
 
@@ -3125,39 +3018,14 @@
           const regView = document.getElementById('panel-view-registry');
           const formView = document.getElementById('day-log-form');
           const lockedView = document.getElementById('panel-view-locked');
-
-          if (!isUnlocked) {
-            // CASE 1: DAY IS LOCKED
-            if (regView) regView.style.display = 'none';
-            if (formView) formView.style.display = 'none';
-            if (lockedView) lockedView.style.display = 'block';
-
-            if (kicker) kicker.textContent = '🔒 Seroxat Protocol: Day Locked (Orientation View)';
-            dot.style.background = '#38bdf8';
-            badge.style.color = '#38bdf8';
-            if (plannedInfo) {
-              if (plannedInfo.hasConflict) {
-                badge.textContent = `🔒 Locked — Plan Conflict (${plannedInfo.dose.toFixed(1)} mg)`;
-              } else {
-                badge.textContent = `🔒 Locked — Scheduled Plan: ${plannedInfo.dose.toFixed(1)} mg`;
-              }
-            } else {
-              badge.textContent = '🔒 Locked — No Plan Assigned';
-            }
-            if (alertBox) alertBox.style.display = 'none';
-
-            this.updateLockedOrientationView(dateStr, plannedInfo);
-            return;
-          }
-
           if (lockedView) lockedView.style.display = 'none';
 
           if (log && !this.state.isEditingCurrentDay) {
-            // CASE 2: CONCLUDED REGISTRY WINDOW (TEXT-ONLY INFORMATION)
+            // CASE 1: CONCLUDED REGISTRY WINDOW (TEXT-ONLY INFORMATION)
             if (formView) formView.style.display = 'none';
             if (regView) regView.style.display = 'block';
 
-            if (kicker) kicker.textContent = 'Seroxat Medical Registry (Concluded)';
+            if (kicker) kicker.textContent = 'Seroxat Daily Entry (Concluded)';
             dot.style.background = 'var(--teal-primary)';
             badge.style.color = 'var(--teal-primary)';
             badge.textContent = `✓ Concluded Intake (${log.dose.toFixed(1)} mg)`;
@@ -3174,15 +3042,15 @@
 
             const regAdherence = document.getElementById('reg-adherence');
             if (regAdherence) {
-              if (plannedInfo && Math.abs(log.dose - plannedInfo.dose) > 0.1) {
-                regAdherence.style.color = 'var(--amber-warning)';
-                regAdherence.textContent = `Deviation: Logged ${log.dose}mg vs Plan ${plannedInfo.dose}mg`;
-              } else if (plannedInfo) {
+              if (plannedInfo && Math.abs(log.dose - plannedInfo.dose) <= 0.1) {
                 regAdherence.style.color = 'var(--teal-primary)';
-                regAdherence.textContent = `100% In Sync with ${plannedInfo.planName}`;
+                regAdherence.textContent = `✓ In sync with orientation plan "${plannedInfo.planName}" (Ideal for taper success)`;
+              } else if (plannedInfo) {
+                regAdherence.style.color = 'var(--amber-warning)';
+                regAdherence.textContent = `Orientation note: Logged ${log.dose}mg vs Plan ${plannedInfo.dose}mg`;
               } else {
                 regAdherence.style.color = 'var(--teal-primary)';
-                regAdherence.textContent = `Logged Intake: ${log.dose.toFixed(1)} mg`;
+                regAdherence.textContent = `Logged Intake: ${log.dose.toFixed(1)} mg (Independent Registry)`;
               }
             }
 
@@ -3229,7 +3097,7 @@
             }
 
           } else {
-            // CASE 3: DAILY ENTRY MENU (FIRST TIME OR EDITING)
+            // CASE 2: DAILY ENTRY MENU (FREELY AVAILABLE FOR ANY DAY)
             if (regView) regView.style.display = 'none';
             if (formView) formView.style.display = 'block';
 
@@ -3237,22 +3105,50 @@
             const saveBtn = document.getElementById('btn-save-log');
 
             if (this.state.isEditingCurrentDay && log) {
-              if (kicker) kicker.textContent = `Editing Concluded Entry (${this.formatDisplayDate(dateStr)})`;
+              if (kicker) kicker.textContent = `Editing Daily Entry (${this.formatDisplayDate(dateStr)})`;
               if (saveBtn) saveBtn.textContent = 'Update Concluded Entry';
               if (cancelBtn) cancelBtn.style.display = 'inline-block';
               dot.style.background = 'var(--amber-warning)';
               badge.style.color = 'var(--amber-warning)';
               badge.textContent = `Editing Day Log (${log.dose.toFixed(1)} mg)`;
             } else {
-              if (kicker) kicker.textContent = 'Daily Dosage Entry Menu';
+              if (kicker) kicker.textContent = 'Daily Dosage Intake Registry';
               if (saveBtn) saveBtn.textContent = 'Save & Conclude Day';
               if (cancelBtn) cancelBtn.style.display = 'none';
               dot.style.background = 'var(--teal-primary)';
               badge.style.color = 'var(--teal-primary)';
-              badge.textContent = plannedInfo ? `Planned: ${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})` : 'Awaiting Dosage Taken Input';
+              badge.textContent = plannedInfo
+                ? `Plan Target: ${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})`
+                : 'Awaiting Dosage Taken Input';
             }
 
             if (alertBox) alertBox.style.display = 'none';
+
+            // Orientation callout banner inside form
+            const formBanner = document.getElementById('form-orientation-banner');
+            if (formBanner) {
+              if (plannedInfo) {
+                formBanner.innerHTML = `
+                  <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <span>🧭 <strong>Plan Orientation:</strong> Recommended target is <strong>${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})</strong> from <em>${plannedInfo.planName}</em>.</span>
+                    <span style="font-size:0.7rem; color:var(--teal-primary); font-weight:700;">● Ideal for taper success</span>
+                  </div>
+                  <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                    Plans guide orientation; your actual daily intake is independent. Register what you take below.
+                  </div>
+                `;
+              } else {
+                formBanner.innerHTML = `
+                  <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <span>🗓️ <strong>Independent Intake Registry:</strong> No orientation plan active for this date.</span>
+                    <span style="font-size:0.7rem; color:var(--text-muted);">Free registry mode</span>
+                  </div>
+                  <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                    Select your administered pill dosage below to record your entry.
+                  </div>
+                `;
+              }
+            }
 
             // Populate form fields
             const doseInput = document.getElementById('input-dose');
@@ -3279,7 +3175,7 @@
               this.setSlider('headache', s.headache || 0);
             } else {
               currentDose = plannedInfo ? plannedInfo.dose : 10.0;
-              currentFormulation = currentDose >= 20.0 ? 'white-whole' : currentDose >= 10.0 ? 'white-half' : 'zero';
+              currentFormulation = currentDose >= 30.0 ? 'blue-whole' : currentDose >= 20.0 ? 'white-whole' : currentDose >= 10.0 ? 'white-half' : 'zero';
               if (doseInput) {
                 doseInput.value = currentDose;
                 this.syncFormulationToDose(doseInput.value);
@@ -3301,6 +3197,7 @@
             this.recalcAvgSymptom();
           }
         },
+
 
         updateLockedOrientationView(dateStr, plannedInfo) {
           const doseEl = document.getElementById('locked-plan-dose');
@@ -3679,6 +3576,22 @@
           if (!grid) return;
           grid.innerHTML = '';
 
+          if (!this.state.plans || this.state.plans.length === 0) {
+            grid.innerHTML = `
+              <div style="grid-column: 1 / -1; padding: 2.5rem 1.5rem; text-align: center; background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 12px;">
+                <div style="font-size: 2.2rem; margin-bottom: 0.75rem;">🧭</div>
+                <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">No Orientation Plans Configured</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto 1.25rem; line-height: 1.55;">
+                  Your <strong>Daily Pill Intake Registry is 100% independent</strong> and operates normally without any plans. You can register your pills and symptoms freely on any calendar day. Action plans are purely orientation tools designed to outline an ideal tapering schedule for your success.
+                </p>
+                <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
+                  + Create Orientation Plan
+                </button>
+              </div>
+            `;
+            return;
+          }
+
           const conflicts = this.checkPlanConflicts();
           const conflictingPlanIds = new Set();
           conflicts.forEach(c => {
@@ -3756,7 +3669,9 @@
                 <button class="btn btn-secondary btn-sm" onclick="app.duplicatePlan('${plan.id}')" title="Duplicate plan">
                   📋 Copy
                 </button>
-                ${this.state.plans.length > 1 ? `<button class="btn btn-secondary btn-sm" onclick="app.deletePlan('${plan.id}')" style="color:#f87171;" title="Delete plan">🗑</button>` : ''}
+                <button class="btn btn-secondary btn-sm" onclick="app.deletePlan('${plan.id}')" style="color:#f87171;" title="Delete orientation plan">
+                  🗑 Delete
+                </button>
               </div>
             `;
             grid.appendChild(row);
@@ -4002,13 +3917,9 @@
         },
 
         deletePlan(planId) {
-          if (this.state.plans.length <= 1) {
-            alert('At least one plan must remain in your workspace.');
-            return;
-          }
           const plan = this.state.plans.find(p => p.id === planId);
           if (!plan) return;
-          if (confirm(`Delete plan "${plan.name}"?`)) {
+          if (confirm(`Delete orientation plan "${plan.name}"? Your recorded daily intake registry is completely independent and will remain intact.`)) {
             this.state.plans = this.state.plans.filter(p => p.id !== planId);
             this.saveStorage();
             this.renderConflictOverlay();
@@ -4019,9 +3930,9 @@
         },
 
         extendActivePlanHold(days) {
-          const activePlan = this.state.plans.find(p => p.active);
+          const activePlan = (this.state.plans || []).find(p => p.active);
           if (!activePlan) {
-            alert('No active plan found to extend.');
+            alert('No active plan found to extend. You can create an orientation plan below.');
             return;
           }
           activePlan.durationDays = (activePlan.durationDays || 21) + days;
@@ -4035,12 +3946,17 @@
 
         autoAdaptPlansFromSymptoms() {
           const fb = this.getSymptomFeedback();
+          const hasActive = (this.state.plans || []).some(p => p.active);
+          if (!hasActive) {
+            alert(`Your 7-day symptom average is ${fb.avg.toFixed(1)}/10. No active orientation plan to adapt. You can create an orientation plan anytime to guide your taper.`);
+            return;
+          }
           if (fb.level === 'danger') {
             this.extendActivePlanHold(14);
           } else if (fb.level === 'warning') {
             this.extendActivePlanHold(7);
           } else {
-            alert(`Your 7-day symptom average is ${fb.avg.toFixed(1)}/10 (Mild). Body is tolerating current half-pill well. No emergency hold required; proceed according to your current weekly schedule.`);
+            alert(`Your 7-day symptom average is ${fb.avg.toFixed(1)}/10 (Mild). Body is tolerating current intake well. No emergency hold required; proceed according to your current weekly schedule.`);
           }
         },
 
@@ -4063,20 +3979,28 @@
           const desc = document.getElementById('adherence-status-desc');
           const rateBadge = document.getElementById('adherence-rate-badge');
 
+          if (!banner || !title || !desc || !rateBadge) return;
+
           const plannedInfo = this.getPlannedDoseForDate(todayStr);
 
           if (!plannedInfo) {
             banner.className = 'plan-adherence-banner banner-matched';
-            title.textContent = 'No Active Plan Scheduled for Today';
-            desc.textContent = 'Create or activate a tapering plan covering this period to track scheduled daily pill intakes.';
-            rateBadge.textContent = 'Status: Unscheduled';
+            if (todayLog) {
+              title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose)}) — Independent Registry Active`;
+              desc.textContent = `Intake successfully logged. Plans serve as orientation guidance to support taper success, but your daily pill registry is fully independent.`;
+              rateBadge.textContent = 'Status: Intake Registered';
+            } else {
+              title.textContent = 'Daily Intake Registry Active (Independent Mode)';
+              desc.textContent = 'No orientation plan scheduled for today. You can freely register your daily pill intake and symptoms on any calendar date.';
+              rateBadge.textContent = 'Status: Free Registry Mode';
+            }
             return;
           }
 
           if (plannedInfo.hasConflict) {
             banner.className = 'plan-adherence-banner banner-danger';
             title.textContent = '⚠️ Today Has A Schedule Conflict Between Active Plans';
-            desc.textContent = `Multiple active plans prescribe conflicting doses for today (${plannedInfo.allMatches.map(m=>`${m.plan.name}: ${m.dose}mg`).join(' vs ')}). Resolve the conflict in the Plan Section to clarify your target.`;
+            desc.textContent = `Multiple active plans prescribe conflicting doses for today (${plannedInfo.allMatches.map(m=>`${m.plan.name}: ${m.dose}mg`).join(' vs ')}). Resolve the conflict in the Plan Section to clarify your orientation target.`;
             rateBadge.textContent = 'Conflict Detected';
             return;
           }
@@ -4085,8 +4009,8 @@
 
           if (!todayLog) {
             banner.className = 'plan-adherence-banner banner-alert';
-            title.textContent = `Today's Plan: ${target} mg (${this.getPillLabel(target)}) — Intake Pending`;
-            desc.textContent = `Your active plan "${plannedInfo.planName}" specifies ${target} mg for today. Register your intake once taken.`;
+            title.textContent = `Orientation Target: ${target} mg (${this.getPillLabel(target)}) — Intake Pending`;
+            desc.textContent = `Orientation plan "${plannedInfo.planName}" recommends ${target} mg today for tapering success. Intake is independent — register what you actually take.`;
             rateBadge.textContent = 'Status: Pending';
             return;
           }
@@ -4094,18 +4018,18 @@
           const diff = Math.abs(todayLog.dose - target);
           if (diff <= 0.1) {
             banner.className = 'plan-adherence-banner banner-matched';
-            title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose)}) — 100% In Sync`;
-            desc.textContent = `Registered intake matches your scheduled ${target} mg from "${plannedInfo.planName}". Keep monitoring symptoms to assess whether to hold or proceed.`;
-            rateBadge.textContent = 'Adherence: 100%';
+            title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose)}) — In Sync (Ideal for Tapering Success)`;
+            desc.textContent = `Registered intake matches the orientation target from "${plannedInfo.planName}". Consistency with the tapering schedule supports long-term stabilization.`;
+            rateBadge.textContent = 'Orientation: In Sync';
           } else if (todayLog.dose < target) {
             banner.className = 'plan-adherence-banner banner-danger';
-            title.textContent = 'Rapid Dose Drop Warning';
-            desc.textContent = `You registered ${todayLog.dose} mg, which is lower than today's planned ${target} mg (${plannedInfo.planName}). Dropping faster than planned may trigger severe brain zaps.`;
+            title.textContent = 'Rapid Dose Drop Registered';
+            desc.textContent = `You registered ${todayLog.dose} mg, which is lower than today's orientation target of ${target} mg (${plannedInfo.planName}). Dropping faster than planned may trigger severe brain zaps.`;
             rateBadge.textContent = 'Warning: Steep Drop';
           } else {
             banner.className = 'plan-adherence-banner banner-alert';
             title.textContent = 'Dose Hold / Slower Pacing Registered';
-            desc.textContent = `You logged ${todayLog.dose} mg, holding above the ${target} mg plan. Holding a higher half-tablet during symptom flares is clinically sound.`;
+            desc.textContent = `You logged ${todayLog.dose} mg, holding above the orientation target of ${target} mg. Holding a higher half-tablet during symptom flares is clinically sound.`;
             rateBadge.textContent = 'Status: Holding';
           }
         },
