@@ -1367,6 +1367,72 @@
         line-height: 1.45;
       }
 
+      /* Appealing Day Chips in Action Plans */
+      .plan-days-container {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        margin: 0.25rem 0;
+      }
+
+      .plan-day-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: #090e1a;
+        border: 1px solid #1e293b;
+        padding: 0.22rem 0.5rem;
+        border-radius: 0.4rem;
+        font-family: var(--font-mono);
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+
+      .plan-day-chip:hover {
+        border-color: #38bdf8;
+        transform: translateY(-1px);
+      }
+
+      .plan-day-chip-name {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #94a3b8;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .plan-day-chip-dose {
+        font-size: 0.775rem;
+        font-weight: 800;
+        padding: 0.1rem 0.4rem;
+        border-radius: 0.25rem;
+        line-height: 1.15;
+      }
+
+      .dose-badge-30 {
+        background: rgba(96, 165, 250, 0.18);
+        color: #93c5fd;
+        border: 1px solid rgba(96, 165, 250, 0.35);
+      }
+
+      .dose-badge-20 {
+        background: rgba(255, 255, 255, 0.14);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .dose-badge-10 {
+        background: rgba(56, 189, 248, 0.18);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+      }
+
+      .dose-badge-0 {
+        background: rgba(148, 163, 184, 0.12);
+        color: #94a3b8;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+      }
+
       .plan-list-actions {
         display: flex;
         align-items: center;
@@ -1915,8 +1981,9 @@
         <!-- Brand Title Zone -->
         <a href="#overview" class="brand-title">
           <span class="brand-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+              <path d="m8.5 8.5 7 7"></path>
             </svg>
           </span>
           <span>Seroxat<span class="accent">Taper</span></span>
@@ -1965,16 +2032,16 @@
               </div>
               <div class="square-chart-stat">
                 <span id="chart-stat-dose" class="square-stat-val" style="color: #38bdf8;">10.0 mg</span>
-                <span id="chart-stat-dose-sub" class="square-stat-sub">1/2 White Pill</span>
+                <span id="chart-stat-dose-sub" class="square-stat-sub" style="color: #7dd3fc;">1/2 White Pill</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
               <svg id="chart-svg-dose" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span>Goal: 0 mg</span>
-              <span id="chart-dose-progress-tag" style="color: #38bdf8;">Visual Progress: -50%</span>
-              <span>Max: 30 mg</span>
+              <span style="color: #60a5fa;">Goal: 0 mg</span>
+              <span id="chart-dose-progress-tag" style="color: #f97316; font-weight: 600;">10m Safe Milestone</span>
+              <span style="color: #60a5fa;">Max: 30 mg</span>
             </div>
           </div>
 
@@ -1987,16 +2054,16 @@
               </div>
               <div class="square-chart-stat">
                 <span id="chart-stat-symptoms" class="square-stat-val" style="color: #fb7185;">0.0 / 10</span>
-                <span id="chart-stat-symptoms-sub" class="square-stat-sub">● Mild / Tolerated</span>
+                <span id="chart-stat-symptoms-sub" class="square-stat-sub" style="color: #fb7185;">● Mild / Tolerated</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
               <svg id="chart-svg-symptoms" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #34d399;">&le;2 Mild Zone</span>
-              <span style="color: #fbbf24;">&ge;5 Hold Alert</span>
-              <span style="color: #f87171;">10 Max</span>
+              <span style="color: #f97316; font-weight: 600;">&le;2 Mild Zone</span>
+              <span style="color: #f97316; font-weight: 600;">&ge;5 Alert</span>
+              <span style="color: #fb7185;">10 Max</span>
             </div>
           </div>
 
@@ -2004,21 +2071,21 @@
           <div class="square-chart-card">
             <div class="square-chart-header">
               <div>
-                <div class="square-chart-badge badge-speed">Reduction Pace</div>
+                <div class="square-chart-badge badge-speed">0–100% Velocity</div>
                 <h3 class="square-chart-title">Taper Velocity</h3>
               </div>
               <div class="square-chart-stat">
                 <span id="chart-stat-speed" class="square-stat-val" style="color: #34d399;">-15%</span>
-                <span id="chart-stat-speed-sub" class="square-stat-sub">● Safe Pace</span>
+                <span id="chart-stat-speed-sub" class="square-stat-sub" style="color: #34d399;">● Safe Pace</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
               <svg id="chart-svg-speed" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span>0% Stable</span>
-              <span style="color: #34d399;">&le;15% Safe / 14d</span>
-              <span>50% Rapid</span>
+              <span style="color: #34d399;">0% Stable</span>
+              <span style="color: #f97316; font-weight: 600;">&le;15% Safe Zone</span>
+              <span style="color: #34d399;">100% Max</span>
             </div>
           </div>
 
@@ -2287,7 +2354,7 @@
           <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
             <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-              + Add New Plan
+              Add New Plan
             </button>
             <button class="btn btn-secondary btn-sm" onclick="app.applyAllPlansToCalendar()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -2428,20 +2495,20 @@
             },
             {
               id: 'plan-2',
-              name: 'Phase 2: Quarter-Pill Step-Down (5mg / 1/4 White Pill)',
+              name: 'Phase 2: Continued 10mg Stabilization (1/2 White Pill)',
               startDate: '2026-10-22',
               durationDays: 21,
               active: true,
               weekDays: {
-                mon: 5.0,
-                tue: 5.0,
-                wed: 5.0,
-                thu: 5.0,
-                fri: 5.0,
-                sat: 5.0,
-                sun: 5.0
+                mon: 10.0,
+                tue: 10.0,
+                wed: 10.0,
+                thu: 10.0,
+                fri: 10.0,
+                sat: 10.0,
+                sun: 10.0
               },
-              notes: 'Split 10mg half into 5mg quarter using a precision pill cutter.'
+              notes: 'Maintain half white tablet (10mg) with breakfast.'
             }
           ],
           plan: {
@@ -3605,24 +3672,36 @@
             const row = document.createElement('div');
             row.className = `plan-list-row ${plan.active ? 'active-plan' : ''} ${isConflicted ? 'conflict-plan' : ''}`;
 
-            const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-            const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            let weeklyTotal = 0;
-            const doses = days.map((k) => (plan.weekDays && plan.weekDays[k] !== undefined) ? plan.weekDays[k] : 10.0);
-            doses.forEach(d => weeklyTotal += d);
-            const dailyAvg = (weeklyTotal / 7).toFixed(1);
-            const baseline = 20.0;
-            const reduction = (((baseline - parseFloat(dailyAvg)) / baseline) * 100).toFixed(1);
+            const dayDefs = [
+              { key: 'mon', label: 'Mon' },
+              { key: 'tue', label: 'Tu' },
+              { key: 'wed', label: 'Wed' },
+              { key: 'thu', label: 'Thur' },
+              { key: 'fri', label: 'Fri' },
+              { key: 'sat', label: 'Sat' },
+              { key: 'sun', label: 'Sun' }
+            ];
 
-            // Straight-to-the-point schedule text
-            const allSame = doses.every(d => Math.abs(d - doses[0]) < 0.05);
-            let scheduleText = '';
-            if (allSame) {
-              scheduleText = `Daily ${doses[0].toFixed(1)} mg (${this.getPillLabel(doses[0])}) every morning (Mon–Sun)`;
-            } else {
-              const scheduleParts = days.map((k, i) => `${dayNames[i]}: ${doses[i].toFixed(1)}mg`);
-              scheduleText = scheduleParts.join(' · ');
-            }
+            const daysChipsHtml = dayDefs.map(d => {
+              const val = (plan.weekDays && plan.weekDays[d.key] !== undefined) ? plan.weekDays[d.key] : 10.0;
+              const formattedVal = Number(val) % 1 === 0 ? Number(val).toFixed(0) : Number(val).toFixed(1);
+              let badgeClass = 'dose-badge-10';
+              if (Number(val) >= 30) badgeClass = 'dose-badge-30';
+              else if (Number(val) >= 20) badgeClass = 'dose-badge-20';
+              else if (Number(val) === 0) badgeClass = 'dose-badge-0';
+
+              return `
+                <div class="plan-day-chip" title="${d.label}: ${formattedVal}mg Seroxat">
+                  <span class="plan-day-chip-name">${d.label}</span>
+                  <span class="plan-day-chip-dose ${badgeClass}">${formattedVal}mg</span>
+                </div>
+              `;
+            }).join('');
+
+            const endParts = endDate.split('-');
+            const endD = new Date(parseInt(endParts[0]), parseInt(endParts[1]) - 1, parseInt(endParts[2]));
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const formattedEndDate = `${endD.getDate()} ${monthNames[endD.getMonth()]} ${endD.getFullYear()}`;
 
             row.innerHTML = `
               <div class="plan-list-left">
@@ -3634,28 +3713,15 @@
                   </div>
                 </div>
 
-                <div class="plan-list-summary-pills">
-                  <div class="plan-summary-chip">
-                    <span style="color:var(--text-muted);">Target:</span>
-                    <strong style="color:var(--text-primary);">${dailyAvg} mg/day</strong>
-                    <span style="color:#38bdf8;">(${this.getPillLabel(parseFloat(dailyAvg))})</span>
-                  </div>
-                  <div class="plan-summary-chip">
-                    <span style="color:var(--text-muted);">Pace:</span>
-                    <strong style="color:var(--teal-primary);">${parseFloat(reduction) >= 0 ? `-${reduction}%` : `+${Math.abs(parseFloat(reduction))}%`}</strong>
-                    <span style="color:var(--text-muted);">vs 20mg</span>
-                  </div>
-                  <div class="plan-summary-chip">
-                    <span style="color:var(--text-muted);">Duration:</span>
-                    <strong style="color:var(--text-primary);">${plan.durationDays} Days</strong>
-                    <span style="color:var(--text-muted);">(${this.formatDisplayDate(plan.startDate)} &rarr; ${this.formatDisplayDate(endDate)})</span>
-                  </div>
+                <div class="plan-days-container">
+                  ${daysChipsHtml}
                 </div>
 
-                <div class="plan-list-details">
-                  <strong style="color:var(--text-secondary);">Schedule:</strong> ${scheduleText}
-                  ${plan.notes ? `<span style="margin-left:0.5rem; color:var(--text-muted);">· <em>${plan.notes}</em></span>` : ''}
+                <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-secondary); margin-top:0.15rem;">
+                  End date: <strong style="color:var(--teal-primary);">${formattedEndDate}</strong> (${plan.durationDays} days)
                 </div>
+
+                ${plan.notes ? `<div style="font-size:0.775rem; color:var(--text-muted); font-style:italic; margin-top:0.1rem;">· ${plan.notes}</div>` : ''}
               </div>
 
               <div class="plan-list-actions">
@@ -3696,7 +3762,7 @@
               startDate: start,
               durationDays: 21,
               active: true,
-              weekDays: { mon: 5.0, tue: 5.0, wed: 5.0, thu: 5.0, fri: 5.0, sat: 5.0, sun: 5.0 },
+              weekDays: { mon: 10.0, tue: 10.0, wed: 10.0, thu: 10.0, fri: 10.0, sat: 10.0, sun: 10.0 },
               notes: 'Pill fraction schedule adapted to symptom tolerance.'
             };
           }
@@ -3708,18 +3774,15 @@
           const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
           const dayCardsHtml = days.map((k, i) => {
-            const val = this._editingPlan.weekDays[k] !== undefined ? this._editingPlan.weekDays[k] : 10.0;
+            const rawVal = this._editingPlan.weekDays[k] !== undefined ? this._editingPlan.weekDays[k] : 10.0;
+            const val = (rawVal === 30.0 || rawVal === 20.0 || rawVal === 10.0) ? rawVal : 10.0;
             return `
               <div class="editor-day-card">
                 <label>${dayLabels[i]}</label>
-                <select id="modal-day-${k}" class="form-control" style="font-size:0.8rem; padding:0.4rem 0.5rem;">
+                <select id="modal-day-${k}" class="form-control" style="font-size:0.85rem; padding:0.4rem 0.5rem;">
                   <option value="30.0" ${val === 30.0 ? 'selected' : ''}>30mg (1x Blue)</option>
                   <option value="20.0" ${val === 20.0 ? 'selected' : ''}>20mg (1x White)</option>
-                  <option value="15.0" ${val === 15.0 ? 'selected' : ''}>15mg (1/2 + 1/4)</option>
                   <option value="10.0" ${val === 10.0 ? 'selected' : ''}>10mg (1/2 White)</option>
-                  <option value="5.0" ${val === 5.0 ? 'selected' : ''}>5mg (1/4 White)</option>
-                  <option value="2.5" ${val === 2.5 ? 'selected' : ''}>2.5mg (1/8 Qtr)</option>
-                  <option value="0.0" ${val === 0.0 ? 'selected' : ''}>0mg (Off / Skip)</option>
                 </select>
               </div>
             `;
@@ -3731,7 +3794,7 @@
             <div style="font-family: var(--font-sans);">
               <div class="form-group">
                 <label>Plan Name / Phase Description</label>
-                <input type="text" id="modal-plan-name" class="form-control" value="${this._editingPlan.name}" placeholder="e.g. Phase 2: Alternating 10mg and 5mg" />
+                <input type="text" id="modal-plan-name" class="form-control" value="${this._editingPlan.name}" placeholder="e.g. Phase 2: Alternating 10mg and 20mg" />
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -3745,30 +3808,17 @@
                 </div>
               </div>
 
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
-                <div style="display:flex; gap:0.35rem; align-items:center;">
-                  <span style="font-size:0.75rem; color:var(--text-muted);">Quick Durations:</span>
-                  <button type="button" class="preset-chip" onclick="app.setModalDuration(14)">14 Days (2 Wks)</button>
-                  <button type="button" class="preset-chip" onclick="app.setModalDuration(21)">21 Days (3 Wks - Seroxat Rec.)</button>
-                  <button type="button" class="preset-chip" onclick="app.setModalDuration(28)">28 Days (4 Wks)</button>
-                </div>
+              <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:0.75rem;">
                 <div id="modal-computed-end-date" style="font-size:0.8rem; font-family:var(--font-mono); color:var(--teal-primary); font-weight:700;">
                   End Date: ${this.formatDisplayDate(endDate)}
                 </div>
               </div>
 
               <div style="margin-top:1.25rem; border-top:1px solid var(--border-subtle); padding-top:1rem;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.5rem;">
+                <div style="margin-bottom:0.75rem;">
                   <label style="font-size:0.85rem; font-weight:700; color:var(--text-primary); margin:0;">
                     Daily Pill Amount for Every Day of the Week:
                   </label>
-                  <div class="preset-btn-group" style="margin-bottom:0;">
-                    <button type="button" class="preset-chip" onclick="app.applyModalWeeklyPreset('all-30')">All 30mg (Blue)</button>
-                    <button type="button" class="preset-chip" onclick="app.applyModalWeeklyPreset('all-20')">All 20mg</button>
-                    <button type="button" class="preset-chip" onclick="app.applyModalWeeklyPreset('all-10')">All 10mg (1/2 White)</button>
-                    <button type="button" class="preset-chip" onclick="app.applyModalWeeklyPreset('all-5')">All 5mg (1/4 White)</button>
-                    <button type="button" class="preset-chip" onclick="app.applyModalWeeklyPreset('alt-10-5')">Alternate 10mg/5mg</button>
-                  </div>
                 </div>
 
                 <div class="editor-weekdays-grid">
@@ -4055,6 +4105,43 @@
           this.renderChart();
         },
 
+        createCurvedPath(pts, yKey, tension = 0.25) {
+          if (!pts || pts.length === 0) return '';
+          if (pts.length === 1) return `M ${pts[0].x.toFixed(1)} ${pts[0][yKey].toFixed(1)}`;
+          if (pts.length === 2) return `M ${pts[0].x.toFixed(1)} ${pts[0][yKey].toFixed(1)} L ${pts[1].x.toFixed(1)} ${pts[1][yKey].toFixed(1)}`;
+
+          let path = `M ${pts[0].x.toFixed(1)} ${pts[0][yKey].toFixed(1)}`;
+          for (let i = 0; i < pts.length - 1; i++) {
+            const p0 = i > 0 ? pts[i - 1] : pts[i];
+            const p1 = pts[i];
+            const p2 = pts[i + 1];
+            const p3 = i < pts.length - 2 ? pts[i + 2] : p2;
+
+            const cp1x = p1.x + (p2.x - p0.x) * tension;
+            let cp1y = p1[yKey] + (p2[yKey] - p0[yKey]) * tension;
+            const cp2x = p2.x - (p3.x - p1.x) * tension;
+            let cp2y = p2[yKey] - (p3[yKey] - p1[yKey]) * tension;
+
+            // Constrain control points to prevent unnatural overshoot
+            const minY = Math.min(p1[yKey], p2[yKey]);
+            const maxY = Math.max(p1[yKey], p2[yKey]);
+            const margin = Math.abs(p2[yKey] - p1[yKey]) * 0.2;
+            cp1y = Math.max(minY - margin, Math.min(maxY + margin, cp1y));
+            cp2y = Math.max(minY - margin, Math.min(maxY + margin, cp2y));
+
+            path += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2[yKey].toFixed(1)}`;
+          }
+          return path;
+        },
+
+        createCurvedAreaPath(pts, yKey, bottomY, tension = 0.25) {
+          if (!pts || pts.length < 2) return '';
+          const curve = this.createCurvedPath(pts, yKey, tension);
+          const firstX = pts[0].x.toFixed(1);
+          const lastX = pts[pts.length - 1].x.toFixed(1);
+          return `${curve} L ${lastX} ${bottomY.toFixed(1)} L ${firstX} ${bottomY.toFixed(1)} Z`;
+        },
+
         renderChart() {
           const svgDose = document.getElementById('chart-svg-dose');
           const svgSymptoms = document.getElementById('chart-svg-symptoms');
@@ -4074,15 +4161,16 @@
 
           const width = 280;
           const height = 200;
-          const padding = { top: 16, right: 12, bottom: 24, left: 32 };
+          const padding = { top: 16, right: 12, bottom: 25, left: 34 };
 
           const innerW = width - padding.left - padding.right;
           const innerH = height - padding.top - padding.bottom;
+          const bottomY = padding.top + innerH;
 
-          // Strictly capped scales (40mg option removed!)
-          const maxDose = 30.0; // Max clinical ceiling is 30mg Blue pill
+          // Scales
+          const maxDose = 30.0;
           const maxSymptom = 10.0;
-          const maxSpeed = 50.0;
+          const maxSpeed = 100.0; // Taper velocity percentage scale goes to 100%
 
           const n = targetDates.length;
           const getX = (index) => padding.left + (index / (n - 1)) * innerW;
@@ -4090,12 +4178,6 @@
           const getY_Symptom = (val) => padding.top + innerH - (Math.min(val, maxSymptom) / maxSymptom) * innerH;
           const getY_Speed = (val) => padding.top + innerH - (Math.min(val, maxSpeed) / maxSpeed) * innerH;
 
-          let pathDose = '';
-          let pathDoseArea = '';
-          let pathSymptom = '';
-          let pathSymptomArea = '';
-          let pathSpeed = '';
-          let pathSpeedArea = '';
           const points = [];
 
           targetDates.forEach((dateStr, i) => {
@@ -4110,7 +4192,7 @@
             if (i > 0) {
               const priorLog = this.state.logs[targetDates[Math.max(0, i - 14)]];
               if (priorLog && priorLog.dose > 0) {
-                speed = Math.max(0, ((priorLog.dose - dose) / priorLog.dose) * 100);
+                speed = Math.max(0, Math.min(100, ((priorLog.dose - dose) / priorLog.dose) * 100));
               }
             }
 
@@ -4118,34 +4200,9 @@
             const ySymptom = getY_Symptom(symptomAvg);
             const ySpeed = getY_Speed(speed);
 
-            if (i === 0) {
-              pathDose += `M ${x} ${yDose}`;
-              pathDoseArea += `M ${x} ${padding.top + innerH} L ${x} ${yDose}`;
-
-              pathSymptom += `M ${x} ${ySymptom}`;
-              pathSymptomArea += `M ${x} ${padding.top + innerH} L ${x} ${ySymptom}`;
-
-              pathSpeed += `M ${x} ${ySpeed}`;
-              pathSpeedArea += `M ${x} ${padding.top + innerH} L ${x} ${ySpeed}`;
-            } else {
-              pathDose += ` L ${x} ${yDose}`;
-              pathDoseArea += ` L ${x} ${yDose}`;
-
-              pathSymptom += ` L ${x} ${ySymptom}`;
-              pathSymptomArea += ` L ${x} ${ySymptom}`;
-
-              pathSpeed += ` L ${x} ${ySpeed}`;
-              pathSpeedArea += ` L ${x} ${ySpeed}`;
-            }
-
-            if (i === n - 1) {
-              pathDoseArea += ` L ${x} ${padding.top + innerH} Z`;
-              pathSymptomArea += ` L ${x} ${padding.top + innerH} Z`;
-              pathSpeedArea += ` L ${x} ${padding.top + innerH} Z`;
-            }
-
             points.push({
               dateStr,
+              index: i,
               x,
               dose,
               yDose,
@@ -4159,45 +4216,97 @@
 
           this._currentChartPoints = points;
 
-          // Simple X Axis Info (Start, Mid, and Today)
-          const ptFirst = points[0];
-          const ptLast = points[points.length - 1];
-          const ptMid = points[Math.floor(points.length / 2)];
-          const dFirst = new Date(ptFirst.dateStr + 'T12:00:00');
-          const dLast = new Date(ptLast.dateStr + 'T12:00:00');
-          const dMid = new Date(ptMid.dateStr + 'T12:00:00');
+          // Smooth curved connection paths (Catmull-Rom cubic Bezier)
+          const pathDose = this.createCurvedPath(points, 'yDose', 0.25);
+          const pathDoseArea = this.createCurvedAreaPath(points, 'yDose', bottomY, 0.25);
 
-          const xLabelsHtml = `
-            <text x="${padding.left}" y="${height - 7}" fill="#94a3b8" font-size="8" font-family="'Plus Jakarta Sans', sans-serif" text-anchor="start">${dFirst.getMonth() + 1}/${dFirst.getDate()}</text>
-            <text x="${ptMid.x}" y="${height - 7}" fill="#64748b" font-size="8" font-family="'Plus Jakarta Sans', sans-serif" text-anchor="middle">${dMid.getMonth() + 1}/${dMid.getDate()}</text>
-            <text x="${width - padding.right}" y="${height - 7}" fill="#38bdf8" font-size="8" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" text-anchor="end">Today (${dLast.getMonth() + 1}/${dLast.getDate()})</text>
-          `;
+          const pathSymptom = this.createCurvedPath(points, 'ySymptom', 0.25);
+          const pathSymptomArea = this.createCurvedAreaPath(points, 'ySymptom', bottomY, 0.25);
 
-          // CHART 1: DOSE (0-30mg)
+          const pathSpeed = this.createCurvedPath(points, 'ySpeed', 0.25);
+          const pathSpeedArea = this.createCurvedAreaPath(points, 'ySpeed', bottomY, 0.25);
+
+          // X-Axis Timeline Intervals (5 distinct crossing lines)
+          const stepCount = Math.min(5, n);
+          const xTicks = [];
+          for (let s = 0; s < stepCount; s++) {
+            const idx = Math.round((s / (stepCount - 1)) * (n - 1));
+            if (!xTicks.some(t => t.idx === idx)) {
+              const pt = points[idx];
+              const d = new Date(pt.dateStr + 'T12:00:00');
+              xTicks.push({
+                idx,
+                x: pt.x,
+                dateStr: pt.dateStr,
+                label: `${d.getMonth() + 1}/${d.getDate()}`,
+                isToday: idx === n - 1
+              });
+            }
+          }
+
+          // Generate theme-consistent X-axis gridlines and labels
+          const buildXGridAndLabels = (themeColor, gridColor) => {
+            let lines = '';
+            let labels = '';
+            xTicks.forEach((t, i) => {
+              const anchor = i === 0 ? 'start' : i === xTicks.length - 1 ? 'end' : 'middle';
+              lines += `
+                <line x1="${t.x}" y1="${padding.top}" x2="${t.x}" y2="${bottomY}" stroke="${gridColor}" stroke-width="1" stroke-dasharray="2,2" opacity="0.8" />
+              `;
+              labels += `
+                <text x="${t.x}" y="${height - 7}" fill="${t.isToday ? themeColor : '#94a3b8'}" font-size="7.5" font-family="'JetBrains Mono', monospace" font-weight="${t.isToday ? '700' : '500'}" text-anchor="${anchor}">${t.isToday ? 'Today ' + t.label : t.label}</text>
+              `;
+            });
+            return { lines, labels };
+          };
+
+          // Helper to generate crossing intersection points where X & Y meet
+          const buildCrossingGridMatrix = (yLevels, dotColor) => {
+            let dots = '';
+            yLevels.forEach(yVal => {
+              xTicks.forEach(xTick => {
+                dots += `<circle cx="${xTick.x}" cy="${yVal}" r="1.15" fill="${dotColor}" opacity="0.45" />`;
+              });
+            });
+            return dots;
+          };
+
+          // ==================== CHART 1: DOSE TRAJECTORY (BLUE THEME) ====================
+          // Safe holding milestone at 10mg is orange (#f97316) with 10m on left; all others blue
           const doseLevels = [
-            { lvl: 30, color: '#60a5fa' },
-            { lvl: 20, color: '#ffffff' },
-            { lvl: 10, color: '#f472b6' },
-            { lvl: 0, color: '#94a3b8' }
+            { lvl: 30, color: '#60a5fa', major: true, label: '30m' },
+            { lvl: 25, color: '#1e3a5f', major: false, label: '25m' },
+            { lvl: 20, color: '#93c5fd', major: true, label: '20m' },
+            { lvl: 15, color: '#1e3a5f', major: false, label: '15m' },
+            { lvl: 10, color: '#f97316', major: true, label: '10m', isSafeZone: true }, // Orange safe milestone
+            { lvl: 5,  color: '#1e3a5f', major: false, label: '5m' },
+            { lvl: 0,  color: '#38bdf8', major: true, label: '0m' }
           ];
 
-          let doseGridHtml = '';
+          let doseYLinesHtml = '';
+          const doseYCoords = [];
           doseLevels.forEach(item => {
             const y = getY_Dose(item.lvl);
-            doseGridHtml += `
-              <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="#1e293b" stroke-width="1" stroke-dasharray="2,2" />
-              <text x="${padding.left - 5}" y="${y + 3}" fill="${item.color}" font-size="8" font-weight="700" font-family="'JetBrains Mono', monospace" text-anchor="end">${item.lvl}m</text>
+            doseYCoords.push(y);
+            const isSafe = item.isSafeZone;
+            doseYLinesHtml += `
+              <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="${isSafe ? '#f97316' : item.major ? '#1e3a5f' : '#101d33'}" stroke-width="${isSafe ? 1.3 : item.major ? 1 : 0.8}" stroke-dasharray="${isSafe ? '4,2' : item.major ? 'none' : '2,2'}" opacity="${isSafe ? 0.95 : 0.85}" />
+              <text x="${padding.left - 4}" y="${y + 3}" fill="${isSafe ? '#f97316' : item.color}" font-size="${isSafe || item.major ? 8 : 7}" font-weight="${isSafe || item.major ? 700 : 500}" font-family="'JetBrains Mono', monospace" text-anchor="end">${item.label}</text>
             `;
           });
 
-          let doseDotsHtml = '';
+          const doseGrid = buildXGridAndLabels('#38bdf8', '#172554');
+          const doseCrossingMatrix = buildCrossingGridMatrix(doseYCoords, '#38bdf8');
+
+          let doseNodesHtml = '';
           points.forEach((pt, idx) => {
             const isLast = idx === points.length - 1;
-            doseDotsHtml += `
-              <g onmouseenter="app.showChartTooltip(event, ${idx})" onmouseleave="app.hideChartTooltip()" style="cursor: pointer;">
+            doseNodesHtml += `
+              <g onmouseenter="app.showChartTooltip(event, ${idx}, 'dose')" onmouseleave="app.hideChartTooltip()" style="cursor: crosshair;">
                 <rect x="${pt.x - (innerW / (2 * n))}" y="${padding.top}" width="${innerW / n}" height="${innerH}" fill="transparent" />
-                <circle cx="${pt.x}" cy="${pt.yDose}" r="${isLast ? 4 : 2.5}" fill="#38bdf8" stroke="#0c1322" stroke-width="1.2" />
-                ${isLast ? `<circle cx="${pt.x}" cy="${pt.yDose}" r="7.5" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.8" />` : ''}
+                <line x1="${pt.x}" y1="${pt.yDose}" x2="${pt.x}" y2="${bottomY}" stroke="#38bdf8" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35" />
+                <circle cx="${pt.x}" cy="${pt.yDose}" r="${isLast ? 4 : 2.5}" fill="#38bdf8" stroke="#0b1120" stroke-width="1.3" />
+                ${isLast ? `<circle cx="${pt.x}" cy="${pt.yDose}" r="7.5" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.85" />` : ''}
               </g>
             `;
           });
@@ -4205,15 +4314,27 @@
           svgDose.innerHTML = `
             <defs>
               <linearGradient id="doseGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25" />
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3" />
                 <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
               </linearGradient>
             </defs>
-            ${doseGridHtml}
-            ${xLabelsHtml}
+            ${doseYLinesHtml}
+            ${doseGrid.lines}
+            ${doseCrossingMatrix}
+            ${doseGrid.labels}
             <path d="${pathDoseArea}" fill="url(#doseGrad)" />
-            <path d="${pathDose}" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" />
-            ${doseDotsHtml}
+            <path d="${pathDose}" fill="none" stroke="#38bdf8" stroke-width="2.3" stroke-linecap="round" />
+            ${doseNodesHtml}
+            <!-- Dynamic Interactive Crosshair Reticle -->
+            <g id="crosshair-dose" style="display:none; pointer-events:none;">
+              <line class="crosshair-line-x" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${bottomY}" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2" />
+              <line class="crosshair-line-y" x1="${padding.left}" y1="${padding.top}" x2="${width - padding.right}" y2="${padding.top}" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2" />
+              <circle class="crosshair-dot" cx="0" cy="0" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="2" />
+              <g class="crosshair-label">
+                <rect x="-18" y="-14" width="36" height="14" rx="3" fill="#0369a1" stroke="#38bdf8" stroke-width="0.8" />
+                <text class="crosshair-label-text" x="0" y="-3.5" fill="#ffffff" font-size="7.5" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">10mg</text>
+              </g>
+            </g>
           `;
 
           // Update Dose Card Header Stats & Footer Progress
@@ -4222,40 +4343,51 @@
           const statDoseSub = document.getElementById('chart-stat-dose-sub');
           const doseProgressEl = document.getElementById('chart-dose-progress-tag');
           if (statDoseEl) statDoseEl.textContent = `${latestPt.dose.toFixed(1)} mg`;
-          if (statDoseSub) statDoseSub.textContent = this.getPillLabel(latestPt.dose);
+          if (statDoseSub) {
+            statDoseSub.textContent = this.getPillLabel(latestPt.dose);
+            statDoseSub.style.color = '#7dd3fc';
+          }
           if (doseProgressEl) {
-            const baseline = 20.0;
-            const reduction = (((baseline - latestPt.dose) / baseline) * 100).toFixed(0);
-            doseProgressEl.textContent = `Visual Progress: -${reduction}%`;
+            doseProgressEl.textContent = '10m Safe Milestone';
+            doseProgressEl.style.color = '#f97316';
           }
 
-          // CHART 2: SYMPTOMS (0-10)
-          const symLevels = [0, 5.0, 10.0];
-          let symGridHtml = '';
-          symLevels.forEach(lvl => {
-            const y = getY_Symptom(lvl);
-            symGridHtml += `
-              <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="#1e293b" stroke-width="1" stroke-dasharray="2,2" />
-              <text x="${padding.left - 5}" y="${y + 3}" fill="#94a3b8" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="end">${lvl.toFixed(0)}</text>
+          // ==================== CHART 2: SYMPTOM STABILITY (RED THEME) ====================
+          // Safe / mild zone at 2 and alert zone at 5 are orange (#f97316) with 2 and 5 on left; all others red
+          const symLevels = [
+            { lvl: 10.0, color: '#fb7185', major: true, label: '10' },
+            { lvl: 8.0,  color: '#881337', major: false, label: '8' },
+            { lvl: 6.0,  color: '#881337', major: false, label: '6' },
+            { lvl: 5.0,  color: '#f97316', major: true, label: '5', isSafeZone: true }, // Orange Alert Zone
+            { lvl: 4.0,  color: '#881337', major: false, label: '4' },
+            { lvl: 2.0,  color: '#f97316', major: true, label: '2', isSafeZone: true }, // Orange Mild Zone
+            { lvl: 0,    color: '#fb7185', major: true, label: '0' }
+          ];
+
+          let symYLinesHtml = '';
+          const symYCoords = [];
+          symLevels.forEach(item => {
+            const y = getY_Symptom(item.lvl);
+            symYCoords.push(y);
+            const isSafe = item.isSafeZone;
+            symYLinesHtml += `
+              <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="${isSafe ? '#f97316' : item.major ? '#3b1219' : '#220b10'}" stroke-width="${isSafe ? 1.3 : item.major ? 1 : 0.8}" stroke-dasharray="${isSafe ? '4,2' : item.major ? 'none' : '2,2'}" opacity="${isSafe ? 0.95 : 0.85}" />
+              <text x="${padding.left - 4}" y="${y + 3}" fill="${isSafe ? '#f97316' : item.color}" font-size="${isSafe || item.major ? 8 : 7}" font-weight="${isSafe || item.major ? 700 : 500}" font-family="'JetBrains Mono', monospace" text-anchor="end">${item.label}</text>
             `;
           });
 
-          // Severity zone threshold lines
-          const yMild = getY_Symptom(2.0);
-          const yMod = getY_Symptom(5.0);
-          const symThresholds = `
-            <line x1="${padding.left}" y1="${yMod}" x2="${width - padding.right}" y2="${yMod}" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,2" opacity="0.65" />
-            <line x1="${padding.left}" y1="${yMild}" x2="${width - padding.right}" y2="${yMild}" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2" opacity="0.65" />
-          `;
+          const symGrid = buildXGridAndLabels('#fb7185', '#2b1117');
+          const symCrossingMatrix = buildCrossingGridMatrix(symYCoords, '#fb7185');
 
-          let symDotsHtml = '';
+          let symNodesHtml = '';
           points.forEach((pt, idx) => {
             const isLast = idx === points.length - 1;
-            symDotsHtml += `
-              <g onmouseenter="app.showChartTooltip(event, ${idx})" onmouseleave="app.hideChartTooltip()" style="cursor: pointer;">
+            symNodesHtml += `
+              <g onmouseenter="app.showChartTooltip(event, ${idx}, 'symptoms')" onmouseleave="app.hideChartTooltip()" style="cursor: crosshair;">
                 <rect x="${pt.x - (innerW / (2 * n))}" y="${padding.top}" width="${innerW / n}" height="${innerH}" fill="transparent" />
-                <circle cx="${pt.x}" cy="${pt.ySymptom}" r="${isLast ? 4 : 2.5}" fill="#f43f5e" stroke="#0c1322" stroke-width="1.2" />
-                ${isLast ? `<circle cx="${pt.x}" cy="${pt.ySymptom}" r="7.5" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.8" />` : ''}
+                <line x1="${pt.x}" y1="${pt.ySymptom}" x2="${pt.x}" y2="${bottomY}" stroke="#f43f5e" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35" />
+                <circle cx="${pt.x}" cy="${pt.ySymptom}" r="${isLast ? 4 : 2.5}" fill="#f43f5e" stroke="#0b1120" stroke-width="1.3" />
+                ${isLast ? `<circle cx="${pt.x}" cy="${pt.ySymptom}" r="7.5" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.85" />` : ''}
               </g>
             `;
           });
@@ -4263,52 +4395,74 @@
           svgSymptoms.innerHTML = `
             <defs>
               <linearGradient id="symGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.22" />
+                <stop offset="0%" stop-color="#f43f5e" stop-opacity="0.25" />
                 <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.0" />
               </linearGradient>
             </defs>
-            ${symGridHtml}
-            ${symThresholds}
-            ${xLabelsHtml}
+            ${symYLinesHtml}
+            ${symGrid.lines}
+            ${symCrossingMatrix}
+            ${symGrid.labels}
             <path d="${pathSymptomArea}" fill="url(#symGrad)" />
-            <path d="${pathSymptom}" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" />
-            ${symDotsHtml}
+            <path d="${pathSymptom}" fill="none" stroke="#f43f5e" stroke-width="2.3" stroke-linecap="round" />
+            ${symNodesHtml}
+            <!-- Dynamic Interactive Crosshair Reticle -->
+            <g id="crosshair-symptoms" style="display:none; pointer-events:none;">
+              <line class="crosshair-line-x" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${bottomY}" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="3,2" />
+              <line class="crosshair-line-y" x1="${padding.left}" y1="${padding.top}" x2="${width - padding.right}" y2="${padding.top}" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="3,2" />
+              <circle class="crosshair-dot" cx="0" cy="0" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="2" />
+              <g class="crosshair-label">
+                <rect x="-18" y="-14" width="36" height="14" rx="3" fill="#9f1239" stroke="#f43f5e" stroke-width="0.8" />
+                <text class="crosshair-label-text" x="0" y="-3.5" fill="#ffffff" font-size="7.5" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">1.5</text>
+              </g>
+            </g>
           `;
 
-          // Update Symptoms Card Header Stats
+          // Update Symptoms Card Header Stats (Strict Red Theme Consistency)
           const fb = this.getSymptomFeedback();
           const statSymEl = document.getElementById('chart-stat-symptoms');
           const statSymSub = document.getElementById('chart-stat-symptoms-sub');
           if (statSymEl) statSymEl.textContent = `${fb.avg.toFixed(1)} / 10`;
           if (statSymSub) {
             statSymSub.textContent = fb.level === 'danger' ? '⚠️ Elevated Reaction' : fb.level === 'warning' ? '● Moderate Discomfort' : '● Mild / Tolerated';
-            statSymSub.style.color = fb.level === 'danger' ? '#f87171' : fb.level === 'warning' ? '#fbbf24' : '#34d399';
+            statSymSub.style.color = '#fb7185';
           }
 
-          // CHART 3: SPEED (0-50%)
-          const speedLevels = [0, 15, 50];
-          let speedGridHtml = '';
-          speedLevels.forEach(lvl => {
-            const y = getY_Speed(lvl);
-            speedGridHtml += `
-              <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="#1e293b" stroke-width="1" stroke-dasharray="2,2" />
-              <text x="${padding.left - 5}" y="${y + 3}" fill="#94a3b8" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="end">${lvl}%</text>
+          // ==================== CHART 3: TAPER VELOCITY (GREEN THEME, 0–100%) ====================
+          // Scale goes up to 100%, Safe Zone at 15% is orange (#f97316) with 15% on left; all others green
+          const speedLevels = [
+            { lvl: 100, color: '#34d399', major: true, label: '100%' },
+            { lvl: 75,  color: '#064e3b', major: false, label: '75%' },
+            { lvl: 50,  color: '#10b981', major: true, label: '50%' },
+            { lvl: 25,  color: '#064e3b', major: false, label: '25%' },
+            { lvl: 15,  color: '#f97316', major: true, label: '15%', isSafeZone: true }, // Orange Safe Zone line
+            { lvl: 0,   color: '#34d399', major: true, label: '0%' }
+          ];
+
+          let speedYLinesHtml = '';
+          const speedYCoords = [];
+          speedLevels.forEach(item => {
+            const y = getY_Speed(item.lvl);
+            speedYCoords.push(y);
+            const isSafe = item.isSafeZone;
+            speedYLinesHtml += `
+              <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" stroke="${isSafe ? '#f97316' : item.major ? '#064e3b' : '#04241c'}" stroke-width="${isSafe ? 1.3 : item.major ? 1 : 0.8}" stroke-dasharray="${isSafe ? '4,2' : item.major ? 'none' : '2,2'}" opacity="${isSafe ? 0.95 : 0.85}" />
+              <text x="${padding.left - 4}" y="${y + 3}" fill="${isSafe ? '#f97316' : item.color}" font-size="${isSafe || item.major ? 8 : 7}" font-weight="${isSafe || item.major ? 700 : 500}" font-family="'JetBrains Mono', monospace" text-anchor="end">${item.label}</text>
             `;
           });
 
-          const ySpeedSafe = getY_Speed(15);
-          const speedSafeLine = `
-            <line x1="${padding.left}" y1="${ySpeedSafe}" x2="${width - padding.right}" y2="${ySpeedSafe}" stroke="#10b981" stroke-width="1" stroke-dasharray="3,2" opacity="0.7" />
-          `;
+          const speedGrid = buildXGridAndLabels('#34d399', '#062e22');
+          const speedCrossingMatrix = buildCrossingGridMatrix(speedYCoords, '#34d399');
 
-          let speedDotsHtml = '';
+          let speedNodesHtml = '';
           points.forEach((pt, idx) => {
             const isLast = idx === points.length - 1;
-            speedDotsHtml += `
-              <g onmouseenter="app.showChartTooltip(event, ${idx})" onmouseleave="app.hideChartTooltip()" style="cursor: pointer;">
+            speedNodesHtml += `
+              <g onmouseenter="app.showChartTooltip(event, ${idx}, 'speed')" onmouseleave="app.hideChartTooltip()" style="cursor: crosshair;">
                 <rect x="${pt.x - (innerW / (2 * n))}" y="${padding.top}" width="${innerW / n}" height="${innerH}" fill="transparent" />
-                <circle cx="${pt.x}" cy="${pt.ySpeed}" r="${isLast ? 4 : 2.5}" fill="#10b981" stroke="#0c1322" stroke-width="1.2" />
-                ${isLast ? `<circle cx="${pt.x}" cy="${pt.ySpeed}" r="7.5" fill="none" stroke="#10b981" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.8" />` : ''}
+                <line x1="${pt.x}" y1="${pt.ySpeed}" x2="${pt.x}" y2="${bottomY}" stroke="#10b981" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35" />
+                <circle cx="${pt.x}" cy="${pt.ySpeed}" r="${isLast ? 4 : 2.5}" fill="#10b981" stroke="#0b1120" stroke-width="1.3" />
+                ${isLast ? `<circle cx="${pt.x}" cy="${pt.ySpeed}" r="7.5" fill="none" stroke="#10b981" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.85" />` : ''}
               </g>
             `;
           });
@@ -4316,29 +4470,40 @@
           svgSpeed.innerHTML = `
             <defs>
               <linearGradient id="speedGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#10b981" stop-opacity="0.22" />
+                <stop offset="0%" stop-color="#10b981" stop-opacity="0.25" />
                 <stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
               </linearGradient>
             </defs>
-            ${speedGridHtml}
-            ${speedSafeLine}
-            ${xLabelsHtml}
+            ${speedYLinesHtml}
+            ${speedGrid.lines}
+            ${speedCrossingMatrix}
+            ${speedGrid.labels}
             <path d="${pathSpeedArea}" fill="url(#speedGrad)" />
-            <path d="${pathSpeed}" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" />
-            ${speedDotsHtml}
+            <path d="${pathSpeed}" fill="none" stroke="#10b981" stroke-width="2.3" stroke-linecap="round" />
+            ${speedNodesHtml}
+            <!-- Dynamic Interactive Crosshair Reticle -->
+            <g id="crosshair-speed" style="display:none; pointer-events:none;">
+              <line class="crosshair-line-x" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${bottomY}" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,2" />
+              <line class="crosshair-line-y" x1="${padding.left}" y1="${padding.top}" x2="${width - padding.right}" y2="${padding.top}" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,2" />
+              <circle class="crosshair-dot" cx="0" cy="0" r="4.5" fill="#10b981" stroke="#0f172a" stroke-width="2" />
+              <g class="crosshair-label">
+                <rect x="-18" y="-14" width="36" height="14" rx="3" fill="#065f46" stroke="#10b981" stroke-width="0.8" />
+                <text class="crosshair-label-text" x="0" y="-3.5" fill="#ffffff" font-size="7.5" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">15%</text>
+              </g>
+            </g>
           `;
 
-          // Update Speed Card Header Stats
+          // Update Speed Card Header Stats (Strict Green Theme Consistency)
           const statSpeedEl = document.getElementById('chart-stat-speed');
           const statSpeedSub = document.getElementById('chart-stat-speed-sub');
           if (statSpeedEl) statSpeedEl.textContent = `-${latestPt.speed.toFixed(0)}%`;
           if (statSpeedSub) {
             statSpeedSub.textContent = latestPt.speed <= 15 ? '● Within Safe Pace' : '⚠️ Accelerated Drop';
-            statSpeedSub.style.color = latestPt.speed <= 15 ? '#34d399' : '#fbbf24';
+            statSpeedSub.style.color = '#34d399';
           }
         },
 
-        showChartTooltip(evt, index) {
+        showChartTooltip(evt, index, chartType) {
           const pt = this._currentChartPoints[index];
           if (!pt) return;
 
@@ -4350,39 +4515,93 @@
           const wrapRect = wrap.getBoundingClientRect();
 
           let leftPos = evt.clientX - wrapRect.left;
-          let topPos = evt.clientY - wrapRect.top - 12;
+          let topPos = evt.clientY - wrapRect.top - 14;
 
           // Clamp tooltip position within container bounds
-          if (leftPos < 115) leftPos = 115;
-          if (leftPos > wrapRect.width - 115) leftPos = wrapRect.width - 115;
-          if (topPos < 40) topPos = 40;
+          if (leftPos < 130) leftPos = 130;
+          if (leftPos > wrapRect.width - 130) leftPos = wrapRect.width - 130;
+          if (topPos < 50) topPos = 50;
 
           tooltip.style.left = `${leftPos}px`;
           tooltip.style.top = `${topPos}px`;
 
+          const parts = pt.dateStr.split('-');
+          const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+          const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          const dayName = days[d.getDay()];
+
+          const s = (this.state.logs[pt.dateStr] && this.state.logs[pt.dateStr].symptoms) || {};
+
+          const activeColor = chartType === 'dose' ? '#38bdf8' : chartType === 'symptoms' ? '#fb7185' : '#34d399';
+          const activeYValue = chartType === 'dose' ? `${pt.dose.toFixed(1)} mg` : chartType === 'symptoms' ? `${pt.symptomAvg.toFixed(1)} / 10` : `${pt.speed.toFixed(0)}%`;
+
           tooltip.innerHTML = `
-            <div style="font-weight:700; border-bottom:1px solid #334155; padding-bottom:4px; margin-bottom:5px; color:#f8fafc;">
-              ${this.formatDisplayDate(pt.dateStr)}
+            <div style="font-weight:700; border-bottom:1px solid #334155; padding-bottom:5px; margin-bottom:6px; color:#f8fafc; display:flex; justify-content:space-between; align-items:center;">
+              <span>${this.formatDisplayDate(pt.dateStr)}</span>
+              <span style="font-size:0.7rem; color:var(--text-muted);">${dayName}</span>
             </div>
-            <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:2px;">
+            <div style="font-size:0.7rem; background:#1e293b; padding:0.25rem 0.5rem; border-radius:4px; margin-bottom:6px; color:${activeColor}; font-family:var(--font-mono); border: 1px solid #334155;">
+              ✛ Grid Intersection: X = ${pt.dateStr} · Y = ${activeYValue}
+            </div>
+            <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px;">
               <span style="color:#38bdf8; font-weight:600;">Daily Dose:</span>
-              <strong class="tabular-nums">${pt.dose.toFixed(1)} mg (${this.getPillLabel(pt.dose)})</strong>
+              <strong class="tabular-nums" style="color:#38bdf8;">${pt.dose.toFixed(1)} mg (${this.getPillLabel(pt.dose)})</strong>
             </div>
-            <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:2px;">
+            <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px;">
               <span style="color:#fb7185; font-weight:600;">Symptom Score:</span>
-              <strong class="tabular-nums">${pt.symptomAvg.toFixed(1)} / 10</strong>
+              <strong class="tabular-nums" style="color:#fb7185;">${pt.symptomAvg.toFixed(1)} / 10 (${pt.symptomAvg <= 2 ? 'Mild' : pt.symptomAvg <= 5 ? 'Moderate' : 'Elevated'})</strong>
             </div>
-            <div style="display:flex; justify-content:space-between; gap:12px;">
-              <span style="color:#34d399; font-weight:600;">14d Reduction:</span>
-              <strong class="tabular-nums">${pt.speed.toFixed(1)}%</strong>
+            <div style="font-size:0.675rem; color:#94a3b8; margin-bottom:4px; font-family:var(--font-mono);">
+              ⚡ Zaps: ${s.zaps || 0}/10 · 〰 Vertigo: ${s.vertigo || 0}/10 · 💤 Sleep: ${s.sleep || 0}/10
             </div>
-            ${pt.notes ? `<div style="font-size:0.7rem; color:#94a3b8; margin-top:5px; border-top:1px solid #334155; padding-top:3px; font-style:italic;">${pt.notes}</div>` : ''}
+            <div style="display:flex; justify-content:space-between; gap:12px; padding-top:4px; border-top:1px solid #1e293b;">
+              <span style="color:#34d399; font-weight:600;">14d Reduction Pace:</span>
+              <strong class="tabular-nums" style="color:#34d399;">${pt.speed.toFixed(1)}% (${pt.speed <= 15 ? 'Safe Velocity' : 'Rapid Drop'})</strong>
+            </div>
+            ${pt.notes ? `<div style="font-size:0.7rem; color:#94a3b8; margin-top:5px; border-top:1px solid #334155; padding-top:4px; font-style:italic;">"${pt.notes}"</div>` : ''}
           `;
+
+          // Move the interactive crosshair on all charts
+          ['dose', 'symptoms', 'speed'].forEach(t => {
+            const crosshair = document.getElementById(`crosshair-${t}`);
+            if (crosshair) {
+              crosshair.style.display = 'block';
+              const yVal = t === 'dose' ? pt.yDose : t === 'symptoms' ? pt.ySymptom : pt.ySpeed;
+              const lineX = crosshair.querySelector('.crosshair-line-x');
+              const lineY = crosshair.querySelector('.crosshair-line-y');
+              const dot = crosshair.querySelector('.crosshair-dot');
+              const label = crosshair.querySelector('.crosshair-label');
+              const labelText = crosshair.querySelector('.crosshair-label-text');
+              if (lineX) {
+                lineX.setAttribute('x1', pt.x);
+                lineX.setAttribute('x2', pt.x);
+              }
+              if (lineY) {
+                lineY.setAttribute('y1', yVal);
+                lineY.setAttribute('y2', yVal);
+              }
+              if (dot) {
+                dot.setAttribute('cx', pt.x);
+                dot.setAttribute('cy', yVal);
+              }
+              if (label && labelText) {
+                const textStr = t === 'dose' ? `${pt.dose.toFixed(0)}mg` : t === 'symptoms' ? `${pt.symptomAvg.toFixed(1)}` : `${pt.speed.toFixed(0)}%`;
+                labelText.textContent = textStr;
+                const badgeX = Math.min(235, Math.max(45, pt.x));
+                const badgeY = Math.max(28, yVal - 10);
+                label.setAttribute('transform', `translate(${badgeX}, ${badgeY})`);
+              }
+            }
+          });
         },
 
         hideChartTooltip() {
           const tooltip = document.getElementById('chart-tooltip');
           if (tooltip) tooltip.style.opacity = '0';
+          ['dose', 'symptoms', 'speed'].forEach(t => {
+            const crosshair = document.getElementById(`crosshair-${t}`);
+            if (crosshair) crosshair.style.display = 'none';
+          });
         },
 
         updateMetricBar() {
