@@ -1972,6 +1972,41 @@
           font-size: 0.95rem;
         }
       }
+
+      /* Clean Document Printing Support */
+      @media print {
+        body {
+          background: #ffffff !important;
+          color: #000000 !important;
+        }
+        body > *:not(#app-modal-backdrop) {
+          display: none !important;
+        }
+        #app-modal-backdrop {
+          position: static !important;
+          background: transparent !important;
+          display: block !important;
+          padding: 0 !important;
+          backdrop-filter: none !important;
+        }
+        #app-modal-box {
+          max-width: 100% !important;
+          box-shadow: none !important;
+          border: none !important;
+          background: #ffffff !important;
+          color: #111827 !important;
+          padding: 0 !important;
+        }
+        .modal-header {
+          border-bottom: 2px solid #334155 !important;
+        }
+        .modal-header h3 {
+          color: #0f172a !important;
+        }
+        .modal-close-btn, .modal-header button, button[onclick*="printArticle"], .btn {
+          display: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -2548,6 +2583,8 @@
               'Seroxat tablets range: 10mg (rosy/pink), 20mg (white scored), and 30mg (blue).'
             ],
             link: 'https://www.medicines.org.uk/emc/product/1815/smpc',
+            pdfUrl: 'https://www.medicines.org.uk/emc/files/pil.1815.pdf',
+            pdfLabel: 'Official Seroxat Patient Information Leaflet (PDF)',
             pdfAvailable: true
           },
           {
@@ -2564,7 +2601,9 @@
               'Never crush or pulverize film-coated Seroxat tablets, as this compromises controlled gastrointestinal absorption.',
               'Discard fragments that turn into powder rather than clean halves/quarters to maintain dosing accuracy.'
             ],
-            link: '#',
+            link: 'https://www.sps.nhs.uk/articles/choosing-and-using-pill-splitters-in-practice/',
+            pdfUrl: 'https://assets.publishing.service.gov.uk/media/5a805f15e5274a2e87db5a1e/con143781.pdf',
+            pdfLabel: 'MHRA Tablet Splitting Best Practice & Clinical Guidance (PDF)',
             pdfAvailable: true
           },
           {
@@ -2580,6 +2619,8 @@
               'Because the final drops are the most biologically impactful, spend at least 2–4 weeks at 10mg and 5mg.'
             ],
             link: 'https://doi.org/10.1016/S2215-0366(19)30032-X',
+            pdfUrl: 'https://www.thelancet.com/action/showPdf?pii=S2215-0366%2819%2930032-X',
+            pdfLabel: 'The Lancet Psychiatry: Horowitz & Taylor SSRI Tapering Study (PDF)',
             pdfAvailable: true
           },
           {
@@ -2595,6 +2636,8 @@
               'Differentiates withdrawal sensations (brain zaps, vertigo, motion shocks) from anxiety recurrence.'
             ],
             link: 'https://www.rcpsych.ac.uk/mental-health/treatments-and-wellbeing/stopping-antidepressants',
+            pdfUrl: 'https://www.rcpsych.ac.uk/docs/default-source/mental-health/treatments-and-wellbeing/stopping-antidepressants-patient-guide.pdf',
+            pdfLabel: 'RCPsych Stopping Antidepressants Patient Guide (PDF)',
             pdfAvailable: true
           },
           {
@@ -2609,6 +2652,8 @@
               'Allows dose pauses whenever significant discontinuation symptoms emerge.'
             ],
             link: 'https://www.nice.org.uk/guidance/ng222',
+            pdfUrl: 'https://www.nice.org.uk/guidance/ng222/resources/depression-in-adults-treatment-and-management-pdf-66143833446085',
+            pdfLabel: 'NICE NG222 Depression & Deprescribing Clinical Management Protocol (PDF)',
             pdfAvailable: true
           }
         ],
@@ -4661,12 +4706,9 @@
                 <h3>${item.title}</h3>
                 <p>${item.summary}</p>
               </div>
-              <div class="library-card-footer">
-                <button class="btn btn-secondary btn-sm" onclick="app.viewArticle('${item.id}')">
-                  Full Guide & Clinical Details
-                </button>
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="font-size:0.775rem; color:var(--teal-primary); text-decoration:none; font-family:var(--font-sans); font-weight:700;">
-                  Source Reference &rarr;
+              <div class="library-card-footer" style="justify-content: flex-end;">
+                <a href="javascript:void(0)" onclick="app.viewArticle('${item.id}')" style="font-size:0.775rem; color:var(--teal-primary); text-decoration:none; font-family:var(--font-sans); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem;">
+                  All Info &rarr;
                 </a>
               </div>
             `;
@@ -4702,34 +4744,74 @@
           const item = this.libraryArticles.find(a => a.id === id);
           if (!item) return;
 
-          const takeaways = item.keyTakeaways.map(t => `<li style="margin-bottom:0.45rem;">${t}</li>`).join('');
+          const takeaways = item.keyTakeaways.map(t => `<li style="margin-bottom:0.55rem; line-height: 1.6;">${t}</li>`).join('');
 
           const body = `
             <div style="font-family: var(--font-sans);">
-              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.65rem; font-weight: 600;">
-                ${item.source} · Authors: ${item.authors}
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                <span class="pill-badge" style="font-size:0.7rem; border-color:var(--teal-primary); color:var(--teal-primary); padding:0.15rem 0.5rem;">${item.category}</span>
+                <span>${item.source}</span>
+                <span>·</span>
+                <span>Authors: ${item.authors}</span>
               </div>
-              <p style="font-family: var(--font-serif); font-size: 1rem; line-height: 1.65; margin-bottom: 1.15rem; color: var(--text-primary);">
+
+              <p style="font-family: var(--font-serif); font-size: 1rem; line-height: 1.65; margin-bottom: 1.25rem; color: var(--text-primary);">
                 ${item.summary}
               </p>
+
               <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.65rem;">
-                Key Evidence-Based Takeaways
+                Key Evidence-Based Clinical Takeaways
               </h4>
-              <ul style="font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 1.35rem; line-height: 1.6;">
+              <ul style="font-size: 0.885rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 1.35rem; line-height: 1.6;">
                 ${takeaways}
               </ul>
-              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-subtle); padding-top:0.85rem; flex-wrap:wrap; gap:0.5rem;">
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-                  Access Primary Academic Citation
-                </a>
-                <button class="btn btn-primary btn-sm" onclick="window.print()">
-                  Print Summary Sheet
+
+              <!-- Official Document Links & References -->
+              <div style="border-top:1px solid var(--border-subtle); padding-top:1rem; margin-top:1rem;">
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.65rem;">
+                  Official References & Documents:
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.65rem; background: #0f172a; padding: 0.85rem 1rem; border-radius: 0.5rem; border: 1px solid #1e293b;">
+                  <!-- Source Reference Link -->
+                  <div style="font-size: 0.825rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 0.5rem;">
+                    <span style="font-size: 1rem; line-height: 1.2;">🔗</span>
+                    <div>
+                      <strong style="color: var(--text-primary);">Source Reference:</strong>
+                      <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="color: var(--teal-primary); text-decoration: underline; margin-left: 0.35rem;">
+                        ${item.source} &rarr;
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Direct Useful PDF Link (if available) -->
+                  ${item.pdfUrl ? `
+                  <div style="font-size: 0.825rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 0.5rem;">
+                    <span style="font-size: 1rem; line-height: 1.2;">📄</span>
+                    <div>
+                      <strong style="color: var(--text-primary);">Useful PDF:</strong>
+                      <a href="${item.pdfUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--teal-primary); text-decoration: underline; margin-left: 0.35rem;">
+                        ${item.pdfLabel || 'Official Document PDF'} &rarr;
+                      </a>
+                    </div>
+                  </div>` : ''}
+                </div>
+              </div>
+
+              <!-- Print Document Button Bellow All -->
+              <div style="border-top: 1px solid var(--border-subtle); padding-top: 0.85rem; margin-top: 1.15rem; display: flex; justify-content: flex-end;">
+                <button class="btn btn-secondary btn-sm" onclick="app.printArticle('${item.id}')" style="display:inline-flex; align-items:center; gap:0.45rem;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                  <span>Print Document</span>
                 </button>
               </div>
             </div>
           `;
 
           this.openModal(item.title, body);
+        },
+
+        printArticle(id) {
+          window.print();
         },
 
         // MODAL HELPERS
