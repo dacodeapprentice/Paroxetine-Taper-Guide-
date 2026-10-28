@@ -1427,6 +1427,12 @@
         border: 1px solid rgba(56, 189, 248, 0.35);
       }
 
+      .dose-badge-rose {
+        background: rgba(244, 114, 182, 0.18);
+        color: #f472b6;
+        border: 1px solid rgba(244, 114, 182, 0.35);
+      }
+
       .dose-badge-0 {
         background: rgba(148, 163, 184, 0.12);
         color: #94a3b8;
@@ -2067,7 +2073,7 @@
               </div>
               <div class="square-chart-stat">
                 <span id="chart-stat-dose" class="square-stat-val" style="color: #38bdf8;">10.0 mg</span>
-                <span id="chart-stat-dose-sub" class="square-stat-sub" style="color: #7dd3fc;">1/2 White Pill</span>
+                <span id="chart-stat-dose-sub" class="square-stat-sub" style="color: #7dd3fc;">10 White Half</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
@@ -2134,7 +2140,7 @@
         <div class="section-heading">
           <div class="section-heading-left">
             <h2>Daily Intake & Symptom Calendar</h2>
-            <p>Track your daily Seroxat pill consumption day-by-day. Every cell reflects whether you took a whole 20mg pill, half (10mg), quarter (5mg), or held your dose. Click any date to log or inspect entries.</p>
+            <p>Track your daily Seroxat pill consumption day-by-day across all active formulations: 10 rose, 10 white half, white 20, and blue 30 mg. Click any date to log or inspect entries.</p>
           </div>
           <div style="display: flex; gap: 0.85rem; align-items: center; font-size: 0.75rem; font-family: var(--font-sans); flex-wrap: wrap;">
             <span style="display:inline-flex; align-items:center; gap:0.35rem;"><span style="width:8px; height:8px; border-radius:50%; background:var(--emerald-primary);"></span> Mild (&le;2)</span>
@@ -2218,7 +2224,7 @@
                 </div>
                 <div class="registry-row">
                   <span class="reg-label">Seroxat Pill Formulation:</span>
-                  <span class="reg-value" id="reg-formulation">1/2 White Scored Pill (10mg)</span>
+                  <span class="reg-value" id="reg-formulation">10 White Half (10mg)</span>
                 </div>
                 <div class="registry-row">
                   <span class="reg-label">Time Administered:</span>
@@ -2275,19 +2281,19 @@
                 <div class="pill-quick-pickers">
                   <div class="quick-pill-btn" onclick="app.quickSelectPill(30.0, 'blue-whole')">
                     <div class="quick-pill-title" style="color: #60a5fa;">30 mg</div>
-                    <div class="quick-pill-sub">🔵 1 Whole Blue</div>
+                    <div class="quick-pill-sub">🔵 Blue 30 mg</div>
                   </div>
                   <div class="quick-pill-btn" onclick="app.quickSelectPill(20.0, 'white-whole')">
                     <div class="quick-pill-title">20 mg</div>
-                    <div class="quick-pill-sub">⚪ 1 Whole White</div>
+                    <div class="quick-pill-sub">⚪ White 20</div>
                   </div>
                   <div class="quick-pill-btn" onclick="app.quickSelectPill(10.0, 'white-half')">
                     <div class="quick-pill-title">10 mg</div>
-                    <div class="quick-pill-sub">🌗 1/2 White Half</div>
+                    <div class="quick-pill-sub">🌗 10 White Half</div>
                   </div>
                   <div class="quick-pill-btn" onclick="app.quickSelectPill(10.0, 'rosy-whole')">
                     <div class="quick-pill-title" style="color: #f472b6;">10 mg</div>
-                    <div class="quick-pill-sub">🌸 1 Rosy Pill</div>
+                    <div class="quick-pill-sub">🌸 10 Rose</div>
                   </div>
                   <div class="quick-pill-btn" onclick="app.quickSelectPill(0.0, 'zero')">
                     <div class="quick-pill-title">0 mg</div>
@@ -2357,7 +2363,7 @@
 
               <div class="form-group" style="margin-top: 0.85rem;">
                 <label for="input-notes">Notes & Pill Splitting Observations</label>
-                <textarea id="input-notes" class="form-control" rows="2" placeholder="e.g. Broke 20mg white tablet cleanly in half along the score line; taken with breakfast."></textarea>
+                <textarea id="input-notes" class="form-control" rows="2" placeholder="e.g. Took 10 White Half along score line with breakfast; feeling stable."></textarea>
               </div>
 
               <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
@@ -2490,12 +2496,14 @@
     <!-- Application Embedded Script -->
     <script>
       /**
-       * Seroxat (Paroxetine) Tablet-Splitting Tapering Engine
-       * Adapts tapering logic strictly to physical pill amounts:
-       * - 20mg White Scored Pill (break in half for two 10mg white halves, or 5mg quarters)
-       * - 10mg Rosy Pill
-       * - 30mg Blue Pill
-       * - Official Seroxat Paper Daily Intake: Depression (20mg), OCD (40mg), Panic (40mg), Social Anxiety (20mg), PTSD (20mg), GAD (20mg).
+       * Seroxat (Paroxetine) Deprescribing & Tapering Engine
+       * Standardized strictly to the 4 verified physical medication formulations:
+       * - 10 Rose (10mg rosy whole pill)
+       * - 10 White Half (10mg white half scored pill)
+       * - White 20 (20mg whole white scored pill)
+       * - Blue 30 mg (30mg whole blue pill)
+       * - 0 mg (No Intake / Complete Cessation)
+       * Official Seroxat Paper Daily Intake: Depression (20mg), OCD (40mg), Panic (40mg), Social Anxiety (20mg), PTSD (20mg), GAD (20mg).
        */
       const app = {
         state: {
@@ -2513,7 +2521,7 @@
           plans: [
             {
               id: 'plan-1',
-              name: 'Phase 1: 10mg Stabilization Hold',
+              name: 'Phase 1: 10 White Half Stabilization Hold',
               startDate: '2026-10-01',
               durationDays: 21,
               active: true,
@@ -2526,11 +2534,11 @@
                 sat: 10.0,
                 sun: 10.0
               },
-              notes: 'Holding 1/2 white scored pill (10mg) until vertigo & brain zaps subside below 2/10.'
+              notes: 'Holding 10 White Half (10mg) until vertigo & brain zaps subside below 2/10.'
             },
             {
               id: 'plan-2',
-              name: 'Phase 2: Continued 10mg Stabilization (1/2 White Pill)',
+              name: 'Phase 2: Continued 10 White Half Hold',
               startDate: '2026-10-22',
               durationDays: 21,
               active: true,
@@ -2543,21 +2551,20 @@
                 sat: 10.0,
                 sun: 10.0
               },
-              notes: 'Maintain half white tablet (10mg) with breakfast.'
+              notes: 'Maintain 10 White Half (10mg) with breakfast.'
             }
           ],
           plan: {
             indication: 'Social anxiety',
             baselineDose: 20.0,
-            currentStepIndex: 3,
+            currentStepIndex: 2,
             stepDurationDays: 14,
             steps: [
-              { step: 1, dose: 20.0, pillFraction: '1x Whole White Pill (20mg)', reduction: 'Baseline', dates: 'Aug 21 – Sep 03', status: 'Completed' },
-              { step: 2, dose: 15.0, pillFraction: '1/2 White Pill (10mg) + 1/4 White Pill (5mg)', reduction: '-25.0%', dates: 'Sep 04 – Sep 17', status: 'Completed' },
-              { step: 3, dose: 10.0, pillFraction: '1/2 White Pill (two 10mg halves)', reduction: '-50.0%', dates: 'Sep 18 – Oct 15', status: 'Active Target' },
-              { step: 4, dose: 5.0, pillFraction: '1/4 White Pill (or 1/2 Rosy 10mg)', reduction: '-75.0%', dates: 'Oct 16 – Nov 05', status: 'Upcoming' },
-              { step: 5, dose: 2.5, pillFraction: '1/8 White Pill (micro-quarter / alternate)', reduction: '-87.5%', dates: 'Nov 06 – Nov 20', status: 'Upcoming' },
-              { step: 6, dose: 0.0, pillFraction: 'Complete Cessation (0 pills)', reduction: '-100%', dates: 'Nov 21 onwards', status: 'Goal' }
+              { step: 1, dose: 30.0, pillFraction: 'Blue 30 mg', reduction: 'Baseline (30mg)', dates: 'Aug 01 – Aug 20', status: 'Completed' },
+              { step: 2, dose: 20.0, pillFraction: 'White 20', reduction: '-33.3% (20mg)', dates: 'Aug 21 – Sep 17', status: 'Completed' },
+              { step: 3, dose: 10.0, pillFraction: '10 White Half', reduction: '-66.7% (10mg)', dates: 'Sep 18 – Oct 15', status: 'Active Target' },
+              { step: 4, dose: 10.0, pillFraction: '10 Rose', reduction: 'Alternative (10mg)', dates: 'Oct 16 – Nov 05', status: 'Upcoming' },
+              { step: 5, dose: 0.0, pillFraction: '0 mg (No Intake / Cessation)', reduction: '-100% (0mg)', dates: 'Nov 06 onwards', status: 'Goal' }
             ]
           },
           logs: {}, // date string 'YYYY-MM-DD' -> { dose, formulation, time, symptoms: {...}, notes }
@@ -2580,7 +2587,7 @@
               'Post-Traumatic Stress Disorder (PTSD): Recommended daily intake is 20 mg/day.',
               'Obsessive Compulsive Disorder (OCD): Recommended daily intake is 40 mg/day.',
               'Panic Disorder with or without Agoraphobia: Recommended daily intake is 40 mg/day.',
-              'Seroxat tablets range: 10mg (rosy/pink), 20mg (white scored), and 30mg (blue).'
+              'Seroxat tablets range: 10 rose, 10 white half, white 20, and blue 30 mg.'
             ],
             link: 'https://www.medicines.org.uk/emc/product/1815/smpc',
             pdfUrl: 'https://www.medicines.org.uk/emc/files/pil.1815.pdf',
@@ -2589,17 +2596,17 @@
           },
           {
             id: 'seroxat-pill-splitting-guide',
-            title: 'How to Accurately Split Seroxat 20mg White Tablets into 10mg Halves and 5mg Quarters',
+            title: 'How to Accurately Split Seroxat White 20 Tablets into 10 White Halves',
             authors: 'Clinical Pharmacy Deprescribing Advisory Group',
             source: 'Practical Pharmacological Splitting Guide',
             category: 'Pill Splitting',
-            summary: 'Practical guidance for patients splitting Seroxat 20mg scored film-coated tablets. The central score line is engineered to allow breaking into two equal 10mg halves. Outlines cutting techniques, avoiding powdering, and moisture-tight storage.',
+            summary: 'Practical guidance for patients using Seroxat White 20 scored film-coated tablets or 10 Rose tablets. The central score line of White 20 is engineered to allow breaking cleanly into two 10 White Halves.',
             keyTakeaways: [
-              'The 20mg white tablet features a functional break-line enabling division into two 10mg halves.',
-              'To split into 10mg halves: Place the tablet on a flat, clean surface with the score line facing upward. Press down firmly with thumbs on either side of the score line.',
-              'To split into 5mg quarters: Use a dedicated stainless-steel pill cutter with rubber grip clamps to avoid crushing or uneven disintegration.',
+              'The White 20 tablet features a functional break-line enabling division into two 10 White Halves.',
+              'To split into 10 White Halves: Place the tablet on a flat, clean surface with the score line facing upward. Press down firmly with thumbs on either side of the score line.',
+              'Patients can alternate or transition between 10 White Half and the 10 Rose whole tablet without needing further splitting.',
               'Never crush or pulverize film-coated Seroxat tablets, as this compromises controlled gastrointestinal absorption.',
-              'Discard fragments that turn into powder rather than clean halves/quarters to maintain dosing accuracy.'
+              'Store split 10 White Halves in a sealed, dry pill organizer and consume within 7 days.'
             ],
             link: 'https://www.sps.nhs.uk/articles/choosing-and-using-pill-splitters-in-practice/',
             pdfUrl: 'https://assets.publishing.service.gov.uk/media/5a805f15e5274a2e87db5a1e/con143781.pdf',
@@ -2612,11 +2619,11 @@
             authors: 'Dr. Mark A. Horowitz, Prof. David Taylor',
             source: 'The Lancet Psychiatry (2019)',
             category: 'Scientific Studies',
-            summary: 'Landmark PET imaging study demonstrating that paroxetine (Seroxat) has a non-linear relationship with brain Serotonin Transporter (SERT) occupancy. Shows why moving from 10mg (half white pill) down to 5mg (quarter pill) requires a longer stabilization hold.',
+            summary: 'Landmark PET imaging study demonstrating that paroxetine (Seroxat) has a non-linear relationship with brain Serotonin Transporter (SERT) occupancy. Shows why moving from White 20 down to 10 White Half or 10 Rose requires a longer stabilization hold.',
             keyTakeaways: [
-              'A 20mg white pill produces ~80% SERT occupancy in the brain; a 10mg half pill still binds ~70% of transporters.',
-              'Dropping from 10mg to 5mg frees ~20% of transporters; dropping from 5mg to 0mg abruptly frees ~50% of transporters.',
-              'Because the final drops are the most biologically impactful, spend at least 2–4 weeks at 10mg and 5mg.'
+              'A White 20 pill produces ~80% SERT occupancy in the brain; a 10 White Half or 10 Rose still binds ~70% of transporters.',
+              'Dropping from 10mg (10 White Half / 10 Rose) to 0mg abruptly frees ~70% of transporters.',
+              'Because the final drop to 0mg is biologically impactful, spend at least 2–4 weeks stabilizing at 10 White Half or 10 Rose before cessation.'
             ],
             link: 'https://doi.org/10.1016/S2215-0366(19)30032-X',
             pdfUrl: 'https://www.thelancet.com/action/showPdf?pii=S2215-0366%2819%2930032-X',
@@ -2629,9 +2636,9 @@
             authors: 'Royal College of Psychiatrists (RCPsych)',
             source: 'RCPsych Position Statement PS04/19',
             category: 'Clinical Guidelines',
-            summary: 'Clinical advice emphasizing gradual tapering of Seroxat tablets over months, using tablet halves and quarters to manage withdrawal emergence.',
+            summary: 'Clinical advice emphasizing gradual tapering of Seroxat tablets over months, using White 20, 10 White Half, and 10 Rose to manage withdrawal emergence.',
             keyTakeaways: [
-              'Advises holding at your current pill fraction (e.g. 10mg half pill) if withdrawal symptoms spike.',
+              'Advises holding at your current formulation (e.g. 10 White Half or 10 Rose) if withdrawal symptoms spike.',
               'Recommends minimum 2 to 4 weeks between tablet dose reductions.',
               'Differentiates withdrawal sensations (brain zaps, vertigo, motion shocks) from anxiety recurrence.'
             ],
@@ -2677,8 +2684,44 @@
             const saved = localStorage.getItem('seroxat_taper_state');
             if (saved) {
               const parsed = JSON.parse(saved);
-              if (parsed.logs) this.state.logs = parsed.logs;
+              if (parsed.logs) {
+                // Sanitize any historical logs with obsolete keys
+                Object.keys(parsed.logs).forEach(date => {
+                  const entry = parsed.logs[date];
+                  if (entry) {
+                    if (entry.formulation === 'white-half-quarter') {
+                      entry.dose = 20.0;
+                      entry.formulation = 'white-whole';
+                    } else if (entry.formulation === 'white-quarter') {
+                      entry.dose = 10.0;
+                      entry.formulation = 'white-half';
+                    }
+                  }
+                });
+                this.state.logs = parsed.logs;
+              }
               if (parsed.plans && Array.isArray(parsed.plans)) {
+                parsed.plans.forEach(plan => {
+                  if (plan.name && plan.name.includes('10mg Stabilization Hold')) {
+                    plan.name = plan.name.replace('10mg Stabilization Hold', '10 White Half Stabilization Hold');
+                  }
+                  if (plan.name && plan.name.includes('(1/2 White Pill)')) {
+                    plan.name = plan.name.replace('(1/2 White Pill)', '(10 White Half)');
+                  }
+                  if (plan.notes && plan.notes.includes('1/2 white scored pill (10mg)')) {
+                    plan.notes = plan.notes.replace('1/2 white scored pill (10mg)', '10 White Half (10mg)');
+                  }
+                  if (plan.notes && plan.notes.includes('half white tablet (10mg)')) {
+                    plan.notes = plan.notes.replace('half white tablet (10mg)', '10 White Half (10mg)');
+                  }
+                  if (plan.weekDays) {
+                    Object.keys(plan.weekDays).forEach(day => {
+                      const v = Number(plan.weekDays[day]);
+                      if (v === 15) plan.weekDays[day] = 20.0;
+                      else if (v === 5 || v === 2.5) plan.weekDays[day] = 10.0;
+                    });
+                  }
+                });
                 this.state.plans = parsed.plans;
               }
               if (parsed.plan) this.state.plan = parsed.plan;
@@ -2707,7 +2750,7 @@
         seedInitialSampleDataIfEmpty() {
           if (Object.keys(this.state.logs).length > 0) return;
 
-          // Populate realistic historical logs based on Seroxat 20mg white pill tapering (20mg -> 15mg -> 10mg)
+          // Populate realistic historical logs based on Seroxat formulations: Blue 30 mg -> White 20 -> 10 White Half / 10 Rose
           const baseDate = new Date(2026, 9, 2);
           for (let i = 30; i >= 0; i--) {
             const d = new Date(baseDate);
@@ -2722,26 +2765,26 @@
             let mood = 2;
             let gi = 0;
             let headache = 1;
-            let notes = 'Broke 20mg white tablet cleanly into two 10mg halves. Tolerating well.';
+            let notes = 'Took 10 White Half along score line. Tolerating well.';
 
             if (i > 22) {
-              // 20mg baseline (1 whole white pill)
+              // Blue 30 mg baseline
+              dose = 30.0;
+              formulation = 'blue-whole';
+              zaps = 0; vertigo = 0; sleep = 1; mood = 1; headache = 0;
+              notes = 'Baseline intake of Blue 30 mg for social anxiety.';
+            } else if (i > 14) {
+              // White 20 step
               dose = 20.0;
               formulation = 'white-whole';
-              zaps = 0; vertigo = 0; sleep = 1; mood = 1; headache = 0;
-              notes = 'Baseline 20mg intake (1 whole white pill) for social anxiety.';
-            } else if (i > 14) {
-              // 15mg step (Half + Quarter white pill)
-              dose = 15.0;
-              formulation = 'white-half-quarter';
               zaps = (i === 20 || i === 19) ? 3 : 1;
               vertigo = i === 20 ? 2 : 1;
               sleep = 2;
               mood = 2;
               headache = 1;
-              notes = 'Took 1/2 white pill (10mg) + 1/4 white pill (5mg). Mild transient head zaps on day 2.';
+              notes = 'Took White 20 with breakfast. Mild transient head zaps on day 2.';
             } else if (i === 0) {
-              // Today: 10mg (1/2 white scored pill)
+              // Today: 10 White Half
               dose = 10.0;
               formulation = 'white-half';
               zaps = 1;
@@ -2750,7 +2793,12 @@
               mood = 1;
               gi = 0;
               headache = 1;
-              notes = '10mg dose taken at 08:30 (1/2 white scored tablet). Social anxiety stable.';
+              notes = 'Took 10 White Half at 08:30 with breakfast. Social anxiety stable.';
+            } else if (i % 5 === 0) {
+              // Sample 10 Rose day
+              dose = 10.0;
+              formulation = 'rosy-whole';
+              notes = 'Took 10 Rose whole tablet. Tolerating well.';
             }
 
             this.state.logs[dateStr] = {
@@ -2850,24 +2898,32 @@
           }
         },
 
-        getPillLabel(dose) {
+        getPillLabel(dose, formulation) {
           const d = parseFloat(dose);
-          if (d >= 30.0) return '1x Whole Blue (30mg)';
-          if (d >= 20.0) return '1x Whole White (20mg)';
-          if (d >= 15.0) return 'Half + Quarter (15mg)';
-          if (d >= 10.0) return '1/2 White Half (10mg)';
-          if (d >= 5.0) return '1/4 White Qtr (5mg)';
-          if (d > 0) return 'Micro-fraction';
-          return '0 mg (Zero)';
+          if (formulation === 'rosy-whole') return '10 Rose';
+          if (formulation === 'white-half') return '10 White Half';
+          if (formulation === 'white-whole') return 'White 20';
+          if (formulation === 'blue-whole') return 'Blue 30 mg';
+          if (formulation === 'zero' || d === 0) return '0 mg (No Intake)';
+
+          if (d >= 30.0) return 'Blue 30 mg';
+          if (d >= 20.0) return 'White 20';
+          if (d >= 10.0) return '10 White Half';
+          if (d === 0) return '0 mg (No Intake)';
+          return `${d.toFixed(1)} mg`;
         },
 
-        getPillIcon(dose) {
+        getPillIcon(dose, formulation) {
           const d = parseFloat(dose);
+          if (formulation === 'rosy-whole') return '🌸';
+          if (formulation === 'white-half') return '🌗';
+          if (formulation === 'white-whole') return '⚪';
+          if (formulation === 'blue-whole') return '🔵';
+          if (formulation === 'zero' || d === 0) return '○';
+
           if (d >= 30.0) return '🔵';
           if (d >= 20.0) return '⚪';
-          if (d >= 15.0) return '🌗🌘';
           if (d >= 10.0) return '🌗';
-          if (d >= 5.0) return '🌘';
           return '○';
         },
 
@@ -2887,27 +2943,24 @@
           const dispBase = document.getElementById('disp-plan-baseline');
           if (dispBase) dispBase.textContent = `${cappedDose.toFixed(1)} mg (${indicationName})`;
 
-          // Re-generate steps if needed (max baseline 30mg Whole Blue Pill)
+          // Re-generate steps if needed (standardized strictly to 4 formulations)
           if (cappedDose === 30.0) {
             this.state.plan.steps = [
-              { step: 1, dose: 30.0, pillFraction: '1x Whole Blue Pill (30mg)', reduction: 'Baseline', dates: 'Month 1', status: 'Completed' },
-              { step: 2, dose: 20.0, pillFraction: '1x Whole White Pill (20mg)', reduction: '-33.3%', dates: 'Month 2', status: 'Completed' },
-              { step: 3, dose: 15.0, pillFraction: '1/2 White (10mg) + 1/4 White (5mg)', reduction: '-50.0%', dates: 'Month 3', status: 'Active Target' },
-              { step: 4, dose: 10.0, pillFraction: '1/2 White Pill (10mg)', reduction: '-66.7%', dates: 'Month 4', status: 'Upcoming' },
-              { step: 5, dose: 5.0, pillFraction: '1/4 White Pill (5mg)', reduction: '-83.3%', dates: 'Month 5', status: 'Upcoming' },
-              { step: 6, dose: 0.0, pillFraction: 'Complete Cessation (0 pills)', reduction: '-100%', dates: 'Final', status: 'Goal' }
+              { step: 1, dose: 30.0, pillFraction: 'Blue 30 mg', reduction: 'Baseline (30mg)', dates: 'Month 1', status: 'Completed' },
+              { step: 2, dose: 20.0, pillFraction: 'White 20', reduction: '-33.3% (20mg)', dates: 'Month 2', status: 'Completed' },
+              { step: 3, dose: 10.0, pillFraction: '10 White Half', reduction: '-66.7% (10mg)', dates: 'Month 3', status: 'Active Target' },
+              { step: 4, dose: 10.0, pillFraction: '10 Rose', reduction: 'Alternative (10mg)', dates: 'Month 4', status: 'Upcoming' },
+              { step: 5, dose: 0.0, pillFraction: '0 mg (No Intake)', reduction: '-100% (0mg)', dates: 'Final', status: 'Goal' }
             ];
             this.state.plan.currentStepIndex = 3;
           } else {
             this.state.plan.steps = [
-              { step: 1, dose: 20.0, pillFraction: '1x Whole White Pill (20mg)', reduction: 'Baseline', dates: 'Aug 21 – Sep 03', status: 'Completed' },
-              { step: 2, dose: 15.0, pillFraction: '1/2 White Pill (10mg) + 1/4 White Pill (5mg)', reduction: '-25.0%', dates: 'Sep 04 – Sep 17', status: 'Completed' },
-              { step: 3, dose: 10.0, pillFraction: '1/2 White Pill (two 10mg halves)', reduction: '-50.0%', dates: 'Sep 18 – Oct 15', status: 'Active Target' },
-              { step: 4, dose: 5.0, pillFraction: '1/4 White Pill (or 1/2 Rosy 10mg)', reduction: '-75.0%', dates: 'Oct 16 – Nov 05', status: 'Upcoming' },
-              { step: 5, dose: 2.5, pillFraction: '1/8 White Pill (micro-quarter / alternate)', reduction: '-87.5%', dates: 'Nov 06 – Nov 20', status: 'Upcoming' },
-              { step: 6, dose: 0.0, pillFraction: 'Complete Cessation (0 pills)', reduction: '-100%', dates: 'Nov 21 onwards', status: 'Goal' }
+              { step: 1, dose: 20.0, pillFraction: 'White 20', reduction: 'Baseline (20mg)', dates: 'Aug 21 – Sep 03', status: 'Completed' },
+              { step: 2, dose: 10.0, pillFraction: '10 White Half', reduction: '-50.0% (10mg)', dates: 'Sep 04 – Oct 15', status: 'Active Target' },
+              { step: 3, dose: 10.0, pillFraction: '10 Rose', reduction: 'Alternative (10mg)', dates: 'Oct 16 – Nov 05', status: 'Upcoming' },
+              { step: 4, dose: 0.0, pillFraction: '0 mg (No Intake)', reduction: '-100% (0mg)', dates: 'Nov 06 onwards', status: 'Goal' }
             ];
-            this.state.plan.currentStepIndex = 3;
+            this.state.plan.currentStepIndex = 2;
           }
 
           this.saveStorage();
@@ -3029,7 +3082,7 @@
 
           if (log) {
             doseDisplay = `✓ ${Number(log.dose).toFixed(1)} mg`;
-            pillVisual = `${this.getPillIcon(log.dose)} ${this.getPillLabel(log.dose)}`;
+            pillVisual = `${this.getPillIcon(log.dose, log.formulation)} ${this.getPillLabel(log.dose, log.formulation)}`;
             const s = log.symptoms || {};
             const sum = (s.zaps || 0) + (s.vertigo || 0) + (s.sleep || 0) + (s.mood || 0) + (s.gi || 0) + (s.headache || 0);
             avgSymptom = sum / 6;
@@ -3048,7 +3101,7 @@
               pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem;">Overlapping Plans</span>`;
             } else {
               doseDisplay = `<span class="day-dose-planned" style="color:#60a5fa; font-weight:700;">📅 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
-              pillVisual = `<span class="day-dose-planned">${this.getPillIcon(plannedInfo.dose)} ${this.getPillLabel(plannedInfo.dose)}</span>`;
+              pillVisual = `<span class="day-dose-planned">${this.getPillIcon(plannedInfo.dose, plannedInfo.formulation)} ${this.getPillLabel(plannedInfo.dose, plannedInfo.formulation)}</span>`;
             }
           } else {
             doseDisplay = `<span style="font-size:0.7rem; color:var(--text-muted);">⏳ Ready for entry</span>`;
@@ -3084,8 +3137,10 @@
               const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
               const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
               const dayKey = days[d.getDay()];
-              const dose = (plan.weekDays && plan.weekDays[dayKey] !== undefined) ? plan.weekDays[dayKey] : 10.0;
-              matches.push({ plan, dose });
+              const rawDose = (plan.weekDays && plan.weekDays[dayKey] !== undefined) ? plan.weekDays[dayKey] : 10.0;
+              const dose = (rawDose === 10.5) ? 10.0 : rawDose;
+              const formulation = (rawDose === 10.5) ? 'rosy-whole' : (rawDose >= 30 ? 'blue-whole' : rawDose >= 20 ? 'white-whole' : rawDose >= 10 ? 'white-half' : 'zero');
+              matches.push({ plan, dose, rawDose, formulation });
             }
           }
 
@@ -3093,6 +3148,8 @@
           if (matches.length === 1) {
             return {
               dose: matches[0].dose,
+              rawDose: matches[0].rawDose,
+              formulation: matches[0].formulation,
               planName: matches[0].plan.name,
               plan: matches[0].plan,
               hasConflict: false,
@@ -3103,6 +3160,8 @@
           const hasConflict = matches.some(m => Math.abs(m.dose - matches[0].dose) > 0.1);
           return {
             dose: matches[0].dose,
+            rawDose: matches[0].rawDose,
+            formulation: matches[0].formulation,
             planName: matches[0].plan.name,
             plan: matches[0].plan,
             hasConflict: hasConflict,
@@ -3147,7 +3206,7 @@
             if (regDose) regDose.textContent = `${log.dose.toFixed(1)} mg`;
 
             const regFormulation = document.getElementById('reg-formulation');
-            if (regFormulation) regFormulation.textContent = this.getPillLabel(log.dose);
+            if (regFormulation) regFormulation.textContent = this.getPillLabel(log.dose, log.formulation);
 
             const regTime = document.getElementById('reg-time');
             if (regTime) regTime.textContent = log.time || '08:30';
@@ -3203,7 +3262,7 @@
 
             if (avg >= 5.0 || (s.zaps && s.zaps >= 5)) {
               alertBox.style.display = 'block';
-              alertBox.innerHTML = `<strong>Advisory:</strong> Elevated symptoms recorded (${avg.toFixed(1)}/10). Recommendation: Hold your current ${this.getPillLabel(log.dose)} for an extra 7–14 days before attempting to split further into quarters.`;
+              alertBox.innerHTML = `<strong>Advisory:</strong> Elevated symptoms recorded (${avg.toFixed(1)}/10). Recommendation: Hold your current ${this.getPillLabel(log.dose, log.formulation)} for an extra 7–14 days before attempting further dose changes.`;
             } else {
               alertBox.style.display = 'none';
             }
@@ -3377,10 +3436,8 @@
           if (sel) {
             if (d >= 30.0) sel.value = 'blue-whole';
             else if (d >= 20.0) sel.value = 'white-whole';
-            else if (d >= 15.0) sel.value = 'white-half-quarter';
-            else if (d >= 10.0) sel.value = 'white-half';
-            else if (d >= 5.0) sel.value = 'white-quarter';
-            else if (d === 0) sel.value = 'zero';
+            else if (d >= 10.0) sel.value = this.state.currentEntryFormulation === 'rosy-whole' ? 'rosy-whole' : 'white-half';
+            else sel.value = 'zero';
           }
           this.updateQuickPillButtons(d, sel ? sel.value : undefined);
         },
@@ -3642,7 +3699,7 @@
           let badgeClass = 'badge-stable';
           let badgeLabel = '● Body Tolerating Current Step (Mild Reaction)';
           let feedbackTitle = 'Nervous System Stabilized on Active Pill Fraction';
-          let guidanceText = `7-Day symptom intensity is ${fb.avg.toFixed(1)}/10. Brain shocks are minimal (${fb.maxZaps}/10). Your body has adjusted to your current 1/2 white scored pill (10mg). You are in a safe window to maintain this hold or transition to the next quarter-tablet step.`;
+          let guidanceText = `7-Day symptom intensity is ${fb.avg.toFixed(1)}/10. Brain shocks are minimal (${fb.maxZaps}/10). Your body has adjusted to your current 10 White Half (10mg). You are in a safe window to maintain this hold or transition according to your plan.`;
 
           if (fb.level === 'danger') {
             badgeClass = 'badge-danger';
@@ -3729,16 +3786,26 @@
 
             const daysChipsHtml = dayDefs.map(d => {
               const val = (plan.weekDays && plan.weekDays[d.key] !== undefined) ? plan.weekDays[d.key] : 10.0;
-              const formattedVal = Number(val) % 1 === 0 ? Number(val).toFixed(0) : Number(val).toFixed(1);
               let badgeClass = 'dose-badge-10';
-              if (Number(val) >= 30) badgeClass = 'dose-badge-30';
-              else if (Number(val) >= 20) badgeClass = 'dose-badge-20';
-              else if (Number(val) === 0) badgeClass = 'dose-badge-0';
+              let labelName = '10 White Half';
+              if (Number(val) >= 30) {
+                badgeClass = 'dose-badge-30';
+                labelName = 'Blue 30 mg';
+              } else if (Number(val) >= 20) {
+                badgeClass = 'dose-badge-20';
+                labelName = 'White 20';
+              } else if (Number(val) === 10.5) {
+                badgeClass = 'dose-badge-rose';
+                labelName = '10 Rose';
+              } else if (Number(val) === 0) {
+                badgeClass = 'dose-badge-0';
+                labelName = '0 mg';
+              }
 
               return `
-                <div class="plan-day-chip" title="${d.label}: ${formattedVal}mg Seroxat">
+                <div class="plan-day-chip" title="${d.label}: ${labelName}">
                   <span class="plan-day-chip-name">${d.label}</span>
-                  <span class="plan-day-chip-dose ${badgeClass}">${formattedVal}mg</span>
+                  <span class="plan-day-chip-dose ${badgeClass}">${labelName}</span>
                 </div>
               `;
             }).join('');
@@ -3820,14 +3887,16 @@
 
           const dayCardsHtml = days.map((k, i) => {
             const rawVal = this._editingPlan.weekDays[k] !== undefined ? this._editingPlan.weekDays[k] : 10.0;
-            const val = (rawVal === 30.0 || rawVal === 20.0 || rawVal === 10.0) ? rawVal : 10.0;
+            const val = (rawVal === 30.0 || rawVal === 20.0 || rawVal === 10.0 || rawVal === 10.5 || rawVal === 0.0) ? rawVal : 10.0;
             return `
               <div class="editor-day-card">
                 <label>${dayLabels[i]}</label>
                 <select id="modal-day-${k}" class="form-control" style="font-size:0.85rem; padding:0.4rem 0.5rem;">
-                  <option value="30.0" ${val === 30.0 ? 'selected' : ''}>30mg (1x Blue)</option>
-                  <option value="20.0" ${val === 20.0 ? 'selected' : ''}>20mg (1x White)</option>
-                  <option value="10.0" ${val === 10.0 ? 'selected' : ''}>10mg (1/2 White)</option>
+                  <option value="30.0" ${val === 30.0 ? 'selected' : ''}>Blue 30 mg</option>
+                  <option value="20.0" ${val === 20.0 ? 'selected' : ''}>White 20</option>
+                  <option value="10.0" ${val === 10.0 ? 'selected' : ''}>10 White Half</option>
+                  <option value="10.5" ${val === 10.5 ? 'selected' : ''}>10 Rose</option>
+                  <option value="0.0" ${val === 0.0 ? 'selected' : ''}>0 mg (No Intake)</option>
                 </select>
               </div>
             `;
@@ -3873,7 +3942,7 @@
 
               <div class="form-group" style="margin-top: 1.15rem;">
                 <label>Clinical Notes / Splitting Instructions</label>
-                <textarea id="modal-plan-notes" class="form-control" rows="2" placeholder="e.g. Take with breakfast. Use razor pill splitter on 20mg white scored tablet.">${this._editingPlan.notes || ''}</textarea>
+                <textarea id="modal-plan-notes" class="form-control" rows="2" placeholder="e.g. Take with breakfast. 10 White Half or 10 Rose as tolerated.">${this._editingPlan.notes || ''}</textarea>
               </div>
 
               <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.75rem; margin-bottom:1.15rem;">
@@ -4081,7 +4150,7 @@
           if (!plannedInfo) {
             banner.className = 'plan-adherence-banner banner-matched';
             if (todayLog) {
-              title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose)}) — Independent Registry Active`;
+              title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose, todayLog.formulation)}) — Independent Registry Active`;
               desc.textContent = `Intake successfully logged. Plans serve as orientation guidance to support taper success, but your daily pill registry is fully independent.`;
               rateBadge.textContent = 'Status: Intake Registered';
             } else {
@@ -4104,7 +4173,7 @@
 
           if (!todayLog) {
             banner.className = 'plan-adherence-banner banner-alert';
-            title.textContent = `Orientation Target: ${target} mg (${this.getPillLabel(target)}) — Intake Pending`;
+            title.textContent = `Orientation Target: ${target} mg (${this.getPillLabel(target, plannedInfo.formulation)}) — Intake Pending`;
             desc.textContent = `Orientation plan "${plannedInfo.planName}" recommends ${target} mg today for tapering success. Intake is independent — register what you actually take.`;
             rateBadge.textContent = 'Status: Pending';
             return;
@@ -4113,7 +4182,7 @@
           const diff = Math.abs(todayLog.dose - target);
           if (diff <= 0.1) {
             banner.className = 'plan-adherence-banner banner-matched';
-            title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose)}) — In Sync (Ideal for Tapering Success)`;
+            title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose, todayLog.formulation)}) — In Sync (Ideal for Tapering Success)`;
             desc.textContent = `Registered intake matches the orientation target from "${plannedInfo.planName}". Consistency with the tapering schedule supports long-term stabilization.`;
             rateBadge.textContent = 'Orientation: In Sync';
           } else if (todayLog.dose < target) {
@@ -4250,6 +4319,7 @@
               index: i,
               x,
               dose,
+              formulation: log.formulation,
               yDose,
               symptomAvg,
               ySymptom,
@@ -4389,7 +4459,7 @@
           const doseProgressEl = document.getElementById('chart-dose-progress-tag');
           if (statDoseEl) statDoseEl.textContent = `${latestPt.dose.toFixed(1)} mg`;
           if (statDoseSub) {
-            statDoseSub.textContent = this.getPillLabel(latestPt.dose);
+            statDoseSub.textContent = this.getPillLabel(latestPt.dose, latestPt.formulation);
             statDoseSub.style.color = '#7dd3fc';
           }
           if (doseProgressEl) {
@@ -4590,7 +4660,7 @@
             </div>
             <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px;">
               <span style="color:#38bdf8; font-weight:600;">Daily Dose:</span>
-              <strong class="tabular-nums" style="color:#38bdf8;">${pt.dose.toFixed(1)} mg (${this.getPillLabel(pt.dose)})</strong>
+              <strong class="tabular-nums" style="color:#38bdf8;">${pt.dose.toFixed(1)} mg (${this.getPillLabel(pt.dose, pt.formulation)})</strong>
             </div>
             <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px;">
               <span style="color:#fb7185; font-weight:600;">Symptom Score:</span>
@@ -4655,7 +4725,7 @@
             const statCurrent = document.getElementById('stat-current-dose');
             if (statCurrent) statCurrent.textContent = todayLog.dose.toFixed(1);
             const statPill = document.getElementById('stat-pill-breakdown');
-            if (statPill) statPill.textContent = this.getPillLabel(todayLog.dose);
+            if (statPill) statPill.textContent = this.getPillLabel(todayLog.dose, todayLog.formulation);
 
             const baseline = this.state.plan.baselineDose || 20.0;
             const reductionPct = (((baseline - todayLog.dose) / baseline) * 100).toFixed(0);
@@ -4670,7 +4740,7 @@
             const badge = document.getElementById('stat-symptom-level');
             if (badge) {
               if (avg <= 2) {
-                badge.textContent = `● Mild / Stabilized on ${this.getPillLabel(todayLog.dose)}`;
+                badge.textContent = `● Mild / Stabilized on ${this.getPillLabel(todayLog.dose, todayLog.formulation)}`;
                 badge.style.color = 'var(--emerald-primary)';
               } else if (avg <= 5) {
                 badge.textContent = '● Moderate Discomfort (Consider Holding Step)';
