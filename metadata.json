@@ -1,6 +1,6 @@
 {
-  "name": "Paroxetine Safe Tapering Companion",
-  "description": "An evidence-based paroxetine tapering tracker, hyperbolic dose planner, daily symptom monitor, and verified scientific library.",
+  "name": "Taper Diary",
+  "description": "A tapering tracker and dose and symptom diary for logging daily medication doses and symptom severity over time.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
