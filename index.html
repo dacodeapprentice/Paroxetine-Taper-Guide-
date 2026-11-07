@@ -841,18 +841,18 @@
 
       /* 4. OVERLAPPING PLANS: Multiple active plans overlapping on this date */
       .calendar-day-cell.day-color-overlapping {
-        background: linear-gradient(155deg, rgba(120, 53, 15, 0.45) 0%, rgba(69, 26, 3, 0.7) 100%);
-        border: 1.5px dashed rgba(245, 158, 11, 0.85);
-        box-shadow: inset 0 0 14px rgba(245, 158, 11, 0.12);
+        background: linear-gradient(155deg, rgba(120, 53, 15, 0.7) 0%, rgba(69, 26, 3, 0.9) 100%) !important;
+        border: 2px dashed #f59e0b !important;
+        box-shadow: inset 0 0 14px rgba(245, 158, 11, 0.22) !important;
       }
       .calendar-day-cell.day-color-overlapping:hover {
-        border-color: #fbbf24;
-        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+        border-color: #fbbf24 !important;
+        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45) !important;
       }
       .calendar-day-cell.day-color-overlapping .day-code-badge {
-        background: rgba(245, 158, 11, 0.28);
-        color: #fde68a;
-        border: 1px solid rgba(245, 158, 11, 0.6);
+        background: rgba(245, 158, 11, 0.35) !important;
+        color: #fef08a !important;
+        border: 1px solid rgba(245, 158, 11, 0.85) !important;
       }
 
       /* Day code tag pill inside top row */
@@ -1325,13 +1325,13 @@
       }
 
       /* Calendar Conflict Styling */
-      .calendar-day-cell.day-conflict {
+      .calendar-day-cell.day-conflict:not(.day-color-overlapping) {
         border: 2px solid #f43f5e !important;
         background: linear-gradient(135deg, rgba(244, 63, 94, 0.18) 0%, transparent 100%) !important;
       }
 
       .day-dose-conflict {
-        color: #f43f5e !important;
+        color: #f59e0b !important;
         font-weight: 700;
       }
 
@@ -2344,7 +2344,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
                 Add New Plan
               </button>
-              <button class="btn btn-secondary btn-sm" onclick="app.applyAllPlansToCalendar()">
+              <button class="btn btn-secondary btn-sm" id="btn-update-calendar" onclick="app.applyAllPlansToCalendar()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 Update to Calendar
               </button>
@@ -3012,8 +3012,15 @@
           }
 
           // plans and tablets, if present, are arrays
-          if (data.plans !== undefined && data.plans !== null && !Array.isArray(data.plans)) {
-            return { valid: false, error: 'Could not import backup: "plans" must be an array.' };
+          if (data.plans !== undefined && data.plans !== null) {
+            if (!Array.isArray(data.plans)) {
+              return { valid: false, error: 'Could not import backup: "plans" must be an array.' };
+            }
+            for (const p of data.plans) {
+              if (p && p.durationDays !== undefined && (typeof p.durationDays !== 'number' || p.durationDays < 1)) {
+                return { valid: false, error: 'Could not import backup: Plan duration must be at least 1 day.' };
+              }
+            }
           }
           if (data.tablets !== undefined && data.tablets !== null && !Array.isArray(data.tablets)) {
             return { valid: false, error: 'Could not import backup: "tablets" must be an array.' };
@@ -3996,9 +4003,13 @@
           let colorClass = '';
           let codeBadgeHtml = '';
 
-          if (plannedInfo && plannedInfo.hasConflict) {
+          const isOverlapping = plannedInfo && (plannedInfo.hasOverlap || (plannedInfo.allMatches && plannedInfo.allMatches.length > 1));
+
+          if (isOverlapping) {
             colorClass = 'day-color-overlapping';
-            codeBadgeHtml = `<span class="day-code-badge" title="Scheduling conflict between active orientation plans">⚠️ Overlap</span>`;
+            const dosesList = plannedInfo.allMatches.map(m => `${m.dose.toFixed(1).replace(/\.0$/, '')}mg`).join('/');
+            const planNames = plannedInfo.allMatches.map(m => m.plan.name).join(' & ');
+            codeBadgeHtml = `<span class="day-code-badge" title="Overlapping active plans (${planNames})">⚠️ Overlap (${dosesList})</span>`;
           } else if (log && plannedInfo && Math.abs(Number(log.dose) - Number(plannedInfo.dose)) <= 0.1) {
             colorClass = 'day-color-both';
             codeBadgeHtml = `<span class="day-code-badge" title="Medication taken & in sync with active plan (ideal for taper success)">✓ Both Taken & Plan</span>`;
@@ -4012,7 +4023,7 @@
 
           if (colorClass) cell.classList.add(colorClass);
           if (log) cell.classList.add('day-concluded');
-          if (plannedInfo && plannedInfo.hasConflict) cell.classList.add('day-conflict');
+          if (isOverlapping) cell.classList.add('day-conflict');
 
           cell.onclick = () => this.selectDate(dateStr);
 
@@ -4037,10 +4048,10 @@
             if (s.vertigo >= 3) iconBadges += '<span class="mini-symptom-icon" title="Vertigo reported">〰</span>';
             if (s.sleep >= 3) iconBadges += '<span class="mini-symptom-icon" title="Sleep disturbance">💤</span>';
           } else if (plannedInfo) {
-            if (plannedInfo.hasConflict) {
-              const dosesText = plannedInfo.allMatches.map(m => `${m.dose}mg`).join('/');
-              doseDisplay = `<span class="day-dose-conflict" title="Schedule conflict between active plans">⚠️ Conflict (${dosesText})</span>`;
-              pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem;">Overlapping Plans</span>`;
+            if (isOverlapping) {
+              const dosesText = plannedInfo.allMatches.map(m => `${m.dose.toFixed(1).replace(/\.0$/, '')}mg`).join('/');
+              doseDisplay = `<span class="day-dose-conflict" style="color:#fbbf24; font-weight:700;" title="Schedule overlap between active plans">⚠️ Overlap (${dosesText})</span>`;
+              pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem; color:#fde68a;">Overlapping Plans (${plannedInfo.allMatches.length})</span>`;
             } else {
               doseDisplay = `<span class="day-dose-planned" style="color:#60a5fa; font-weight:700;">📅 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
               pillVisual = `<span class="day-dose-planned">${this.getPillIcon(plannedInfo.dose, plannedInfo.formulation)} ${this.getPillLabel(plannedInfo.dose, plannedInfo.formulation)}</span>`;
@@ -4094,6 +4105,7 @@
               planName: matches[0].plan.name,
               plan: matches[0].plan,
               hasConflict: false,
+              hasOverlap: false,
               allMatches: matches
             };
           }
@@ -4106,6 +4118,7 @@
             planName: matches[0].plan.name,
             plan: matches[0].plan,
             hasConflict: hasConflict,
+            hasOverlap: true,
             allMatches: matches
           };
         },
@@ -4260,15 +4273,28 @@
             const formBanner = document.getElementById('form-orientation-banner');
             if (formBanner) {
               if (plannedInfo) {
-                formBanner.innerHTML = `
-                  <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-                    <span>🧭 <strong>Plan Orientation:</strong> Recommended target is <strong>${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})</strong> from <em>${plannedInfo.planName}</em>.</span>
-                    <span style="font-size:0.7rem; color:var(--teal-primary); font-weight:700;">● Ideal for taper success</span>
-                  </div>
-                  <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
-                    Plans guide orientation; your actual daily intake is independent. Register what you take below.
-                  </div>
-                `;
+                if (plannedInfo.hasOverlap) {
+                  const overlapText = plannedInfo.allMatches.map(m => `<strong>${this.escapeHtml(m.plan.name)}</strong> (${m.dose.toFixed(1)} mg)`).join(' and ');
+                  formBanner.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                      <span>⚠️ <strong>Overlapping Plans:</strong> This date is covered by both ${overlapText}.</span>
+                      <span style="font-size:0.7rem; color:#f59e0b; font-weight:700;">● Overlap review</span>
+                    </div>
+                    <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                      Review your action plans if you wish to adjust start dates or pause an overlapping phase.
+                    </div>
+                  `;
+                } else {
+                  formBanner.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                      <span>🧭 <strong>Plan Orientation:</strong> Recommended target is <strong>${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})</strong> from <em>${this.escapeHtml(plannedInfo.planName)}</em>.</span>
+                      <span style="font-size:0.7rem; color:var(--teal-primary); font-weight:700;">● Ideal for taper success</span>
+                    </div>
+                    <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                      Plans guide orientation; your actual daily intake is independent. Register what you take below.
+                    </div>
+                  `;
+                }
               } else {
                 formBanner.innerHTML = `
                   <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
@@ -4798,10 +4824,22 @@
 
         renderPlans() {
           const grid = document.getElementById('plans-grid');
+          const updateCalBtn = document.getElementById('btn-update-calendar');
+          const suggestHoldBtn = document.getElementById('btn-suggest-hold');
+          const hasPlans = this.state.plans && this.state.plans.length > 0;
+          const hasActivePlans = hasPlans && this.state.plans.some(p => p.active);
+
+          if (updateCalBtn) {
+            updateCalBtn.style.display = hasPlans ? 'inline-flex' : 'none';
+          }
+          if (suggestHoldBtn) {
+            suggestHoldBtn.style.opacity = hasActivePlans ? '1' : '0.5';
+          }
+
           if (!grid) return;
           grid.innerHTML = '';
 
-          if (!this.state.plans || this.state.plans.length === 0) {
+          if (!hasPlans) {
             grid.innerHTML = `
               <div style="grid-column: 1 / -1; padding: 2.5rem 1.5rem; text-align: center; background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 12px;">
                 <div style="font-size: 2.2rem; margin-bottom: 0.75rem;">🧭</div>
@@ -4842,18 +4880,28 @@
 
             const daysChipsHtml = dayDefs.map(d => {
               const val = (plan.weekDays && plan.weekDays[d.key] !== undefined) ? Number(plan.weekDays[d.key]) : 0;
+              const cleanDose = val.toFixed(1).replace(/\.0$/, '');
               const labelName = this.getPillLabel(val);
+              let pillSub = '';
+              if (labelName && labelName !== `${cleanDose} mg`) {
+                const stripped = labelName.replace(new RegExp(`^${cleanDose}\\s*mg\\s*`, 'i'), '').replace(/^\(|\)$/g, '').trim();
+                if (stripped) pillSub = ` (${stripped})`;
+              }
               return `
-                <div class="plan-day-chip" title="${d.label}: ${labelName}">
+                <div class="plan-day-chip" title="${d.label}: ${cleanDose} mg${pillSub}">
                   <span class="plan-day-chip-name">${d.label}</span>
-                  <span class="plan-day-chip-dose">${val.toFixed(1).replace(/\.0$/, '')} mg (${labelName})</span>
+                  <span class="plan-day-chip-dose">${cleanDose} mg${pillSub}</span>
                 </div>
               `;
             }).join('');
 
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const startParts = (plan.startDate || this.getTodayStr()).split('-');
+            const startD = new Date(parseInt(startParts[0]), parseInt(startParts[1]) - 1, parseInt(startParts[2]));
+            const formattedStartDate = `${startD.getDate()} ${monthNames[startD.getMonth()]} ${startD.getFullYear()}`;
+
             const endParts = endDate.split('-');
             const endD = new Date(parseInt(endParts[0]), parseInt(endParts[1]) - 1, parseInt(endParts[2]));
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             const formattedEndDate = `${endD.getDate()} ${monthNames[endD.getMonth()]} ${endD.getFullYear()}`;
 
             // Previous phase percentage calculation
@@ -4890,8 +4938,9 @@
                   ${daysChipsHtml}
                 </div>
 
-                <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-secondary); margin-top:0.15rem;">
-                  End date: <strong style="color:var(--teal-primary);">${formattedEndDate}</strong> (${plan.durationDays} days)
+                <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-secondary); margin-top:0.25rem;">
+                  Schedule: <strong style="color:var(--teal-primary);">${formattedStartDate}</strong> &rarr; <strong style="color:var(--teal-primary);">${formattedEndDate}</strong> (${plan.durationDays} days)
+                  ${!plan.active ? '<span style="color:#94a3b8; font-style:italic; margin-left:0.5rem;">(Paused — not applied to calendar)</span>' : ''}
                 </div>
 
                 ${largeNotice}
@@ -4996,7 +5045,7 @@
                 </div>
                 <div class="form-group">
                   <label>Duration (How Many Days)</label>
-                  <input type="number" min="1" max="365" id="modal-plan-duration" class="form-control" value="${this._editingPlan.durationDays}" oninput="app.updateModalEndDate()" />
+                  <input type="number" min="1" max="365" id="modal-plan-duration" class="form-control" value="${Math.max(1, this._editingPlan.durationDays || 21)}" oninput="if(this.value && parseInt(this.value, 10) < 1) this.value = 1; app.updateModalEndDate()" />
                 </div>
               </div>
 
@@ -5076,21 +5125,36 @@
         },
 
         updateModalEndDate() {
-          const start = document.getElementById('modal-plan-start').value;
-          const duration = parseInt(document.getElementById('modal-plan-duration').value || '21');
+          const start = document.getElementById('modal-plan-start')?.value;
+          const durRaw = parseInt(document.getElementById('modal-plan-duration')?.value || '0', 10);
+          const badge = document.getElementById('modal-computed-end-date');
+          if (isNaN(durRaw) || durRaw < 1) {
+            if (badge) badge.textContent = 'End Date: Invalid duration (minimum 1 day)';
+            return;
+          }
           if (!start) return;
           const parts = start.split('-');
-          const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
-          d.setDate(d.getDate() + (duration - 1));
+          const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+          d.setDate(d.getDate() + (durRaw - 1));
           const endStr = this.formatDate(d);
-          const badge = document.getElementById('modal-computed-end-date');
           if (badge) badge.textContent = `End Date: ${this.formatDisplayDate(endStr)}`;
         },
 
         savePlanFromModal() {
           const name = document.getElementById('modal-plan-name').value.trim() || 'Tapering Phase';
           const startDate = document.getElementById('modal-plan-start').value;
-          const durationDays = parseInt(document.getElementById('modal-plan-duration').value || '21');
+          const durInp = document.getElementById('modal-plan-duration');
+          const durationDays = parseInt(durInp ? durInp.value : '0', 10);
+
+          if (isNaN(durationDays) || durationDays < 1) {
+            alert('Plan duration must be at least 1 day. Negative or zero days are not allowed.');
+            if (durInp) {
+              durInp.value = '1';
+              durInp.focus();
+            }
+            return;
+          }
+
           const notes = document.getElementById('modal-plan-notes').value.trim();
           const active = document.getElementById('modal-plan-active').checked;
 
@@ -5220,7 +5284,12 @@
             return;
           }
 
-          activePlan.durationDays = (activePlan.durationDays || 21) + days;
+          const newDuration = (activePlan.durationDays || 21) + days;
+          if (newDuration < 1) {
+            alert('Plan duration cannot be less than 1 day.');
+            return;
+          }
+          activePlan.durationDays = newDuration;
           this.saveStorage();
           this.renderConflictOverlay();
           this.renderPlans();
@@ -5247,13 +5316,22 @@
         },
 
         applyAllPlansToCalendar() {
+          if (!this.state.plans || this.state.plans.length === 0) {
+            alert('No plans configured. Create an orientation plan first before updating the calendar.');
+            return;
+          }
+          const activePlans = this.state.plans.filter(p => p.active);
+          if (activePlans.length === 0) {
+            alert('No active plans found. Please activate at least one plan phase using the "Activate" button so its schedule can be displayed on the calendar.');
+            return;
+          }
           this.renderCalendar();
           this.checkAdherence();
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length > 0) {
-            alert(`Calendar updated with active plans. Warning: ${conflicts.length} scheduling conflict(s) exist between active plans. Check the conflict banner or red calendar cells.`);
+            alert(`Calendar updated with ${activePlans.length} active plan(s). Note: ${conflicts.length} scheduling conflict(s)/overlap(s) detected. Check the amber overlapping cells on the calendar.`);
           } else {
-            alert('All active plan schedules and pill amounts successfully updated across the calendar.');
+            alert(`All ${activePlans.length} active plan schedule(s) (${activePlans.map(p => p.name).join(', ')}) successfully updated across the calendar.`);
           }
         },
 
