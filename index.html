@@ -2151,7 +2151,10 @@
 
               <!-- Quick Pill Amount Picker Buttons -->
               <div class="form-group">
-                <label>Daily Dose Registry (Quick Pill Amount Selection)</label>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; flex-wrap: wrap; gap: 0.25rem;">
+                  <label style="margin-bottom: 0;">Daily Dose Registry (Quick Pill Amount Selection)</label>
+                  <a href="#tablets-section" style="font-size: 0.75rem; color: var(--teal-primary); font-weight: 600; text-decoration: underline;">Configure in My Tablets</a>
+                </div>
                 <div class="pill-quick-pickers" id="pill-quick-pickers">
                   <!-- Dynamically populated via app.renderQuickPillButtons() -->
                 </div>
@@ -2274,10 +2277,14 @@
       <section id="tablets-section">
         <div class="section-heading">
           <div class="section-heading-left">
-            <h2>My Tablets & Formulations</h2>
-            <p>Configure your prescribed tablets, strengths, and liquid formulations to match your specific prescription.</p>
+            <h2>My Tablets</h2>
+            <p>Configure your prescribed tablets and strengths to match your specific prescription.</p>
           </div>
           <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+              + Add Tablet
+            </button>
           </div>
         </div>
 
@@ -2288,6 +2295,9 @@
               <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">
                 Configured Tablets:
               </span>
+              <button class="btn btn-secondary btn-sm" onclick="app.openTabletModal()">
+                + Add Tablet
+              </button>
             </div>
             <div id="tablets-container">
               <!-- Dynamically populated via app.renderTablets() -->
@@ -3586,13 +3596,7 @@
 
         // SETTINGS & TABLETS MANAGEMENT
         syncPlanIndicationAndBaselineUI() {
-          // Input fields removed
-        },
-
-        saveLiquidConcentration(val) {
-          this.state.liquidConcentration = val ? val.trim() : '';
-          this.saveStorage();
-          this.renderQuickPillButtons();
+          // Setting removed
         },
 
         renderTablets() {
@@ -3606,9 +3610,14 @@
                 <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 1rem; line-height: 1.5;">
                   Check the strength and appearance against your own box and leaflet. They differ between countries and brands.
                 </p>
-                <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
-                  + Add Tablet
-                </button>
+                <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                  <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
+                    + Add Tablet
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="app.seedDefaultTablets()">
+                    Load Standard 20mg Tablet
+                  </button>
+                </div>
               </div>
             `;
             return;
@@ -3651,7 +3660,25 @@
             <div style="display: grid; gap: 0.65rem;">
               ${cardsHtml}
             </div>
+            <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: flex-end;">
+              <button class="btn btn-secondary btn-sm" onclick="app.openTabletModal()">
+                + Add Another Tablet
+              </button>
+            </div>
           `;
+        },
+
+        seedDefaultTablets() {
+          if (!this.state.tablets) this.state.tablets = [];
+          this.state.tablets.push({
+            id: 'tab-' + Date.now(),
+            name: 'Paroxetine 20mg',
+            strength: 20.0,
+            color: 'White',
+            splittable: true
+          });
+          this.saveStorage();
+          this.renderAll(this.state.selectedDate);
         },
 
         openTabletModal(tabletId) {
@@ -3857,22 +3884,14 @@
             </div>
           `;
 
-          // Liquid button if concentration is set
-          if (this.state.liquidConcentration && parseFloat(this.state.liquidConcentration) > 0) {
-            const isLiqActive = formKey === 'liquid';
-            buttonsHtml += `
-              <div class="quick-pill-btn ${isLiqActive ? 'active' : ''}" onclick="app.promptLiquidDose()">
-                <div class="quick-pill-title" style="color: #38bdf8;">💧 Liquid</div>
-                <div class="quick-pill-sub">${this.escapeHtml(this.state.liquidConcentration)} mg/ml</div>
-              </div>
-            `;
-          }
-
           // Direct custom mg input
           buttonsHtml += `
-            <div style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid #1e293b;">
-              <span style="font-size: 0.75rem; color: var(--text-muted);">Other / manual dose (mg):</span>
-              <input type="number" step="0.1" min="0" id="input-dose-direct" class="form-control" style="width: 100px; font-size: 0.8rem; padding: 0.25rem 0.5rem; text-align: center;" value="${doseVal}" oninput="app.setDirectDose(this.value)" />
+            <div style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid #1e293b; flex-wrap: wrap;">
+              <a href="#tablets-section" style="font-size: 0.725rem; color: var(--teal-primary); font-weight: 600; text-decoration: underline;">Configure in My Tablets</a>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: auto;">
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Other / manual dose (mg):</span>
+                <input type="number" step="0.1" min="0" id="input-dose-direct" class="form-control" style="width: 100px; font-size: 0.8rem; padding: 0.25rem 0.5rem; text-align: center;" value="${doseVal}" oninput="app.setDirectDose(this.value)" />
+              </div>
             </div>
           `;
 
@@ -3897,24 +3916,6 @@
             const formSel = document.getElementById('input-formulation');
             if (formSel) formSel.value = this.state.currentEntryFormulation;
             this.updateQuickPillButtons(mg, this.state.currentEntryFormulation);
-          }
-        },
-
-        promptLiquidDose() {
-          const conc = parseFloat(this.state.liquidConcentration) || 1;
-          const doseStr = prompt(`Enter prescribed dose in mg (Oral liquid concentration: ${conc} mg/ml):`, '5');
-          if (doseStr !== null) {
-            const mg = parseFloat(doseStr);
-            if (!isNaN(mg) && mg >= 0) {
-              const ml = (mg / conc).toFixed(2);
-              this.quickSelectPill(mg, 'liquid');
-              const directInp = document.getElementById('input-dose-direct');
-              if (directInp) directInp.value = mg;
-              const notesEl = document.getElementById('input-notes');
-              if (notesEl && !notesEl.value) {
-                notesEl.value = `Administered ${mg} mg via liquid form (${ml} ml at ${conc} mg/ml).`;
-              }
-            }
           }
         },
 
