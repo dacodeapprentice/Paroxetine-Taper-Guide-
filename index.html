@@ -80,7 +80,7 @@
         -webkit-font-smoothing: antialiased;
       }
 
-      h1, h2, h3, h4, h5, h6, button, nav, input, select, textarea, .sans-ui {
+      h1, h2, h3, h4, h5, h6, button, nav, input, select, textarea {
         font-family: var(--font-sans);
       }
 
@@ -138,15 +138,194 @@
         color: var(--teal-primary);
       }
 
-      .brand-tag {
-        font-size: 0.725rem;
-        font-weight: 600;
-        color: #94a3b8;
+      /* Nav Left Group (Hamburger Button on Left + Brand Title) */
+      .nav-left-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      /* Mobile Hamburger Button (On the left for phone responsiveness) */
+      .mobile-hamburger-btn {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        width: 38px;
+        height: 38px;
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.45rem;
+        cursor: pointer;
+        padding: 0;
+        color: var(--text-primary);
+        transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+        flex-shrink: 0;
+      }
+
+      .mobile-hamburger-btn:hover {
         background: #1e293b;
-        padding: 0.2rem 0.55rem;
-        border-radius: 0.35rem;
-        margin-left: 0.5rem;
+        border-color: var(--teal-primary);
+      }
+
+      .mobile-hamburger-btn:active {
+        transform: scale(0.95);
+      }
+
+      .mobile-hamburger-btn .hamburger-bar {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .mobile-hamburger-btn.active .hamburger-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .mobile-hamburger-btn.active .hamburger-bar:nth-child(2) {
+        opacity: 0;
+      }
+      .mobile-hamburger-btn.active .hamburger-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+
+      /* Mobile Navigation Drawer Backdrop */
+      .mobile-menu-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 120;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+
+      .mobile-menu-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Mobile Navigation Drawer (Slides in from the left) */
+      .mobile-nav-drawer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 300px;
+        max-width: 85vw;
+        background: #0f172a;
+        border-right: 1px solid #1e293b;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
+        z-index: 130;
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .mobile-nav-drawer.open {
+        transform: translateX(0);
+      }
+
+      .mobile-drawer-header {
+        padding: 1.15rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e293b;
+        background: #090e1a;
+      }
+
+      .mobile-drawer-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+      }
+
+      .mobile-drawer-close {
+        background: rgba(255, 255, 255, 0.05);
         border: 1px solid #334155;
+        border-radius: 0.4rem;
+        color: var(--text-secondary);
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .mobile-drawer-close:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+        border-color: #64748b;
+      }
+
+      .mobile-drawer-nav {
+        padding: 1rem 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        flex: 1;
+      }
+
+      .mobile-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0.95rem;
+        border-radius: 0.5rem;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        font-family: var(--font-sans);
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+
+      .mobile-nav-link:hover {
+        background: #1e293b;
+        color: var(--teal-primary);
+      }
+
+      .mobile-nav-link .mobile-nav-icon {
+        font-size: 1.15rem;
+        width: 24px;
+        display: inline-flex;
+        justify-content: center;
+      }
+
+      .mobile-nav-link.highlight {
+        color: var(--teal-primary);
+        font-weight: 700;
+        background: rgba(20, 184, 166, 0.08);
+        border: 1px solid rgba(20, 184, 166, 0.2);
+      }
+
+      .mobile-nav-link.highlight:hover {
+        background: rgba(20, 184, 166, 0.16);
+      }
+
+      .mobile-nav-link.danger {
+        color: #fca5a5;
+      }
+
+      .mobile-nav-link.danger:hover {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+      }
+
+      .mobile-drawer-footer {
+        padding: 1rem 1.25rem;
+        border-top: 1px solid #1e293b;
+        background: #090e1a;
       }
 
       .nav-links {
@@ -262,20 +441,6 @@
         box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
       }
 
-      /* Seroxat Pill Profile Info Strip */
-      .pill-profile-strip {
-        background: #111827;
-        border: 1px solid var(--border-medium);
-        border-radius: 0.75rem;
-        padding: 1rem 1.25rem;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1.25rem;
-        flex-wrap: wrap;
-      }
-
       .pill-badge {
         display: inline-flex;
         align-items: center;
@@ -289,41 +454,7 @@
         border: 1px solid #334155;
       }
 
-      .pill-dot-white {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #ffffff;
-        box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
-        display: inline-block;
-      }
-      .pill-dot-rosy {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #f472b6;
-        box-shadow: 0 0 4px rgba(244, 114, 182, 0.6);
-        display: inline-block;
-      }
-      .pill-dot-blue {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #60a5fa;
-        box-shadow: 0 0 4px rgba(96, 165, 250, 0.6);
-        display: inline-block;
-      }
-
       /* Big Picture Chart Section */
-      .chart-container {
-        position: relative;
-        background: var(--surface);
-        border: 1px solid var(--border-subtle);
-        border-radius: 0.75rem;
-        padding: 1.35rem;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-      }
-
       .chart-header {
         display: flex;
         align-items: center;
@@ -334,41 +465,6 @@
         padding-bottom: 0.85rem;
         border-bottom: 1px solid var(--border-subtle);
       }
-
-      .chart-legend {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
-
-      .legend-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.825rem;
-        font-family: var(--font-sans);
-        color: var(--text-secondary);
-        font-weight: 600;
-        cursor: pointer;
-        user-select: none;
-        transition: opacity 0.15s ease;
-      }
-
-      .legend-item:hover {
-        color: var(--text-primary);
-      }
-
-      .legend-indicator {
-        width: 16px;
-        height: 5px;
-        border-radius: 3px;
-        display: inline-block;
-      }
-
-      .legend-dose { background-color: var(--blue-primary); }
-      .legend-symptoms { background-color: var(--rose-alert); }
-      .legend-speed { background-color: var(--emerald-primary); }
 
       .segmented-control {
         display: flex;
@@ -531,6 +627,13 @@
         margin-top: 0.25rem;
       }
 
+      .square-chart-footer span {
+        font-size: 0.685rem;
+        font-weight: 600;
+        font-family: var(--font-mono);
+        letter-spacing: -0.01em;
+      }
+
       .chart-tooltip {
         position: absolute;
         pointer-events: none;
@@ -547,53 +650,6 @@
         transform: translate(-50%, -115%);
         font-family: var(--font-sans);
         border: 1px solid #334155;
-      }
-
-      /* Chart Metrics Summary Bar */
-      .chart-summary-bar {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-top: 1.25rem;
-        padding-top: 1.15rem;
-        border-top: 1px solid var(--border-subtle);
-      }
-
-      .metric-pill {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-      }
-
-      .metric-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        letter-spacing: 0.03em;
-        font-weight: 600;
-        font-family: var(--font-sans);
-      }
-
-      .metric-value {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        display: flex;
-        align-items: baseline;
-        gap: 0.35rem;
-      }
-
-      .metric-unit {
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: var(--text-muted);
-        font-family: var(--font-mono);
-      }
-
-      .metric-sub {
-        font-size: 0.775rem;
-        color: var(--text-secondary);
-        font-family: var(--font-sans);
       }
 
       /* CALENDAR & WORKSPACE (MOST PROMINENT) */
@@ -939,16 +995,6 @@
         margin-top: 0.15rem;
       }
 
-      .panel-status-bar {
-        margin-top: 0.35rem;
-        font-size: 0.775rem;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-family: var(--font-sans);
-      }
-
       /* Quick Pill Amount Picker Buttons */
       .pill-quick-pickers {
         display: grid;
@@ -1106,80 +1152,6 @@
         margin-top: 1rem;
       }
 
-      .plan-adherence-banner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.35rem;
-        border-radius: 0.6rem;
-        margin-bottom: 1.35rem;
-        gap: 1.25rem;
-        flex-wrap: wrap;
-      }
-
-      .banner-matched {
-        background: #064e3b;
-        border: 1px solid #059669;
-        color: #ecfdf5;
-      }
-
-      .banner-alert {
-        background: #451a03;
-        border: 1px solid #b45309;
-        color: #fef3c7;
-      }
-
-      .banner-danger {
-        background: #4c0519;
-        border: 1px solid #9f1239;
-        color: #ffe4e6;
-      }
-
-      /* Official Leaflet Reference Grid */
-      .leaflet-ref-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 0.75rem;
-        margin-bottom: 1.25rem;
-      }
-
-      .leaflet-ref-card {
-        background: #192234;
-        border: 1px solid #334155;
-        border-radius: 0.5rem;
-        padding: 0.75rem 0.9rem;
-      }
-
-      .leaflet-ref-card.active-indication {
-        border-color: var(--teal-primary);
-        background: #042f2e;
-      }
-
-      .leaflet-condition-name {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--text-muted);
-      }
-
-      .leaflet-condition-dose {
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        font-family: var(--font-mono);
-        margin-top: 0.15rem;
-      }
-
-      .plan-config-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        gap: 1rem;
-        padding: 1.15rem;
-        background: var(--surface-subtle);
-        border-radius: 0.6rem;
-        margin-bottom: 1.35rem;
-        border: 1px solid var(--border-subtle);
-      }
-
       /* Multi-Plan & Conflict Overlay Styles */
       .plan-conflict-overlay {
         display: none;
@@ -1225,56 +1197,6 @@
         flex-wrap: wrap;
       }
 
-      /* Adaptive Symptom Feedback Strip */
-      .adaptive-symptom-strip {
-        background: #0b1329;
-        border: 1px solid #1e293b;
-        border-radius: 0.75rem;
-        padding: 1.1rem 1.25rem;
-        margin-bottom: 1.35rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .adaptive-symptom-info {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        max-width: 680px;
-      }
-
-      .adaptive-symptom-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.8rem;
-        font-weight: 700;
-        font-family: var(--font-sans);
-        padding: 0.25rem 0.65rem;
-        border-radius: 0.35rem;
-        width: fit-content;
-      }
-
-      .badge-stable {
-        background: rgba(16, 185, 129, 0.2);
-        color: #34d399;
-        border: 1px solid rgba(16, 185, 129, 0.35);
-      }
-
-      .badge-warning {
-        background: rgba(245, 158, 11, 0.2);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.35);
-      }
-
-      .badge-danger {
-        background: rgba(239, 68, 68, 0.2);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.35);
-      }
 
       /* Plans Grid / Deck */
       /* Plans Menu: Descriptive List Layout */
@@ -1340,33 +1262,6 @@
         align-items: center;
       }
 
-      .plan-list-summary-pills {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        flex-wrap: wrap;
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-      }
-
-      .plan-summary-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        background: #192234;
-        border: 1px solid #334155;
-        border-radius: 0.35rem;
-        padding: 0.22rem 0.55rem;
-        font-size: 0.775rem;
-        font-family: var(--font-mono);
-      }
-
-      .plan-list-details {
-        font-size: 0.825rem;
-        color: var(--text-muted);
-        line-height: 1.45;
-      }
-
       /* Appealing Day Chips in Action Plans */
       .plan-days-container {
         display: flex;
@@ -1409,36 +1304,6 @@
         line-height: 1.15;
       }
 
-      .dose-badge-30 {
-        background: rgba(96, 165, 250, 0.18);
-        color: #93c5fd;
-        border: 1px solid rgba(96, 165, 250, 0.35);
-      }
-
-      .dose-badge-20 {
-        background: rgba(255, 255, 255, 0.14);
-        color: #ffffff;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .dose-badge-10 {
-        background: rgba(56, 189, 248, 0.18);
-        color: #38bdf8;
-        border: 1px solid rgba(56, 189, 248, 0.35);
-      }
-
-      .dose-badge-rose {
-        background: rgba(244, 114, 182, 0.18);
-        color: #f472b6;
-        border: 1px solid rgba(244, 114, 182, 0.35);
-      }
-
-      .dose-badge-0 {
-        background: rgba(148, 163, 184, 0.12);
-        color: #94a3b8;
-        border: 1px solid rgba(148, 163, 184, 0.25);
-      }
-
       .plan-list-actions {
         display: flex;
         align-items: center;
@@ -1470,39 +1335,8 @@
         font-weight: 700;
       }
 
-      /* Calendar Day Lock and Concluded Statuses */
-      .calendar-day-cell.day-locked {
-        opacity: 0.88;
-        background: rgba(11, 17, 32, 0.85) !important;
-        border: 1px dashed #334155;
-        cursor: pointer;
-      }
-
-      .calendar-day-cell.day-locked:hover {
-        border-color: #38bdf8 !important;
-        background: #111a2e !important;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      }
-
       .calendar-day-cell.day-concluded {
         border-color: #047857;
-      }
-
-      .day-locked-tag {
-        font-size: 0.65rem;
-        color: #94a3b8;
-        font-family: var(--font-sans);
-        display: inline-flex;
-        align-items: center;
-        gap: 0.2rem;
-      }
-
-      .day-ready-tag {
-        font-size: 0.65rem;
-        color: var(--teal-primary);
-        font-family: var(--font-sans);
-        font-weight: 700;
       }
 
       /* Concluded Registry Text-Only Window */
@@ -1575,29 +1409,11 @@
         gap: 0.4rem;
       }
 
-      .reg-symptom-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.35rem 0.5rem;
-        background: #192234;
-        border-radius: 0.35rem;
-        font-size: 0.75rem;
-      }
-
       .registry-notes-card {
         background: #0f172a;
         border: 1px solid #1e293b;
         border-radius: 0.6rem;
         padding: 0.9rem;
-      }
-
-      .panel-locked-view {
-        text-align: left;
-        padding: 1.15rem;
-        background: #0b1120;
-        border: 1px dashed #334155;
-        border-radius: 0.6rem;
       }
 
       /* Practical Modal Editor Styles */
@@ -1630,67 +1446,6 @@
         color: #38bdf8;
         text-transform: uppercase;
         margin-bottom: 0;
-      }
-
-      .preset-btn-group {
-        display: flex;
-        gap: 0.4rem;
-        flex-wrap: wrap;
-        margin-bottom: 0.75rem;
-      }
-
-      .preset-chip {
-        background: #1e293b;
-        border: 1px solid #334155;
-        color: var(--text-secondary);
-        font-size: 0.725rem;
-        font-weight: 600;
-        padding: 0.3rem 0.6rem;
-        border-radius: 0.35rem;
-        cursor: pointer;
-        transition: all 0.15s ease;
-      }
-
-      .preset-chip:hover {
-        border-color: var(--teal-primary);
-        color: #ffffff;
-        background: #2dd4bf20;
-      }
-
-      .plan-table-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--border-subtle);
-        border-radius: 0.5rem;
-      }
-
-      table.plan-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.825rem;
-        text-align: left;
-      }
-
-      table.plan-table th {
-        background: var(--surface-subtle);
-        padding: 0.75rem 1rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        border-bottom: 1px solid var(--border-subtle);
-        font-family: var(--font-sans);
-      }
-
-      table.plan-table td {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid var(--border-subtle);
-        color: var(--text-primary);
-      }
-
-      table.plan-table tr:hover td {
-        background: var(--surface-hover);
-      }
-
-      table.plan-table tr:last-child td {
-        border-bottom: none;
       }
 
       /* DIGITAL LIBRARY & ARCHIVE */
@@ -1848,10 +1603,6 @@
 
       /* Mobile & Tablet Responsiveness Enhancements */
       @media (max-width: 1080px) {
-        .mini-charts-grid {
-          grid-template-columns: 1fr;
-          gap: 0.85rem;
-        }
         .calendar-workspace {
           grid-template-columns: 1fr;
         }
@@ -1861,20 +1612,24 @@
         }
       }
 
+      @media (max-width: 900px) {
+        .mobile-hamburger-btn {
+          display: flex;
+        }
+        .nav-links {
+          display: none !important;
+        }
+        .top-nav-inner {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.75rem 1rem;
+        }
+      }
+
       @media (max-width: 768px) {
         .app-container {
           padding: 1rem 0.85rem;
-        }
-        .top-nav-inner {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.75rem;
-          padding: 0.75rem 1rem;
-        }
-        .nav-links {
-          flex-wrap: wrap;
-          gap: 0.75rem 1rem;
-          font-size: 0.8rem;
         }
         .section-heading {
           flex-direction: column;
@@ -1894,12 +1649,6 @@
           font-size: 0.72rem;
           flex: 1;
           text-align: center;
-        }
-        .mini-chart-card {
-          padding: 0.75rem;
-        }
-        .mini-chart-canvas-wrap {
-          height: 155px;
         }
         .calendar-card {
           padding: 0.85rem 0.65rem;
@@ -1974,9 +1723,6 @@
         .pill-quick-pickers {
           grid-template-columns: repeat(2, 1fr);
         }
-        .mini-stat-val {
-          font-size: 0.95rem;
-        }
       }
 
       /* Clean Document Printing Support */
@@ -2047,19 +1793,93 @@
     </style>
   </head>
   <body>
-    <!-- Top Navigation Bar -->
-    <header class="top-nav">
-      <div class="top-nav-inner">
-        <!-- Brand Title Zone -->
-        <a href="#overview" class="brand-title">
-          <span class="brand-icon">
+    <!-- Mobile Navigation Drawer Overlay Backdrop -->
+    <div id="mobile-menu-backdrop" class="mobile-menu-backdrop" onclick="app.closeMobileMenu()" aria-hidden="true"></div>
+
+    <!-- Mobile Navigation Drawer (Slides from the left for phone responsiveness) -->
+    <aside id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Navigation Menu">
+      <div class="mobile-drawer-header">
+        <div class="mobile-drawer-brand">
+          <span class="brand-icon" style="color: var(--teal-primary); display: flex; align-items: center;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
               <path d="m8.5 8.5 7 7"></path>
             </svg>
           </span>
-          <span>Taper<span class="accent"> Diary</span></span>
+          <span style="font-weight: 800; font-size: 1.15rem; color: var(--text-primary); letter-spacing: -0.02em;">Taper<span style="color: var(--teal-primary);"> Diary</span></span>
+        </div>
+        <button type="button" class="mobile-drawer-close" aria-label="Close navigation" onclick="app.closeMobileMenu()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-drawer-nav">
+        <a href="#chart-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">📈</span>
+          <span>Trajectory Chart</span>
         </a>
+        <a href="#calendar-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">📅</span>
+          <span>Calendar & Intake Log</span>
+        </a>
+        <a href="#tablets-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">💊</span>
+          <span>My Tablets</span>
+        </a>
+        <a href="#plan-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">📋</span>
+          <span>Action Plan</span>
+        </a>
+        <a href="#total-summary-intake-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">📑</span>
+          <span>Total Summary of Intake</span>
+        </a>
+        <a href="#library-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">📚</span>
+          <span>Digital Library</span>
+        </a>
+        <a href="#urgent-help-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">🚨</span>
+          <span>When to get urgent help</span>
+        </a>
+        <a href="#data-privacy-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">🔒</span>
+          <span>Data & Privacy</span>
+        </a>
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <div style="font-size: 0.725rem; color: var(--text-muted); line-height: 1.45;">
+          Taper Diary · Private, on-device tapering & symptom journal.
+        </div>
+      </div>
+    </aside>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="top-nav-inner">
+        <!-- Left group with hamburger menu for phone responsiveness and brand title -->
+        <div class="nav-left-group">
+          <button type="button" id="mobile-menu-btn" class="mobile-hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" onclick="app.toggleMobileMenu()">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+
+          <!-- Brand Title Zone -->
+          <a href="#overview" class="brand-title" onclick="app.closeMobileMenu()">
+            <span class="brand-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+                <path d="m8.5 8.5 7 7"></path>
+              </svg>
+            </span>
+            <span>Taper<span class="accent"> Diary</span></span>
+          </a>
+        </div>
 
         <!-- Navigation Links Zone -->
         <nav class="nav-links">
@@ -2067,9 +1887,9 @@
           <a href="#calendar-section">Calendar</a>
           <a href="#tablets-section">My Tablets</a>
           <a href="#plan-section">Action Plan</a>
-          <a href="javascript:void(0)" onclick="app.openPrescriberSummary()" style="color: var(--teal-primary); font-weight: 700;">Summary for Prescriber</a>
+          <a href="#total-summary-intake-section">Total Summary of Intake</a>
           <a href="#library-section">Digital Library</a>
-          <a href="#urgent-help-section" style="color: #fca5a5;">When to get urgent help</a>
+          <a href="#urgent-help-section">When to get urgent help</a>
           <a href="#data-privacy-section">Data & Privacy</a>
         </nav>
       </div>
@@ -2098,26 +1918,6 @@
               Mark as discussed with my doctor
             </button>
           </div>
-        </div>
-      </div>
-
-      <!-- EXAMPLE DATA ACTIVE BANNER -->
-      <div id="example-data-banner" style="display: none; background: #1e1b4b; border: 1.5px solid #6366f1; border-radius: 0.65rem; padding: 0.85rem 1.15rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);">
-        <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 0.65rem;">
-            <span style="background: #4f46e5; color: #ffffff; font-size: 0.725rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 0.35rem; font-family: var(--font-sans); letter-spacing: 0.05em;">EXAMPLE DATA</span>
-            <div>
-              <div style="font-size: 0.825rem; font-weight: 700; color: #e0e7ff; font-family: var(--font-sans);">
-                Viewing In-Memory Example Data
-              </div>
-              <div style="font-size: 0.75rem; color: #a5b4fc; font-family: var(--font-sans);">
-                This simulated history is active in memory for preview purposes only. It is <strong>never written to localStorage</strong>.
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="app.clearExampleData()" style="border-color: #6366f1; color: #ffffff; background: #312e81;">
-            Clear Example Data
-          </button>
         </div>
       </div>
 
@@ -2157,9 +1957,9 @@
               <svg id="chart-svg-dose" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #60a5fa;">Goal: 0 mg</span>
-              <span id="chart-dose-progress-tag" style="color: #94a3b8; font-weight: 600;">Awaiting entry</span>
-              <span style="color: #60a5fa;">Max: 30 mg</span>
+              <span style="color: #38bdf8;">Goal: 0 mg</span>
+              <span id="chart-dose-progress-tag" style="color: #38bdf8;">Awaiting entry</span>
+              <span style="color: #38bdf8;">Max: 30 mg</span>
             </div>
           </div>
 
@@ -2179,9 +1979,9 @@
               <svg id="chart-svg-symptoms" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #f97316; font-weight: 600;">&le;2 Mild Zone</span>
-              <span style="color: #f97316; font-weight: 600;">&ge;5 Alert</span>
-              <span style="color: #fb7185;">10 Max</span>
+              <span style="color: #fb7185;">Mild: &le;2</span>
+              <span style="color: #fb7185;">Alert: &ge;5</span>
+              <span style="color: #fb7185;">Max: 10</span>
             </div>
           </div>
 
@@ -2201,14 +2001,22 @@
               <svg id="chart-svg-speed" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #10b981;">0% No change</span>
+              <span style="color: #34d399;">Min: 0%</span>
               <span style="color: #34d399;">Step change</span>
-              <span style="color: #10b981;">100% Drop</span>
+              <span style="color: #34d399;">Max: 100%</span>
             </div>
           </div>
 
           <!-- Interactive Hover Tooltip -->
           <div id="chart-tooltip" class="chart-tooltip" style="opacity: 0; pointer-events: none;"></div>
+        </div>
+
+        <!-- Total Summary of Intake Button below graphs -->
+        <div id="total-summary-intake-section" style="margin-top: 1.25rem; display: flex; justify-content: center; scroll-margin-top: 5rem;">
+          <button type="button" class="btn btn-primary" onclick="app.openPrescriberSummary()" style="padding: 0.75rem 1.6rem; font-size: 0.95rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.55rem; box-shadow: 0 4px 14px rgba(20, 184, 166, 0.25);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Total Summary of Intake
+          </button>
         </div>
 
         <div style="margin-top: 0.85rem; font-size: 0.775rem; color: var(--text-muted); text-align: center; font-family: var(--font-sans);">
@@ -2222,12 +2030,6 @@
           <div class="section-heading-left">
             <h2>Daily Intake & Symptom Calendar</h2>
             <p>Track your daily Seroxat pill consumption day-by-day across all active formulations: 10 rose, 10 white half, white 20, and blue 30 mg. Click any date to log or inspect entries.</p>
-          </div>
-          <div style="display: flex; gap: 0.85rem; align-items: center; font-size: 0.75rem; font-family: var(--font-sans); flex-wrap: wrap;">
-            <span style="display:inline-flex; align-items:center; gap:0.35rem;"><span style="width:8px; height:8px; border-radius:50%; background:var(--emerald-primary);"></span> Mild (&le;2)</span>
-            <span style="display:inline-flex; align-items:center; gap:0.35rem;"><span style="width:8px; height:8px; border-radius:50%; background:var(--amber-warning);"></span> Moderate (3–5)</span>
-            <span style="display:inline-flex; align-items:center; gap:0.35rem;"><span style="width:8px; height:8px; border-radius:50%; background:var(--rose-alert);"></span> Elevated (&ge;6)</span>
-            <span style="display:inline-flex; align-items:center; gap:0.35rem; color:var(--text-muted);">⚡ Brain zaps · 〰 Vertigo · 💤 Sleep</span>
           </div>
         </div>
 
@@ -2280,10 +2082,6 @@
             <div class="panel-header">
               <div class="panel-header-kicker" id="panel-kicker">Seroxat Daily Entry</div>
               <div class="panel-date-display" id="panel-date-str">October 2, 2026</div>
-              <div class="panel-status-bar" id="panel-status-bar">
-                <span style="width:8px; height:8px; border-radius:50%; background:var(--teal-primary);" id="panel-status-dot"></span>
-                <span id="panel-adherence-badge">Matches Active Pill Step</span>
-              </div>
             </div>
 
             <!-- Contextual Clinical Warning Box -->
@@ -2351,11 +2149,6 @@
               <input type="hidden" id="input-dose" value="10.0" />
               <input type="hidden" id="input-formulation" value="white-half" />
 
-              <!-- Orientation Guide Banner (Informs user of orientation target without restricting intake) -->
-              <div id="form-orientation-banner" style="background: #111e33; border: 1px solid #1e3a5f; border-radius: 0.5rem; padding: 0.7rem 0.85rem; margin-bottom: 0.9rem; font-size: 0.775rem; color: #94a3b8; line-height: 1.45;">
-                <!-- Dynamically populated in selectDate() -->
-              </div>
-
               <!-- Quick Pill Amount Picker Buttons -->
               <div class="form-group">
                 <label>Daily Dose Registry (Quick Pill Amount Selection)</label>
@@ -2369,29 +2162,8 @@
                 <input type="time" id="input-time" class="form-control" value="08:30" />
               </div>
 
-              <!-- REQUIRED DAILY SAFETY QUESTION -->
-              <div class="form-group" style="background: rgba(15, 23, 42, 0.7); border: 1.5px solid #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-top: 1rem; margin-bottom: 1.15rem;">
-                <label style="font-size: 0.825rem; font-weight: 700; color: #f8fafc; display: block; margin-bottom: 0.45rem; line-height: 1.4;">
-                  Thoughts of harming yourself or not wanting to be alive today? <span style="color: #f43f5e; font-weight: 800;">*</span>
-                </label>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">
-                    <input type="radio" name="safety-check" value="No" id="safety-no" style="accent-color: var(--teal-primary);" /> No
-                  </label>
-                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #fbbf24; cursor: pointer;">
-                    <input type="radio" name="safety-check" value="Sometimes" id="safety-sometimes" style="accent-color: #f59e0b;" /> Sometimes
-                  </label>
-                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #f87171; cursor: pointer;">
-                    <input type="radio" name="safety-check" value="Yes" id="safety-yes" style="accent-color: #ef4444;" /> Yes
-                  </label>
-                </div>
-                <div id="safety-validation-msg" style="display: none; color: #f87171; font-size: 0.75rem; margin-top: 0.4rem; font-weight: 600;">
-                  ⚠️ Please select an answer to this safety question to save your entry.
-                </div>
-              </div>
-
               <!-- Discontinuation Symptom Rating Sliders (5 Physical Symptoms) -->
-              <div class="symptom-section-header">
+              <div class="symptom-section-header" style="margin-top: 1rem;">
                 <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Physical Discontinuation Symptoms (0–10)</label>
                 <span id="symptom-avg-display" class="tabular-nums" style="font-size: 0.775rem; font-weight: 700; color: var(--teal-primary);">Avg: 0.0/10</span>
               </div>
@@ -2436,10 +2208,15 @@
                 <input type="range" min="0" max="10" value="0" id="range-headache" oninput="app.updateSliderVal('headache', this.value)" />
               </div>
 
-              <!-- SEPARATE LOW MOOD SLIDER (KEPT OUT OF SYMPTOM AVERAGE) -->
-              <div class="symptom-slider-item" style="border-top: 1px dashed #334155; padding-top: 0.75rem; margin-top: 0.85rem;">
+              <!-- PSYCHOLOGICAL SYMPTOMS GROUP -->
+              <div class="symptom-section-header" style="margin-top: 1.15rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle);">
+                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Psychological Symptoms</label>
+              </div>
+
+              <!-- LOW MOOD SLIDER -->
+              <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span style="font-weight: 700; color: #e2e8f0;">💭 Low mood</span>
+                  <span style="font-weight: 700; color: #e2e8f0;">💭 Low mood (0–10)</span>
                   <span class="val" id="val-low-mood">0</span>
                 </div>
                 <input type="range" min="0" max="10" value="0" id="range-low-mood" oninput="app.updateSliderVal('low-mood', this.value)" />
@@ -2448,8 +2225,29 @@
                 </div>
               </div>
 
+              <!-- REQUIRED DAILY SAFETY QUESTION (GROUPED WITH PSYCHOLOGICAL SYMPTOMS) -->
+              <div class="form-group" style="background: rgba(15, 23, 42, 0.7); border: 1.5px solid #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-top: 0.75rem; margin-bottom: 0.85rem;">
+                <label style="font-size: 0.825rem; font-weight: 700; color: #f8fafc; display: block; margin-bottom: 0.45rem; line-height: 1.4;">
+                  Thoughts of harming yourself or not wanting to be alive today? <span style="color: #f43f5e; font-weight: 800;">*</span>
+                </label>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">
+                    <input type="radio" name="safety-check" value="No" id="safety-no" style="accent-color: var(--teal-primary);" /> No
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #fbbf24; cursor: pointer;">
+                    <input type="radio" name="safety-check" value="Sometimes" id="safety-sometimes" style="accent-color: #f59e0b;" /> Sometimes
+                  </label>
+                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #f87171; cursor: pointer;">
+                    <input type="radio" name="safety-check" value="Yes" id="safety-yes" style="accent-color: #ef4444;" /> Yes
+                  </label>
+                </div>
+                <div id="safety-validation-msg" style="display: none; color: #f87171; font-size: 0.75rem; margin-top: 0.4rem; font-weight: 600;">
+                  ⚠️ Please select an answer to this safety question to save your entry.
+                </div>
+              </div>
+
               <div class="form-group" style="margin-top: 0.85rem;">
-                <label for="input-notes">Notes & Pill Splitting Observations</label>
+                <label for="input-notes">Notes and observations</label>
                 <textarea id="input-notes" class="form-control" rows="2" placeholder="e.g. Took 10 White Half along score line with breakfast; feeling stable."></textarea>
               </div>
 
@@ -2480,10 +2278,6 @@
             <p>Configure your prescribed tablets, strengths, and liquid formulations to match your specific prescription.</p>
           </div>
           <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-            <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-              Add Tablet
-            </button>
           </div>
         </div>
 
@@ -2509,24 +2303,6 @@
             <h2>Dynamic Action Plans & Symptom Pacing</h2>
             <p>Adaptive tapering plans constructed around your body's registered withdrawal reactions. Delineate exact pill amounts for every day of the week, chain multiple phases, update the calendar, and detect scheduling conflicts automatically.</p>
           </div>
-          <div style="display: flex; gap: 0.65rem; align-items: center; flex-wrap: wrap;">
-            <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-              Add New Plan
-            </button>
-            <button class="btn btn-secondary btn-sm" onclick="app.applyAllPlansToCalendar()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              Update to Calendar
-            </button>
-            <div style="display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="btn btn-secondary btn-sm" id="btn-suggest-hold" onclick="app.suggestLongerHold()">
-                Suggest a longer hold
-              </button>
-              <span style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans);">
-                This only lengthens your current plan. It never lowers your dose.
-              </span>
-            </div>
-          </div>
         </div>
 
         <div class="plan-section-card">
@@ -2542,28 +2318,9 @@
             </div>
           </div>
 
-          <!-- Adaptive Symptom Strip -->
-          <div id="adaptive-symptom-strip" class="adaptive-symptom-strip">
-            <!-- Dynamically populated via app.renderAdaptiveSymptomCard() -->
-          </div>
-
           <!-- Scheduling Conflict Overlay Note (Visible when active plans overlap) -->
           <div class="plan-conflict-overlay" id="plan-conflict-overlay">
             <!-- Dynamically populated via app.renderConflictOverlay() -->
-          </div>
-
-
-          <!-- Notification / Today's Adherence Banner -->
-          <div class="plan-adherence-banner banner-matched" id="plan-adherence-banner">
-            <div>
-              <strong id="adherence-status-title" style="font-size: 0.95rem;">Active Plan — Synchronized</strong>
-              <div id="adherence-status-desc" style="font-size: 0.825rem; margin-top: 0.2rem; font-family: var(--font-sans);">
-                Daily dose matches scheduled amount.
-              </div>
-            </div>
-            <div id="adherence-rate-badge" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 0.4rem; background: rgba(0,0,0,0.25);">
-              Adherence: 100%
-            </div>
           </div>
 
           <!-- Multi-Plan Grid (All Created Plans with Weekday breakdowns) -->
@@ -2580,13 +2337,30 @@
             <!-- Dynamically populated via app.renderPlans() -->
           </div>
 
-          <div style="margin-top: 1.15rem; display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
-            <button class="btn btn-primary btn-sm" onclick="app.applyAllPlansToCalendar()">
-              Update & Sync All Plans to Calendar
-            </button>
+          <!-- Action Plan Control Buttons in div below plans -->
+          <div style="margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
+            <div style="display: flex; gap: 0.65rem; align-items: center; flex-wrap: wrap;">
+              <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+                Add New Plan
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="app.applyAllPlansToCalendar()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Update to Calendar
+              </button>
+            </div>
+            <div style="display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" id="btn-suggest-hold" onclick="app.suggestLongerHold()">
+                Suggest a longer hold
+              </button>
+              <span style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans);">
+                This only lengthens your current plan. It never lowers your dose.
+              </span>
+            </div>
           </div>
         </div>
       </section>
+
 
       <!-- SECTION 4: DIGITAL LIBRARY -->
       <section id="library-section">
@@ -2600,9 +2374,6 @@
           </div>
         </div>
 
-        <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-subtle); border-left: 3px solid var(--teal-primary); border-radius: 0.45rem; padding: 0.75rem 1rem; margin-bottom: 1.15rem; font-size: 0.825rem; color: var(--text-secondary); font-family: var(--font-sans);">
-          These are links to external sources. The app does not summarise them. Read the originals and talk to your prescriber.
-        </div>
 
         <!-- Filter Category Tabs -->
         <div class="library-filter-bar">
@@ -2681,6 +2452,7 @@
           <strong style="color: var(--text-primary);">Your saved crisis helpline / contact:</strong>
           <span id="urgent-custom-contact-val" style="margin-left: 0.35rem; color: var(--teal-primary); font-family: var(--font-mono); font-weight: 700;"></span>
         </div>
+
       </section>
 
       <!-- SECTION: DATA & PRIVACY -->
@@ -2689,11 +2461,6 @@
           <div class="section-heading-left">
             <h2>Data & Privacy</h2>
             <p>Manage your logs, export backups, and control data stored in this browser.</p>
-          </div>
-          <div>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="app.openPrescriberSummary()" style="display: inline-flex; align-items: center; gap: 0.4rem;">
-              <span>📋</span> Summary for my prescriber
-            </button>
           </div>
         </div>
 
@@ -2706,7 +2473,7 @@
             </div>
           </div>
 
-          <!-- 2. Export / Import / Summary / Delete Controls Grid -->
+          <!-- 2. Export / Import / Delete Controls Grid -->
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
               <!-- Export backup -->
@@ -2720,12 +2487,6 @@
               <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('backup-file-input').click()" style="display: inline-flex; align-items: center; gap: 0.45rem;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
                 Import backup
-              </button>
-
-              <!-- Summary for my prescriber -->
-              <button type="button" class="btn btn-secondary btn-sm" onclick="app.openPrescriberSummary()" style="display: inline-flex; align-items: center; gap: 0.45rem;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                Summary for my prescriber
               </button>
             </div>
 
@@ -2779,36 +2540,6 @@
         </div>
       </section>
 
-      <!-- SECTION 5: DEMO / EXAMPLE DATA (COLLAPSED BY DEFAULT) -->
-      <section id="demo-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
-        <details id="demo-details" style="background: #0f172a; border: 1px dashed #334155; border-radius: 0.65rem; padding: 0.85rem 1.15rem;">
-          <summary style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; color: var(--text-muted); cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.5rem;">
-            <span>🔬</span>
-            <span>Demo</span>
-            <span style="font-size: 0.725rem; font-weight: 500; color: #64748b; margin-left: 0.35rem;">(Testing & Simulated Data)</span>
-          </summary>
-          <div style="margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid #1e293b; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-            <div>
-              <div style="font-size: 0.825rem; font-weight: 700; color: var(--text-secondary); font-family: var(--font-sans); display: flex; align-items: center; gap: 0.4rem;">
-                <span>Simulate 31-Day Tapering History</span>
-                <span style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.35); font-size: 0.65rem; font-weight: 800; padding: 0.1rem 0.4rem; border-radius: 0.3rem;">EXAMPLE DATA</span>
-              </div>
-              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; font-family: var(--font-sans); max-width: 620px;">
-                Loads realistic sample logs into browser memory to preview charts, adherence metrics, and calendar features. <strong>Lives only in memory and is never written to localStorage.</strong>
-              </div>
-            </div>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <button type="button" class="btn btn-secondary btn-sm" id="btn-load-example-data" onclick="app.loadExampleData()">
-                Load example data
-              </button>
-              <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-example-data" onclick="app.clearExampleData()" style="display: none; color: #f87171;">
-                Clear example data
-              </button>
-            </div>
-          </div>
-        </details>
-      </section>
-
     </main>
 
     <!-- Permanent Footer -->
@@ -2847,7 +2578,7 @@
       </div>
     </div>
 
-    <!-- Summary for Prescriber Overlay (Print-Friendly Report) -->
+    <!-- Total Summary of Intake Overlay (Print-Friendly Report) -->
     <div id="prescriber-summary-overlay" style="display: none; position: fixed; inset: 0; background: rgba(5, 8, 16, 0.95); z-index: 10000; overflow-y: auto; padding: 1.5rem; backdrop-filter: blur(8px);">
       <div id="prescriber-summary-modal" style="background: #0f172a; border: 1.5px solid #334155; border-radius: 0.85rem; max-width: 1050px; width: 100%; margin: 0 auto; padding: 2rem 2.25rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
         <!-- Top Toolbar (Screen Only, Hidden on Print) -->
@@ -2855,7 +2586,7 @@
           <div style="display: flex; align-items: center; gap: 0.65rem;">
             <span style="font-size: 1.25rem;">📋</span>
             <div>
-              <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin: 0;">Summary for Prescriber</h2>
+              <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin: 0;">Total Summary of Intake</h2>
               <div style="font-size: 0.75rem; color: var(--text-muted);">Print-friendly report of doses, changes, mood, safety answers, and symptoms.</div>
             </div>
           </div>
@@ -2997,17 +2728,27 @@
 
           this.loadStorage();
           this.checkFirstVisitNotice();
+          this.renderAll(this.state.selectedDate);
+
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              this.closeMobileMenu();
+            }
+          });
+        },
+
+        renderAll(dateToSelect = this.state.selectedDate) {
           this.renderCrisisBanner();
           this.renderUrgentHelpSection();
-          this.renderPrescriberQuestions();
           this.renderTablets();
           this.renderQuickPillButtons();
           this.renderCalendar();
           this.renderConflictOverlay();
-          this.renderAdaptiveSymptomCard();
           this.renderPlans();
           this.renderLibrary();
-          this.selectDate(this.state.selectedDate);
+          if (dateToSelect) {
+            this.selectDate(dateToSelect);
+          }
           this.renderChart();
           this.checkAdherence();
           this.updateMetricBar();
@@ -3016,21 +2757,33 @@
 
         loadStorage() {
           try {
-            const saved = localStorage.getItem('seroxat_taper_state');
+            let saved = localStorage.getItem('taper_diary_state');
+            if (!saved) {
+              const oldSaved = localStorage.getItem('seroxat_taper_state');
+              if (oldSaved) {
+                saved = oldSaved;
+                try {
+                  localStorage.setItem('taper_diary_state', oldSaved);
+                  localStorage.removeItem('seroxat_taper_state');
+                } catch (e) {}
+              }
+            }
             if (saved) {
               const parsed = JSON.parse(saved);
               if (parsed.logs) {
-                // Sanitize any historical logs with obsolete keys
+                // Sanitize historical logs and remove any old demo/example data so state remains a clean slate
                 Object.keys(parsed.logs).forEach(date => {
                   const entry = parsed.logs[date];
-                  if (entry) {
-                    if (entry.formulation === 'white-half-quarter') {
-                      entry.dose = 20.0;
-                      entry.formulation = 'white-whole';
-                    } else if (entry.formulation === 'white-quarter') {
-                      entry.dose = 10.0;
-                      entry.formulation = 'white-half';
-                    }
+                  if (!entry || entry.isExample || (typeof entry.notes === 'string' && entry.notes.includes('[EXAMPLE DATA]'))) {
+                    delete parsed.logs[date];
+                    return;
+                  }
+                  if (entry.formulation === 'white-half-quarter') {
+                    entry.dose = 20.0;
+                    entry.formulation = 'white-whole';
+                  } else if (entry.formulation === 'white-quarter') {
+                    entry.dose = 10.0;
+                    entry.formulation = 'white-half';
                   }
                 });
                 this.state.logs = parsed.logs;
@@ -3094,12 +2847,8 @@
         },
 
         saveStorage() {
-          if (this._isExampleDataLoaded) {
-            // The example data must live only in memory, and must never be written to localStorage
-            return;
-          }
           try {
-            localStorage.setItem('seroxat_taper_state', JSON.stringify({
+            localStorage.setItem('taper_diary_state', JSON.stringify({
               logs: this.state.logs,
               plans: this.state.plans,
               plan: this.state.plan,
@@ -3159,153 +2908,7 @@
           document.body.style.overflow = '';
         },
 
-        // QUESTIONS FOR MY PRESCRIBER METHODS
-        getDefaultPrescriberQuestions() {
-          return [
-            { id: 'pq-1', text: 'What symptoms should I contact you about?', done: false },
-            { id: 'pq-2', text: 'How long should I stay on each dose before we consider the next step?', done: false },
-            { id: 'pq-3', text: 'Can this medication be prescribed in liquid or smaller tablet strengths if needed?', done: false },
-            { id: 'pq-4', text: 'What is our plan if I experience significant discomfort during tapering?', done: false }
-          ];
-        },
 
-        renderPrescriberQuestions() {
-          const list = document.getElementById('prescriber-questions-list');
-          const countEl = document.getElementById('prescriber-questions-count');
-          if (!list) return;
-
-          const questions = this.state.prescriberQuestions || [];
-          const total = questions.length;
-          const completed = questions.filter(q => q.done).length;
-
-          if (countEl) {
-            countEl.textContent = total === 0 ? '0 questions' : `${completed} of ${total} discussed`;
-          }
-
-          list.innerHTML = '';
-
-          if (questions.length === 0) {
-            list.innerHTML = `
-              <div style="text-align: center; padding: 1.5rem 1rem; color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-sans); border: 1px dashed var(--border-subtle); border-radius: 0.5rem;">
-                No questions added yet. Use the field above to add questions for your next appointment.
-              </div>
-            `;
-            return;
-          }
-
-          questions.forEach((q) => {
-            const isEditing = (this.state._editingQuestionId === q.id);
-            const row = document.createElement('div');
-            row.style.cssText = `
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              background: ${q.done ? 'rgba(15, 23, 42, 0.4)' : 'rgba(15, 23, 42, 0.75)'};
-              border: 1px solid ${q.done ? 'rgba(51, 65, 85, 0.5)' : 'var(--border-subtle)'};
-              border-radius: 0.5rem;
-              padding: 0.75rem 1rem;
-              gap: 0.75rem;
-              transition: all 0.15s ease;
-            `;
-
-            if (isEditing) {
-              row.innerHTML = `
-                <div style="flex: 1; display: flex; gap: 0.5rem; align-items: center; width: 100%;">
-                  <input type="text" id="edit-pq-input-${q.id}" class="form-control" style="flex: 1; font-size: 0.85rem; padding: 0.35rem 0.65rem;" value="${this.escapeHtml(q.text)}" onkeydown="if(event.key==='Enter') app.saveEditPrescriberQuestion('${q.id}'); if(event.key==='Escape') app.cancelEditPrescriberQuestion();" />
-                  <button type="button" class="btn btn-primary btn-sm" onclick="app.saveEditPrescriberQuestion('${q.id}')">Save</button>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="app.cancelEditPrescriberQuestion()">Cancel</button>
-                </div>
-              `;
-              setTimeout(() => {
-                const editInput = document.getElementById(`edit-pq-input-${q.id}`);
-                if (editInput) editInput.focus();
-              }, 10);
-            } else {
-              row.innerHTML = `
-                <label style="display: flex; align-items: flex-start; gap: 0.75rem; flex: 1; margin: 0; cursor: pointer; user-select: none;">
-                  <input type="checkbox" ${q.done ? 'checked' : ''} onchange="app.togglePrescriberQuestion('${q.id}')" style="width: 17px; height: 17px; accent-color: var(--teal-primary); margin-top: 0.15rem; cursor: pointer;" />
-                  <span style="font-size: 0.875rem; line-height: 1.45; font-family: var(--font-sans); color: ${q.done ? 'var(--text-muted)' : 'var(--text-primary)'}; text-decoration: ${q.done ? 'line-through' : 'none'};">
-                    ${this.escapeHtml(q.text)}
-                  </span>
-                </label>
-                <div style="display: flex; gap: 0.35rem; align-items: center;">
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="app.editPrescriberQuestion('${q.id}')" title="Edit question" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; line-height: 1;">
-                    Edit
-                  </button>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="app.deletePrescriberQuestion('${q.id}')" title="Delete question" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; line-height: 1; color: #f87171;">
-                    &times;
-                  </button>
-                </div>
-              `;
-            }
-
-            list.appendChild(row);
-          });
-        },
-
-        togglePrescriberQuestion(id) {
-          const q = (this.state.prescriberQuestions || []).find(item => item.id === id);
-          if (q) {
-            q.done = !q.done;
-            this.saveStorage();
-            this.renderPrescriberQuestions();
-          }
-        },
-
-        addPrescriberQuestion() {
-          const input = document.getElementById('new-prescriber-question-input');
-          if (!input) return;
-          const text = (input.value || '').trim();
-          if (!text) return;
-
-          if (!this.state.prescriberQuestions) {
-            this.state.prescriberQuestions = [];
-          }
-          this.state.prescriberQuestions.push({
-            id: 'pq-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
-            text: text,
-            done: false
-          });
-          input.value = '';
-          this.saveStorage();
-          this.renderPrescriberQuestions();
-        },
-
-        editPrescriberQuestion(id) {
-          this.state._editingQuestionId = id;
-          this.renderPrescriberQuestions();
-        },
-
-        saveEditPrescriberQuestion(id) {
-          const input = document.getElementById(`edit-pq-input-${id}`);
-          if (!input) return;
-          const val = input.value.trim();
-          if (!val) {
-            this.deletePrescriberQuestion(id);
-            return;
-          }
-          const q = (this.state.prescriberQuestions || []).find(item => item.id === id);
-          if (q) {
-            q.text = val;
-          }
-          this.state._editingQuestionId = null;
-          this.saveStorage();
-          this.renderPrescriberQuestions();
-        },
-
-        cancelEditPrescriberQuestion() {
-          this.state._editingQuestionId = null;
-          this.renderPrescriberQuestions();
-        },
-
-        deletePrescriberQuestion(id) {
-          this.state.prescriberQuestions = (this.state.prescriberQuestions || []).filter(item => item.id !== id);
-          if (this.state._editingQuestionId === id) {
-            this.state._editingQuestionId = null;
-          }
-          this.saveStorage();
-          this.renderPrescriberQuestions();
-        },
 
         // URGENT HELP SECTION METHOD
         renderUrgentHelpSection() {
@@ -3367,6 +2970,58 @@
           this.showDataFeedback('Backup file exported and downloaded successfully.', false);
         },
 
+        validateImportData(data) {
+          if (!data || typeof data !== 'object') {
+            return { valid: false, error: 'Could not import backup: Invalid data format.' };
+          }
+
+          // logs is a plain object (not an array) and exists
+          if (!data.logs || typeof data.logs !== 'object' || Array.isArray(data.logs) || Object.prototype.toString.call(data.logs) !== '[object Object]') {
+            return { valid: false, error: 'Could not import backup: "logs" must be a plain object.' };
+          }
+
+          // every key matches YYYY-MM-DD
+          const dateKeyRegex = /^\d{4}-\d{2}-\d{2}$/;
+          for (const key of Object.keys(data.logs)) {
+            if (!dateKeyRegex.test(key)) {
+              return { valid: false, error: `Could not import backup: Log key "${key}" must match YYYY-MM-DD.` };
+            }
+            const entry = data.logs[key];
+            if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+              return { valid: false, error: `Could not import backup: Log entry for ${key} is invalid.` };
+            }
+            // every entry has a finite numeric dose >= 0
+            if (typeof entry.dose !== 'number' || !Number.isFinite(entry.dose) || entry.dose < 0) {
+              return { valid: false, error: `Could not import backup: Dose for ${key} must be a finite number >= 0.` };
+            }
+            // symptom values are integers 0-10; safety is "No", "Sometimes" or "Yes"
+            const s = entry.symptoms;
+            if (!s || typeof s !== 'object' || Array.isArray(s)) {
+              return { valid: false, error: `Could not import backup: Symptoms missing or invalid for ${key}.` };
+            }
+            if (s.safety !== 'No' && s.safety !== 'Sometimes' && s.safety !== 'Yes') {
+              return { valid: false, error: `Could not import backup: Safety for ${key} must be "No", "Sometimes" or "Yes".` };
+            }
+            for (const symKey of Object.keys(s)) {
+              if (symKey === 'safety') continue;
+              const val = s[symKey];
+              if (typeof val !== 'number' || !Number.isInteger(val) || val < 0 || val > 10) {
+                return { valid: false, error: `Could not import backup: Symptom score "${symKey}" for ${key} must be an integer 0-10.` };
+              }
+            }
+          }
+
+          // plans and tablets, if present, are arrays
+          if (data.plans !== undefined && data.plans !== null && !Array.isArray(data.plans)) {
+            return { valid: false, error: 'Could not import backup: "plans" must be an array.' };
+          }
+          if (data.tablets !== undefined && data.tablets !== null && !Array.isArray(data.tablets)) {
+            return { valid: false, error: 'Could not import backup: "tablets" must be an array.' };
+          }
+
+          return { valid: true };
+        },
+
         handleImportBackup(event) {
           const file = event.target.files && event.target.files[0];
           if (!file) return;
@@ -3381,8 +3036,16 @@
               }
 
               const data = parsed.state || parsed;
-              const entryCount = Object.keys(data.logs || {}).length;
+              const validation = this.validateImportData(data);
+              if (!validation.valid) {
+                this._pendingImportData = null;
+                const confirmBox = document.getElementById('import-confirm-box');
+                if (confirmBox) confirmBox.style.display = 'none';
+                this.showDataFeedback(validation.error, true);
+                return;
+              }
 
+              const entryCount = Object.keys(data.logs || {}).length;
               this._pendingImportData = data;
 
               const detailsEl = document.getElementById('import-confirm-details');
@@ -3403,6 +3066,16 @@
         confirmImportBackup() {
           if (!this._pendingImportData) return;
           const data = this._pendingImportData;
+
+          const validation = this.validateImportData(data);
+          if (!validation.valid) {
+            this._pendingImportData = null;
+            const confirmBox = document.getElementById('import-confirm-box');
+            if (confirmBox) confirmBox.style.display = 'none';
+            this.showDataFeedback(validation.error, true);
+            return;
+          }
+
           this._pendingImportData = null;
 
           const confirmBox = document.getElementById('import-confirm-box');
@@ -3423,22 +3096,8 @@
           this.saveStorage();
 
           // Re-render whole UI
-          this.renderCrisisBanner();
-          this.renderUrgentHelpSection();
-          this.renderPrescriberQuestions();
-          this.renderTablets();
-          this.renderQuickPillButtons();
-          this.renderCalendar();
-          this.renderConflictOverlay();
-          this.renderAdaptiveSymptomCard();
-          this.renderPlans();
-          this.renderLibrary();
           const latest = this.getLatestLoggedDate() || this.state.selectedDate;
-          this.selectDate(latest);
-          this.renderChart();
-          this.checkAdherence();
-          this.updateMetricBar();
-          this.syncPlanIndicationAndBaselineUI();
+          this.renderAll(latest);
 
           const count = Object.keys(this.state.logs).length;
           this.showDataFeedback(`Backup imported successfully. ${count} log entries loaded.`, false);
@@ -3465,6 +3124,7 @@
           if (box) box.style.display = 'none';
 
           try {
+            localStorage.removeItem('taper_diary_state');
             localStorage.removeItem('seroxat_taper_state');
           } catch (e) {}
 
@@ -3483,21 +3143,7 @@
           this.saveStorage();
 
           // Re-render whole UI
-          this.renderCrisisBanner();
-          this.renderUrgentHelpSection();
-          this.renderPrescriberQuestions();
-          this.renderTablets();
-          this.renderQuickPillButtons();
-          this.renderCalendar();
-          this.renderConflictOverlay();
-          this.renderAdaptiveSymptomCard();
-          this.renderPlans();
-          this.renderLibrary();
-          this.selectDate(this.state.selectedDate);
-          this.renderChart();
-          this.checkAdherence();
-          this.updateMetricBar();
-          this.syncPlanIndicationAndBaselineUI();
+          this.renderAll(this.state.selectedDate);
 
           this.showDataFeedback('All personal data has been deleted from this browser.', false);
         },
@@ -3708,7 +3354,7 @@
               <div style="border-bottom: 2px solid #334155; padding-bottom: 0.85rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem;">
                 <div>
                   <h1 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary); margin: 0; line-height: 1.3;">
-                    Taper Diary — Summary for Prescriber
+                    Taper Diary — Total Summary of Intake
                   </h1>
                   <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
                     Confidential patient self-report of doses, symptom scores, and safety answers.
@@ -3819,123 +3465,6 @@
           this.renderCrisisBanner();
         },
 
-        saveCrisisNumber(val) {
-          this.state.crisisNumber = val ? val.trim() : '';
-          this.saveStorage();
-          this.renderCrisisBanner();
-          this.renderUrgentHelpSection();
-        },
-
-        loadExampleData() {
-          if (!this._isExampleDataLoaded) {
-            this._savedRealLogsBackup = JSON.parse(JSON.stringify(this.state.logs || {}));
-          }
-          this._isExampleDataLoaded = true;
-
-          const exampleLogs = {};
-          const baseDate = new Date();
-          for (let i = 30; i >= 0; i--) {
-            const d = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate() - i);
-            const dateStr = this.formatDate(d);
-
-            let dose = 10.0;
-            let formulation = 'white-half';
-            let zaps = 1;
-            let vertigo = 1;
-            let sleep = 2;
-            let mood = 2;
-            let gi = 0;
-            let headache = 1;
-            let notes = '[EXAMPLE DATA] Took 10 White Half along score line. Routine intake.';
-
-            if (i > 22) {
-              dose = 30.0;
-              formulation = 'blue-whole';
-              zaps = 0; vertigo = 0; sleep = 1; mood = 1; headache = 0;
-              notes = '[EXAMPLE DATA] Baseline intake of Blue 30 mg for social anxiety.';
-            } else if (i > 14) {
-              dose = 20.0;
-              formulation = 'white-whole';
-              zaps = (i === 20 || i === 19) ? 3 : 1;
-              vertigo = i === 20 ? 2 : 1;
-              sleep = 2;
-              mood = 2;
-              headache = 1;
-              notes = '[EXAMPLE DATA] Took White 20 with breakfast. Mild transient head zaps on day 2.';
-            } else if (i === 0) {
-              dose = 10.0;
-              formulation = 'white-half';
-              zaps = 1;
-              vertigo = 1;
-              sleep = 2;
-              mood = 1;
-              gi = 0;
-              headache = 1;
-              notes = '[EXAMPLE DATA] Took 10 White Half at 08:30 with breakfast. Social anxiety stable.';
-            } else if (i % 5 === 0) {
-              dose = 10.0;
-              formulation = 'rosy-whole';
-              notes = '[EXAMPLE DATA] Took 10 Rose whole tablet. Routine intake.';
-            }
-
-            exampleLogs[dateStr] = {
-              dose: dose,
-              formulation: formulation,
-              time: '08:30',
-              symptoms: {
-                safety: 'No',
-                lowMood: mood,
-                zaps: zaps,
-                vertigo: vertigo,
-                sleep: sleep,
-                gi: gi,
-                headache: headache
-              },
-              notes: notes,
-              isExample: true
-            };
-          }
-
-          this.state.logs = exampleLogs;
-
-          // Update demo controls & banner UI
-          const banner = document.getElementById('example-data-banner');
-          if (banner) banner.style.display = 'block';
-          const clearBtn = document.getElementById('btn-clear-example-data');
-          if (clearBtn) clearBtn.style.display = 'inline-flex';
-          const loadBtn = document.getElementById('btn-load-example-data');
-          if (loadBtn) loadBtn.style.display = 'none';
-
-          this.renderCrisisBanner();
-          this.renderCalendar();
-          this.renderChart();
-          this.checkAdherence();
-          this.renderAdaptiveSymptomCard();
-          this.updateMetricBar();
-          this.selectDate(this.state.selectedDate);
-        },
-
-        clearExampleData() {
-          this.state.logs = this._savedRealLogsBackup || {};
-          this._savedRealLogsBackup = null;
-          this._isExampleDataLoaded = false;
-
-          const banner = document.getElementById('example-data-banner');
-          if (banner) banner.style.display = 'none';
-          const clearBtn = document.getElementById('btn-clear-example-data');
-          if (clearBtn) clearBtn.style.display = 'none';
-          const loadBtn = document.getElementById('btn-load-example-data');
-          if (loadBtn) loadBtn.style.display = 'inline-flex';
-
-          this.renderCrisisBanner();
-          this.renderCalendar();
-          this.renderChart();
-          this.checkAdherence();
-          this.renderAdaptiveSymptomCard();
-          this.updateMetricBar();
-          this.selectDate(this.state.selectedDate);
-        },
-
         parseLocalDate(dateStr) {
           if (!dateStr || typeof dateStr !== 'string') return new Date();
           const parts = dateStr.split('-');
@@ -3973,46 +3502,12 @@
           return this.formatDate(d);
         },
 
-        getPreviousDateStr(dateStr) {
-          const d = this.parseLocalDate(dateStr);
-          d.setDate(d.getDate() - 1);
-          return this.formatDate(d);
-        },
-
         getLatestLoggedDate() {
           const dates = Object.keys(this.state.logs)
             .filter(k => this.state.logs[k] && this.state.logs[k].dose !== undefined && this.state.logs[k].dose !== null)
             .sort();
           if (dates.length === 0) return null;
           return dates[dates.length - 1];
-        },
-
-        isDateUnlocked(dateStr) {
-          // Intake is independent of plans; user can make their pill registry freely on any date
-          return true;
-        },
-
-        goToLatestUnlockedDay() {
-          const latestLogged = this.getLatestLoggedDate();
-          let targetDate = this.getTodayStr();
-          if (latestLogged) {
-            targetDate = this.getNextDateStr(latestLogged);
-          }
-          const d = this.parseLocalDate(targetDate);
-          this.state.currentYear = d.getFullYear();
-          this.state.currentMonth = d.getMonth();
-          this.state.isEditingCurrentDay = false;
-          this.renderCalendar();
-          this.selectDate(targetDate);
-        },
-
-        manuallyUnlockSelectedDate() {
-          const dateStr = this.state.selectedDate;
-          if (!this.state.unlockedDates) this.state.unlockedDates = {};
-          this.state.unlockedDates[dateStr] = true;
-          this.saveStorage();
-          this.renderCalendar();
-          this.selectDate(dateStr);
         },
 
         enableDayEditMode() {
@@ -4025,13 +3520,6 @@
           this.selectDate(this.state.selectedDate);
         },
 
-        scrollToPlans() {
-          const el = document.getElementById('plan-section');
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        },
-
         getPillLabel(dose, formulation) {
           const d = parseFloat(dose);
           if (isNaN(d) || d === 0 || formulation === 'zero') return '0 mg (No Intake)';
@@ -4042,16 +3530,16 @@
               const matchedTab = this.state.tablets.find(t => t.id === formulation || formulation.startsWith(t.id));
               if (matchedTab) {
                 if (formulation.endsWith('-half')) {
-                  return `1/2 ${matchedTab.name} (${(matchedTab.strength / 2).toFixed(1).replace(/\.0$/, '')}mg)`;
+                  return `1/2 ${this.escapeHtml(matchedTab.name)} (${(matchedTab.strength / 2).toFixed(1).replace(/\.0$/, '')}mg)`;
                 }
-                return `${matchedTab.name} (${matchedTab.strength}mg)`;
+                return `${this.escapeHtml(matchedTab.name)} (${matchedTab.strength}mg)`;
               }
             }
             const exactTab = this.state.tablets.find(t => Math.abs(t.strength - d) < 0.01);
-            if (exactTab) return `${exactTab.name} (${exactTab.strength}mg)`;
+            if (exactTab) return `${this.escapeHtml(exactTab.name)} (${exactTab.strength}mg)`;
 
             const halfTab = this.state.tablets.find(t => t.splittable && Math.abs(t.strength / 2 - d) < 0.01);
-            if (halfTab) return `1/2 ${halfTab.name} (${(halfTab.strength / 2).toFixed(1).replace(/\.0$/, '')}mg)`;
+            if (halfTab) return `1/2 ${this.escapeHtml(halfTab.name)} (${(halfTab.strength / 2).toFixed(1).replace(/\.0$/, '')}mg)`;
           }
 
           // Liquid form check
@@ -4091,31 +3579,7 @@
 
         // SETTINGS & TABLETS MANAGEMENT
         syncPlanIndicationAndBaselineUI() {
-          const indInp = document.getElementById('input-plan-indication');
-          if (indInp) indInp.value = this.state.plan?.indication || this.state.activeIndication || '';
-          const baseInp = document.getElementById('input-plan-baseline');
-          if (baseInp) baseInp.value = (this.state.plan?.baselineDose !== null && this.state.plan?.baselineDose !== undefined) ? this.state.plan.baselineDose : '';
-          const liqInp = document.getElementById('setting-liquid-concentration');
-          if (liqInp) liqInp.value = this.state.liquidConcentration || '';
-          const crisisInp = document.getElementById('setting-crisis-number');
-          if (crisisInp) crisisInp.value = this.state.crisisNumber || '';
-        },
-
-        updatePlanIndication(val) {
-          const v = val ? val.trim() : '';
-          this.state.activeIndication = v;
-          if (!this.state.plan) this.state.plan = { steps: [] };
-          this.state.plan.indication = v;
-          this.saveStorage();
-          this.updateMetricBar();
-        },
-
-        updatePlanBaseline(val) {
-          const num = val !== '' && !isNaN(val) ? parseFloat(val) : null;
-          if (!this.state.plan) this.state.plan = { steps: [] };
-          this.state.plan.baselineDose = num;
-          this.saveStorage();
-          this.updateMetricBar();
+          // Input fields removed
         },
 
         saveLiquidConcentration(val) {
@@ -4152,12 +3616,12 @@
             return `
               <div style="background: #192234; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                  <div style="width: 20px; height: 20px; border-radius: 50%; background: ${colorStyle}; border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="${t.color}"></div>
+                  <div style="width: 20px; height: 20px; border-radius: 50%; background: ${colorStyle}; border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="${this.escapeHtml(t.color)}"></div>
                   <div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                      <strong style="font-size: 0.9rem; color: var(--text-primary);">${t.name}</strong>
+                      <strong style="font-size: 0.9rem; color: var(--text-primary);">${this.escapeHtml(t.name)}</strong>
                       <span class="tabular-nums" style="font-size: 0.825rem; font-weight: 700; color: var(--teal-primary);">${t.strength} mg</span>
-                      <span style="font-size: 0.725rem; color: var(--text-muted);">(${t.color || 'No colour'})</span>
+                      <span style="font-size: 0.725rem; color: var(--text-muted);">(${this.escapeHtml(t.color || 'No colour')})</span>
                     </div>
                     <div style="margin-top: 0.25rem;">
                       ${splitLabel}
@@ -4203,7 +3667,7 @@
             <div style="font-family: var(--font-sans);">
               <div class="form-group">
                 <label>Tablet Name</label>
-                <input type="text" id="tablet-modal-name" class="form-control" value="${this._editingTablet.name || ''}" placeholder="e.g. Paroxetine 20mg" />
+                <input type="text" id="tablet-modal-name" class="form-control" value="${this.escapeHtml(this._editingTablet.name || '')}" placeholder="e.g. Paroxetine 20mg" />
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -4213,7 +3677,7 @@
                 </div>
                 <div class="form-group">
                   <label>Colour</label>
-                  <input type="text" id="tablet-modal-color" class="form-control" value="${this._editingTablet.color || ''}" placeholder="e.g. White, Blue, Rose / Pink" />
+                  <input type="text" id="tablet-modal-color" class="form-control" value="${this.escapeHtml(this._editingTablet.color || '')}" placeholder="e.g. White, Blue, Rose / Pink" />
                 </div>
               </div>
 
@@ -4246,6 +3710,9 @@
           const color = document.getElementById('tablet-modal-color').value.trim() || 'White';
           const splittable = document.getElementById('tablet-modal-splittable').value === 'true';
 
+          const oldTablet = (this.state.tablets || []).find(t => t.id === this._editingTablet.id);
+          const oldStrength = oldTablet ? oldTablet.strength : null;
+
           this._editingTablet.name = name;
           this._editingTablet.strength = isNaN(strength) || strength <= 0 ? 20.0 : strength;
           this._editingTablet.color = color;
@@ -4260,26 +3727,74 @@
             if (idx >= 0) this.state.tablets[idx] = this._editingTablet;
           }
 
+          // If baseline dose is unset or matched the old strength, synchronize with the configured tablet
+          if (!this.state.plan) this.state.plan = { steps: [] };
+          if (this.state.plan.baselineDose === null || this.state.plan.baselineDose === undefined || (oldStrength !== null && Math.abs(this.state.plan.baselineDose - oldStrength) < 0.01)) {
+            this.state.plan.baselineDose = this._editingTablet.strength;
+          }
+
+          // If existing tablet strength changed, update associated logs and plans to the new intake amount
+          if (!this._isNewTablet && oldStrength !== null && Math.abs(oldStrength - this._editingTablet.strength) > 0.001) {
+            Object.keys(this.state.logs || {}).forEach(d => {
+              const l = this.state.logs[d];
+              if (l) {
+                if (l.formulation === this._editingTablet.id || (!l.formulation && Math.abs(l.dose - oldStrength) < 0.01)) {
+                  l.dose = this._editingTablet.strength;
+                  l.formulation = this._editingTablet.id;
+                } else if (l.formulation === `${this._editingTablet.id}-half` || (!l.formulation && Math.abs(l.dose - (oldStrength / 2)) < 0.01)) {
+                  l.dose = this._editingTablet.strength / 2;
+                  l.formulation = `${this._editingTablet.id}-half`;
+                }
+              }
+            });
+            (this.state.plans || []).forEach(p => {
+              if (p.weekDays) {
+                Object.keys(p.weekDays).forEach(k => {
+                  if (Math.abs(p.weekDays[k] - oldStrength) < 0.01) {
+                    p.weekDays[k] = this._editingTablet.strength;
+                  } else if (Math.abs(p.weekDays[k] - (oldStrength / 2)) < 0.01) {
+                    p.weekDays[k] = this._editingTablet.strength / 2;
+                  }
+                });
+              }
+            });
+          }
+
+          // Synchronize current date form intake if not yet logged
+          const selectedLog = this.state.logs[this.state.selectedDate];
+          if (!selectedLog) {
+            this.state.currentEntryDose = this._editingTablet.strength;
+            this.state.currentEntryFormulation = this._editingTablet.id;
+            const doseInp = document.getElementById('input-dose');
+            if (doseInp) doseInp.value = this._editingTablet.strength;
+            const formSel = document.getElementById('input-formulation');
+            if (formSel) formSel.value = this._editingTablet.id;
+            const directInp = document.getElementById('input-dose-direct');
+            if (directInp) directInp.value = this._editingTablet.strength;
+          }
+
           this.saveStorage();
           this.closeModal();
-          this.renderTablets();
-          this.renderQuickPillButtons();
-          this.renderCalendar();
-          this.renderPlans();
-          this.updateMetricBar();
+          this.renderAll(this.state.selectedDate);
         },
 
         deleteTablet(tabletId) {
           const tab = (this.state.tablets || []).find(t => t.id === tabletId);
           if (!tab) return;
           if (confirm(`Remove "${tab.name}" (${tab.strength}mg) from My Tablets?`)) {
+            const oldStrength = tab.strength;
             this.state.tablets = this.state.tablets.filter(t => t.id !== tabletId);
+            if (this.state.tablets.length === 0) {
+              if (this.state.plan && Math.abs(this.state.plan.baselineDose - oldStrength) < 0.01) {
+                this.state.plan.baselineDose = null;
+              }
+            } else {
+              if (this.state.plan && Math.abs(this.state.plan.baselineDose - oldStrength) < 0.01) {
+                this.state.plan.baselineDose = this.state.tablets[0].strength;
+              }
+            }
             this.saveStorage();
-            this.renderTablets();
-            this.renderQuickPillButtons();
-            this.renderCalendar();
-            this.renderPlans();
-            this.updateMetricBar();
+            this.renderAll(this.state.selectedDate);
           }
         },
 
@@ -4309,7 +3824,7 @@
               buttonsHtml += `
                 <div class="quick-pill-btn ${wholeIsActive ? 'active' : ''}" onclick="app.quickSelectTablet('${tab.id}', false)">
                   <div class="quick-pill-title" style="color: ${tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : 'var(--text-primary)') : 'var(--text-primary)'};">${tab.strength} mg</div>
-                  <div class="quick-pill-sub">💊 ${tab.name}</div>
+                  <div class="quick-pill-sub">💊 ${this.escapeHtml(tab.name)}</div>
                 </div>
               `;
               if (tab.splittable) {
@@ -4319,7 +3834,7 @@
                 buttonsHtml += `
                   <div class="quick-pill-btn ${halfIsActive ? 'active' : ''}" onclick="app.quickSelectTablet('${tab.id}', true)">
                     <div class="quick-pill-title" style="color: ${tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : 'var(--text-primary)') : 'var(--text-primary)'};">${halfDose.toFixed(1).replace(/\.0$/, '')} mg</div>
-                    <div class="quick-pill-sub">🌗 1/2 ${tab.name}</div>
+                    <div class="quick-pill-sub">🌗 1/2 ${this.escapeHtml(tab.name)}</div>
                   </div>
                 `;
               }
@@ -4341,7 +3856,7 @@
             buttonsHtml += `
               <div class="quick-pill-btn ${isLiqActive ? 'active' : ''}" onclick="app.promptLiquidDose()">
                 <div class="quick-pill-title" style="color: #38bdf8;">💧 Liquid</div>
-                <div class="quick-pill-sub">${this.state.liquidConcentration} mg/ml</div>
+                <div class="quick-pill-sub">${this.escapeHtml(this.state.liquidConcentration)} mg/ml</div>
               </div>
             `;
           }
@@ -4396,31 +3911,6 @@
           }
         },
 
-        // INDICATION SELECTION
-        selectIndication(indicationName, defaultDose) {
-          const cappedDose = defaultDose ? Math.min(30.0, defaultDose) : null;
-          this.state.activeIndication = indicationName;
-          if (!this.state.plan) this.state.plan = { steps: [] };
-          this.state.plan.indication = indicationName;
-          this.state.plan.baselineDose = cappedDose;
-
-          document.querySelectorAll('.leaflet-ref-card').forEach(c => c.classList.remove('active-indication'));
-          const activeCard = Array.from(document.querySelectorAll('.leaflet-ref-card')).find(c => c.textContent.toLowerCase().includes(indicationName.toLowerCase()));
-          if (activeCard) activeCard.classList.add('active-indication');
-
-          const bannerInd = document.getElementById('banner-active-indication');
-          if (bannerInd) bannerInd.textContent = cappedDose ? `${indicationName} (${cappedDose.toFixed(0)} mg/day)` : indicationName;
-          const dispBase = document.getElementById('disp-plan-baseline');
-          if (dispBase) dispBase.textContent = cappedDose ? `${cappedDose.toFixed(1)} mg (${indicationName})` : indicationName;
-
-          this.syncPlanIndicationAndBaselineUI();
-          this.saveStorage();
-          this.renderPlans();
-          this.renderConflictOverlay();
-          this.renderChart();
-          this.checkAdherence();
-          this.updateMetricBar();
-        },
 
         // CALENDAR METHODS
         prevMonth() {
@@ -4647,11 +4137,12 @@
             if (formView) formView.style.display = 'none';
             if (regView) regView.style.display = 'block';
 
-            const isEx = log.isExample || this._isExampleDataLoaded;
-            if (kicker) kicker.textContent = isEx ? 'Seroxat Daily Entry [EXAMPLE DATA]' : 'Seroxat Daily Entry (Concluded)';
-            dot.style.background = isEx ? '#6366f1' : 'var(--teal-primary)';
-            badge.style.color = isEx ? '#a5b4fc' : 'var(--teal-primary)';
-            badge.textContent = isEx ? `[EXAMPLE DATA] Concluded Intake (${log.dose.toFixed(1)} mg)` : `✓ Concluded Intake (${log.dose.toFixed(1)} mg)`;
+            if (kicker) kicker.textContent = 'Seroxat Daily Entry (Concluded)';
+            if (dot) dot.style.background = 'var(--teal-primary)';
+            if (badge) {
+              badge.style.color = 'var(--teal-primary)';
+              badge.textContent = `✓ Concluded Intake (${log.dose.toFixed(1)} mg)`;
+            }
 
             // Fill text registry metrics
             const regDose = document.getElementById('reg-dose');
@@ -4745,18 +4236,22 @@
               if (kicker) kicker.textContent = `Editing Daily Entry (${this.formatDisplayDate(dateStr)})`;
               if (saveBtn) saveBtn.textContent = 'Update Concluded Entry';
               if (cancelBtn) cancelBtn.style.display = 'inline-block';
-              dot.style.background = 'var(--amber-warning)';
-              badge.style.color = 'var(--amber-warning)';
-              badge.textContent = `Editing Day Log (${log.dose.toFixed(1)} mg)`;
+              if (dot) dot.style.background = 'var(--amber-warning)';
+              if (badge) {
+                badge.style.color = 'var(--amber-warning)';
+                badge.textContent = `Editing Day Log (${log.dose.toFixed(1)} mg)`;
+              }
             } else {
               if (kicker) kicker.textContent = 'Daily Dosage Intake Registry';
               if (saveBtn) saveBtn.textContent = 'Save & Conclude Day';
               if (cancelBtn) cancelBtn.style.display = 'none';
-              dot.style.background = 'var(--teal-primary)';
-              badge.style.color = 'var(--teal-primary)';
-              badge.textContent = plannedInfo
-                ? `Plan Target: ${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})`
-                : 'Awaiting Dosage Taken Input';
+              if (dot) dot.style.background = 'var(--teal-primary)';
+              if (badge) {
+                badge.style.color = 'var(--teal-primary)';
+                badge.textContent = plannedInfo
+                  ? `Plan Target: ${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})`
+                  : 'Awaiting Dosage Taken Input';
+              }
             }
 
             if (alertBox) alertBox.style.display = 'none';
@@ -4793,12 +4288,13 @@
             const timeInput = document.getElementById('input-time');
             const notesInput = document.getElementById('input-notes');
 
-            let currentDose = 10.0;
-            let currentFormulation = 'white-half';
+            const configuredTab = (this.state.tablets && this.state.tablets.length > 0) ? this.state.tablets[0] : null;
+            let currentDose = configuredTab ? configuredTab.strength : (this.state.plan?.baselineDose || 0.0);
+            let currentFormulation = currentDose === 0 ? 'zero' : (configuredTab ? configuredTab.id : 'custom');
 
             if (log) {
               currentDose = log.dose;
-              currentFormulation = log.formulation || (currentDose >= 20.0 ? 'white-whole' : currentDose >= 10.0 ? 'white-half' : 'zero');
+              currentFormulation = log.formulation || (configuredTab ? configuredTab.id : 'custom');
               if (doseInput) doseInput.value = log.dose;
               if (formSel) formSel.value = currentFormulation;
               if (timeInput) timeInput.value = log.time || '08:30';
@@ -4819,8 +4315,8 @@
               if (rSometimes) rSometimes.checked = (safetyVal === 'Sometimes');
               if (rYes) rYes.checked = (safetyVal === 'Yes');
             } else {
-              currentDose = plannedInfo ? plannedInfo.dose : (this.state.tablets && this.state.tablets.length > 0 ? this.state.tablets[0].strength : (this.state.plan?.baselineDose || 0.0));
-              currentFormulation = currentDose === 0 ? 'zero' : (this.state.tablets && this.state.tablets.length > 0 ? this.state.tablets[0].id : 'custom');
+              currentDose = plannedInfo ? plannedInfo.dose : (configuredTab ? configuredTab.strength : (this.state.plan?.baselineDose || 0.0));
+              currentFormulation = currentDose === 0 ? 'zero' : (configuredTab ? configuredTab.id : 'custom');
               if (doseInput) doseInput.value = currentDose;
               if (formSel) formSel.value = currentFormulation;
               if (timeInput) timeInput.value = '08:30';
@@ -4852,54 +4348,6 @@
           }
         },
 
-        updateLockedOrientationView(dateStr, plannedInfo) {
-          const doseEl = document.getElementById('locked-plan-dose');
-          const pillEl = document.getElementById('locked-plan-pill');
-          const nameEl = document.getElementById('locked-plan-name');
-          const dayNameEl = document.getElementById('locked-plan-dayname');
-          const conflictEl = document.getElementById('locked-plan-conflict-alert');
-          const badgeEl = document.getElementById('locked-plan-badge');
-
-          const d = this.parseLocalDate(dateStr);
-          const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-          if (dayNameEl) dayNameEl.textContent = dayNames[d.getDay()];
-
-          if (plannedInfo) {
-            if (plannedInfo.hasConflict) {
-              const dosesText = plannedInfo.allMatches.map(m => `${m.dose}mg (${m.plan.name})`).join(' vs ');
-              if (doseEl) doseEl.innerHTML = `<span style="color:#f43f5e; font-size:1.15rem;">⚠️ ${plannedInfo.dose.toFixed(1)}mg (Conflict)</span>`;
-              if (pillEl) pillEl.innerHTML = `<span style="color:#f43f5e;">Multiple Overlapping Plans</span>`;
-              if (nameEl) nameEl.textContent = 'Scheduling Conflict Between Plans';
-              if (badgeEl) {
-                badgeEl.textContent = '⚠️ Plan Conflict';
-                badgeEl.className = 'status-chip chip-danger';
-              }
-              if (conflictEl) {
-                conflictEl.style.display = 'block';
-                conflictEl.innerHTML = `⚠️ <strong>Overlapping Plan Conflict:</strong> ${dosesText}. Modify dates or dosages in the Dynamic Action Plans section below to align your taper.`;
-              }
-            } else {
-              if (doseEl) doseEl.textContent = `${plannedInfo.dose.toFixed(1)} mg`;
-              if (pillEl) pillEl.innerHTML = `${this.getPillIcon(plannedInfo.dose)} ${this.getPillLabel(plannedInfo.dose)}`;
-              if (nameEl) nameEl.textContent = plannedInfo.planName || 'Active Taper Plan';
-              if (badgeEl) {
-                badgeEl.textContent = '🎯 Target Plan';
-                badgeEl.className = 'status-chip chip-warning';
-              }
-              if (conflictEl) conflictEl.style.display = 'none';
-            }
-          } else {
-            if (doseEl) doseEl.innerHTML = `<span style="color:#94a3b8; font-size:1rem;">No Plan Scheduled</span>`;
-            if (pillEl) pillEl.textContent = '—';
-            if (nameEl) nameEl.textContent = 'No active plan covers this date';
-            if (badgeEl) {
-              badgeEl.textContent = 'No Plan Set';
-              badgeEl.className = 'status-chip';
-            }
-            if (conflictEl) conflictEl.style.display = 'none';
-          }
-        },
-
         quickSelectPill(doseVal, formulationKey) {
           this.state.currentEntryDose = doseVal;
           this.state.currentEntryFormulation = formulationKey;
@@ -4908,19 +4356,6 @@
           const formSel = document.getElementById('input-formulation');
           if (formSel) formSel.value = formulationKey;
           this.updateQuickPillButtons(doseVal, formulationKey);
-        },
-
-        syncFormulationToDose(val) {
-          const d = parseFloat(val);
-          this.state.currentEntryDose = d;
-          const sel = document.getElementById('input-formulation');
-          if (sel) {
-            if (d >= 30.0) sel.value = 'blue-whole';
-            else if (d >= 20.0) sel.value = 'white-whole';
-            else if (d >= 10.0) sel.value = this.state.currentEntryFormulation === 'rosy-whole' ? 'rosy-whole' : 'white-half';
-            else sel.value = 'zero';
-          }
-          this.updateQuickPillButtons(d, sel ? sel.value : undefined);
         },
 
         updateQuickPillButtons(doseVal, formulationKey) {
@@ -4961,17 +4396,6 @@
 
         saveDayLog(event) {
           event.preventDefault();
-          if (this._isExampleDataLoaded) {
-            this.state.logs = {};
-            this._isExampleDataLoaded = false;
-            this._savedRealLogsBackup = null;
-            const banner = document.getElementById('example-data-banner');
-            if (banner) banner.style.display = 'none';
-            const clearBtn = document.getElementById('btn-clear-example-data');
-            if (clearBtn) clearBtn.style.display = 'none';
-            const loadBtn = document.getElementById('btn-load-example-data');
-            if (loadBtn) loadBtn.style.display = 'inline-flex';
-          }
           const dateStr = this.state.selectedDate;
 
           // Required Daily Safety Question Validation
@@ -5017,6 +4441,10 @@
             symptoms: symptoms
           };
 
+          if (safetyVal === 'Sometimes' || safetyVal === 'Yes' || symptoms.lowMood >= 7) {
+            this.state.warningDismissedUntil = 0;
+          }
+
           // Conclude day and exit edit mode
           this.state.isEditingCurrentDay = false;
 
@@ -5030,7 +4458,6 @@
           this.renderCalendar();
           this.renderChart();
           this.checkAdherence();
-          this.renderAdaptiveSymptomCard();
           this.updateMetricBar();
 
           // Immediately present the concluded text registry window
@@ -5046,7 +4473,6 @@
             this.renderCalendar();
             this.renderChart();
             this.checkAdherence();
-            this.renderAdaptiveSymptomCard();
             this.updateMetricBar();
             this.selectDate(dateStr);
           }
@@ -5119,7 +4545,7 @@
           overlay.style.display = 'block';
           const c = conflicts[0];
           const mismatchDesc = c.hasDoseMismatch
-            ? `There are ${c.diffDates.length} day(s) where these plans specify conflicting milligram amounts (e.g. <strong>${c.planA.name}</strong> prescribes different intakes than <strong>${c.planB.name}</strong>).`
+            ? `There are ${c.diffDates.length} day(s) where these plans specify conflicting milligram amounts (e.g. <strong>${this.escapeHtml(c.planA.name)}</strong> prescribes different intakes than <strong>${this.escapeHtml(c.planB.name)}</strong>).`
             : `Both plans cover this window simultaneously.`;
 
           overlay.innerHTML = `
@@ -5133,17 +4559,17 @@
               </div>
             </div>
             <div class="plan-conflict-body">
-              <strong>${c.planA.name}</strong> and <strong>${c.planB.name}</strong> are both marked active and overlap during these dates. ${mismatchDesc} Overlapping calendar cells are highlighted with red conflict alerts.
+              <strong>${this.escapeHtml(c.planA.name)}</strong> and <strong>${this.escapeHtml(c.planB.name)}</strong> are both marked active and overlap during these dates. ${mismatchDesc} Overlapping calendar cells are highlighted with red conflict alerts.
             </div>
             <div class="plan-conflict-actions">
               <button class="btn btn-primary btn-sm" onclick="app.autoResolveConflicts()" style="background: #e11d48; border-color: #f43f5e;">
                 ⚡ Auto-Resolve: Chain Dates Sequentially
               </button>
               <button class="btn btn-secondary btn-sm" onclick="app.openPlanEditModal('${c.planB.id}')">
-                Adjust ${c.planB.name} Dates
+                Adjust ${this.escapeHtml(c.planB.name)} Dates
               </button>
               <button class="btn btn-secondary btn-sm" onclick="app.togglePlanActive('${c.planB.id}')">
-                Pause ${c.planB.name}
+                Pause ${this.escapeHtml(c.planB.name)}
               </button>
             </div>
           `;
@@ -5262,61 +4688,6 @@
           };
         },
 
-        renderAdaptiveSymptomCard() {
-          const strip = document.getElementById('adaptive-symptom-strip');
-          if (!strip) return;
-
-          const fb = this.getSymptomFeedback();
-          let badgeClass = 'badge-stable';
-          let badgeLabel = '● Mild';
-          let feedbackTitle = 'Recent symptoms are mild';
-          let guidanceText = 'Your recent symptoms are mild. Keep logging.';
-          let badgeMeta = `7-Day Average: ${fb.avg.toFixed(1)}/10 (${fb.loggedCount}/7 days logged) · Peak: ${fb.maxSingle}/10`;
-
-          if (fb.level === 'not_enough_data') {
-            badgeClass = 'badge-speed';
-            badgeLabel = '● Not enough data';
-            feedbackTitle = 'Not enough data';
-            guidanceText = 'Fewer than 3 of the last 7 calendar days were logged. Log at least 3 days to see your 7-day symptom summary.';
-            badgeMeta = `${fb.loggedCount} of last 7 calendar days logged (minimum 3 required)`;
-          } else if (fb.level === 'danger' || this.isCrisisWarningActive()) {
-            badgeClass = 'badge-danger';
-            badgeLabel = '⚠️ High';
-            feedbackTitle = 'Recent symptoms are high';
-            guidanceText = 'Your symptoms are high. Consider holding your current dose and contact your prescriber or pharmacist soon.';
-            badgeMeta = `7-Day Average: ${fb.avg.toFixed(1)}/10 (${fb.loggedCount}/7 days logged) · Peak: ${fb.maxSingle}/10`;
-          } else if (fb.level === 'warning') {
-            badgeClass = 'badge-warning';
-            badgeLabel = '● Moderate';
-            feedbackTitle = 'Recent symptoms are moderate';
-            guidanceText = 'Your symptoms have been moderate. Consider holding your current dose and talking to your prescriber.';
-            badgeMeta = `7-Day Average: ${fb.avg.toFixed(1)}/10 (${fb.loggedCount}/7 days logged) · Peak: ${fb.maxSingle}/10`;
-          }
-
-          strip.innerHTML = `
-            <div class="adaptive-symptom-info">
-              <div style="display:flex; align-items:center; gap:0.65rem; margin-bottom:0.25rem;">
-                <span class="adaptive-symptom-badge ${badgeClass}">${badgeLabel}</span>
-                <span style="font-size:0.775rem; color:var(--text-muted); font-family:var(--font-mono);">
-                  ${badgeMeta}
-                </span>
-              </div>
-              <strong style="font-size:0.95rem; color:var(--text-primary);">${feedbackTitle}</strong>
-              <div style="font-size:0.825rem; color:var(--text-secondary); line-height:1.45; font-family:var(--font-sans); margin-top:0.15rem;">
-                ${guidanceText}
-              </div>
-            </div>
-            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
-              <button class="btn btn-secondary btn-sm" onclick="app.showExtendHoldConfirm(7)">
-                Suggest a longer hold
-              </button>
-              <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
-                + New Plan Phase
-              </button>
-            </div>
-          `;
-        },
-
         calculatePlanAverageDailyDose(plan) {
           if (!plan || !plan.weekDays) return 0;
           const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -5406,7 +4777,7 @@
             <div style="background: #111827; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.85rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
                 <div>
-                  <span style="font-size: 0.775rem; color: var(--text-muted);">Previous phase (${prevInfo.source}):</span>
+                  <span style="font-size: 0.775rem; color: var(--text-muted);">Previous phase (${this.escapeHtml(prevInfo.source)}):</span>
                   <strong class="tabular-nums" style="font-size: 0.85rem; color: var(--text-primary); margin-left: 0.35rem;">${prevDose.toFixed(1)} mg/day</strong>
                 </div>
                 <div>
@@ -5507,7 +4878,7 @@
             row.innerHTML = `
               <div class="plan-list-left">
                 <div class="plan-list-heading-line">
-                  <span class="plan-list-name">${plan.name}</span>
+                  <span class="plan-list-name">${this.escapeHtml(plan.name)}</span>
                   <div class="plan-list-badges">
                     ${plan.active ? '<span class="pill-badge" style="border-color:#10b981; color:#34d399; font-size:0.7rem; padding:0.15rem 0.5rem;">● Active Plan</span>' : '<span class="pill-badge" style="border-color:#64748b; color:#94a3b8; font-size:0.7rem; padding:0.15rem 0.5rem;">○ Paused</span>'}
                     ${pctBadge}
@@ -5524,7 +4895,7 @@
                 </div>
 
                 ${largeNotice}
-                ${plan.notes ? `<div style="font-size:0.775rem; color:var(--text-muted); font-style:italic; margin-top:0.1rem;">· ${plan.notes}</div>` : ''}
+                ${plan.notes ? `<div style="font-size:0.775rem; color:var(--text-muted); font-style:italic; margin-top:0.1rem;">· ${this.escapeHtml(plan.notes)}</div>` : ''}
               </div>
 
               <div class="plan-list-actions">
@@ -5580,7 +4951,7 @@
           const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
           const dayCardsHtml = days.map((k, i) => {
-            const rawVal = (this._editingPlan.weekDays && this._editingPlan.weekDays[k] !== undefined) ? this._editingPlan.weekDays[k] : 10.0;
+            const rawVal = (this._editingPlan.weekDays && this._editingPlan.weekDays[k] !== undefined) ? this._editingPlan.weekDays[k] : defaultDose;
             return `
               <div class="editor-day-card">
                 <label>${dayLabels[i]}</label>
@@ -5594,10 +4965,10 @@
           let presetOptionsHtml = '';
           if (this.state.tablets && this.state.tablets.length > 0) {
             this.state.tablets.forEach(t => {
-              presetOptionsHtml += `<option value="${t.strength}">${t.name} (${t.strength} mg)</option>`;
+              presetOptionsHtml += `<option value="${t.strength}">${this.escapeHtml(t.name)} (${t.strength} mg)</option>`;
               if (t.splittable) {
                 const h = (t.strength / 2).toFixed(1).replace(/\.0$/, '');
-                presetOptionsHtml += `<option value="${t.strength / 2}">1/2 ${t.name} (${h} mg)</option>`;
+                presetOptionsHtml += `<option value="${t.strength / 2}">1/2 ${this.escapeHtml(t.name)} (${h} mg)</option>`;
               }
             });
           } else {
@@ -5615,7 +4986,7 @@
             <div style="font-family: var(--font-sans);">
               <div class="form-group">
                 <label>Plan Name / Phase Description</label>
-                <input type="text" id="modal-plan-name" class="form-control" value="${this._editingPlan.name}" placeholder="e.g. Phase 1: Stabilization Hold" />
+                <input type="text" id="modal-plan-name" class="form-control" value="${this.escapeHtml(this._editingPlan.name)}" placeholder="e.g. Phase 1: Stabilization Hold" />
               </div>
 
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
@@ -5663,7 +5034,7 @@
 
               <div class="form-group" style="margin-top: 1.15rem;">
                 <label>Clinical Notes / Splitting Instructions</label>
-                <textarea id="modal-plan-notes" class="form-control" rows="2" placeholder="e.g. Take with breakfast.">${this._editingPlan.notes || ''}</textarea>
+                <textarea id="modal-plan-notes" class="form-control" rows="2" placeholder="e.g. Take with breakfast.">${this.escapeHtml(this._editingPlan.notes || '')}</textarea>
               </div>
 
               <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.75rem; margin-bottom:1.15rem;">
@@ -5702,14 +5073,6 @@
             if (lbl) lbl.textContent = this.getPillLabel(val);
           });
           this.updatePlanEditorCalculation();
-        },
-
-        setModalDuration(days) {
-          const input = document.getElementById('modal-plan-duration');
-          if (input) {
-            input.value = days;
-            this.updateModalEndDate();
-          }
         },
 
         updateModalEndDate() {
@@ -5820,14 +5183,6 @@
           this.showExtendHoldConfirm(7);
         },
 
-        autoAdaptPlansFromSymptoms() {
-          this.suggestLongerHold();
-        },
-
-        extendActivePlanHold(days = 7) {
-          this.showExtendHoldConfirm(days);
-        },
-
         showExtendHoldConfirm(days = 7) {
           const box = document.getElementById('hold-confirm-inline');
           if (!box) return;
@@ -5903,70 +5258,7 @@
         },
 
         checkAdherence() {
-          const todayStr = this.getTodayStr();
-          const todayLog = this.state.logs[todayStr];
-          const banner = document.getElementById('plan-adherence-banner');
-          const title = document.getElementById('adherence-status-title');
-          const desc = document.getElementById('adherence-status-desc');
-          const rateBadge = document.getElementById('adherence-rate-badge');
-
-          if (!banner || !title || !desc || !rateBadge) return;
-
-          const plannedInfo = this.getPlannedDoseForDate(todayStr);
-
-          if (!plannedInfo) {
-            banner.className = 'plan-adherence-banner banner-matched';
-            if (todayLog) {
-              title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose, todayLog.formulation)}) — Independent Registry Active`;
-              desc.textContent = `Intake successfully logged. Plans serve as orientation guidance to support taper success, but your daily pill registry is fully independent.`;
-              rateBadge.textContent = 'Status: Intake Registered';
-            } else {
-              title.textContent = 'Daily Intake Registry Active (Independent Mode)';
-              desc.textContent = 'No orientation plan scheduled for today. You can freely register your daily pill intake and symptoms on any calendar date.';
-              rateBadge.textContent = 'Status: Free Registry Mode';
-            }
-            return;
-          }
-
-          if (plannedInfo.hasConflict) {
-            banner.className = 'plan-adherence-banner banner-danger';
-            title.textContent = '⚠️ Today Has A Schedule Conflict Between Active Plans';
-            desc.textContent = `Multiple active plans prescribe conflicting doses for today (${plannedInfo.allMatches.map(m=>`${m.plan.name}: ${m.dose}mg`).join(' vs ')}). Resolve the conflict in the Plan Section to clarify your orientation target.`;
-            rateBadge.textContent = 'Conflict Detected';
-            return;
-          }
-
-          const target = plannedInfo.dose;
-
-          if (!todayLog) {
-            banner.className = 'plan-adherence-banner banner-alert';
-            title.textContent = `Orientation Target: ${target} mg (${this.getPillLabel(target, plannedInfo.formulation)}) — Intake Pending`;
-            desc.textContent = `Orientation plan "${plannedInfo.planName}" recommends ${target} mg today for tapering success. Intake is independent — register what you actually take.`;
-            rateBadge.textContent = 'Status: Pending';
-            return;
-          }
-
-          const diff = Math.abs(todayLog.dose - target);
-          if (diff <= 0.1) {
-            banner.className = 'plan-adherence-banner banner-matched';
-            title.textContent = `Today's Intake: ${todayLog.dose} mg (${this.getPillLabel(todayLog.dose, todayLog.formulation)}) — In Sync (Ideal for Tapering Success)`;
-            desc.textContent = `Registered intake matches the orientation target from "${plannedInfo.planName}". Consistency with the tapering schedule supports long-term stabilization.`;
-            rateBadge.textContent = 'Orientation: In Sync';
-          } else if (todayLog.dose < target) {
-            banner.className = 'plan-adherence-banner banner-danger';
-            title.textContent = 'Rapid Dose Drop Registered';
-            desc.textContent = `You registered ${todayLog.dose} mg, which is lower than today's orientation target of ${target} mg (${plannedInfo.planName}). Dropping faster than planned may trigger severe brain zaps.`;
-            rateBadge.textContent = 'Warning: Steep Drop';
-          } else {
-            banner.className = 'plan-adherence-banner banner-alert';
-            title.textContent = 'Dose Hold / Slower Pacing Registered';
-            desc.textContent = `You logged ${todayLog.dose} mg, holding above the orientation target of ${target} mg. Holding a higher half-tablet during symptom flares is clinically sound.`;
-            rateBadge.textContent = 'Status: Holding';
-          }
-        },
-
-        showPlanConfigModal() {
-          this.openNewPlanModal();
+          // Plan adherence banner removed
         },
 
         // BIG-PICTURE CHART ENGINE
@@ -5974,15 +5266,6 @@
           this.state.chartTimeframe = days;
           document.querySelectorAll('#timeframe-selector .segmented-btn').forEach(b => b.classList.remove('active'));
           if (evt && evt.target) evt.target.classList.add('active');
-          this.renderChart();
-        },
-
-        toggleChartSeries(seriesName) {
-          this.state.chartVisibleSeries[seriesName] = !this.state.chartVisibleSeries[seriesName];
-          const ind = document.getElementById(`ind-${seriesName}`);
-          if (ind) {
-            ind.style.opacity = this.state.chartVisibleSeries[seriesName] ? '1' : '0.25';
-          }
           this.renderChart();
         },
 
@@ -6095,7 +5378,7 @@
             const doseProgressEl = document.getElementById('chart-dose-progress-tag');
             if (statDoseEl) statDoseEl.textContent = '—';
             if (statDoseSub) { statDoseSub.textContent = 'Awaiting first entry'; statDoseSub.style.color = '#94a3b8'; }
-            if (doseProgressEl) { doseProgressEl.textContent = 'Awaiting entry'; doseProgressEl.style.color = '#94a3b8'; }
+            if (doseProgressEl) { doseProgressEl.textContent = 'Awaiting entry'; doseProgressEl.style.color = '#38bdf8'; }
 
             const statSymEl = document.getElementById('chart-stat-symptoms');
             const statSymSub = document.getElementById('chart-stat-symptoms-sub');
@@ -6402,7 +5685,7 @@
           }
           if (doseProgressEl) {
             doseProgressEl.textContent = `${latestPt.dose.toFixed(1)} mg current`;
-            doseProgressEl.style.color = '#7dd3fc';
+            doseProgressEl.style.color = '#38bdf8';
           }
 
           // ==================== CHART 2: SYMPTOM STABILITY (ROSE THEME) ====================
@@ -6624,7 +5907,7 @@
               <span style="color:#10b981; font-weight:600;">Dose change:</span>
               <strong class="tabular-nums" style="color:#34d399;">${pt.speedText}</strong>
             </div>
-            ${pt.notes ? `<div style="font-size:0.7rem; color:#94a3b8; margin-top:5px; border-top:1px solid #334155; padding-top:4px; font-style:italic;">"${pt.notes}"</div>` : ''}
+            ${pt.notes ? `<div style="font-size:0.7rem; color:#94a3b8; margin-top:5px; border-top:1px solid #334155; padding-top:4px; font-style:italic;">"${this.escapeHtml(pt.notes)}"</div>` : ''}
           `;
 
           // Move the interactive crosshair on all charts
@@ -6710,17 +5993,18 @@
               }
             }
           } else {
+            const configuredTab = (this.state.tablets && this.state.tablets.length > 0) ? this.state.tablets[0] : null;
             const statCurrent = document.getElementById('stat-current-dose');
-            if (statCurrent) statCurrent.textContent = '—';
+            if (statCurrent) statCurrent.textContent = configuredTab ? configuredTab.strength.toFixed(1) : '—';
             const statPill = document.getElementById('stat-pill-breakdown');
-            if (statPill) statPill.textContent = 'No entry logged';
+            if (statPill) statPill.textContent = configuredTab ? `${configuredTab.name} (${configuredTab.strength} mg configured)` : 'No entry logged';
             const statSpeed = document.getElementById('stat-speed-val');
             if (statSpeed) statSpeed.textContent = '—';
             const statAvg = document.getElementById('stat-avg-symptoms');
             if (statAvg) statAvg.textContent = '—';
             const badge = document.getElementById('stat-symptom-level');
             if (badge) {
-              badge.textContent = '● Awaiting daily entry';
+              badge.textContent = configuredTab ? '● Ready for daily entry' : '● Awaiting daily entry';
               badge.style.color = 'var(--text-muted)';
             }
           }
@@ -6760,44 +6044,70 @@
           filtered.forEach(item => {
             const card = document.createElement('div');
             card.className = 'library-card';
+            card.id = `library-card-${item.id}`;
             const userNote = (this.state.libraryNotes && this.state.libraryNotes[item.id]) ? this.state.libraryNotes[item.id] : '';
 
             const linkHtml = item.link ? `
-              <div style="margin-top: 0.65rem; margin-bottom: 0.85rem;">
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="font-size:0.825rem; color:var(--teal-primary); text-decoration:underline; font-family:var(--font-sans); font-weight:700; display:inline-flex; align-items:center; gap:0.35rem;">
-                  <span>Original Document &rarr;</span>
+              <div style="margin-top: 0.35rem; margin-bottom: 0.5rem;">
+                <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="font-size:0.825rem; color:var(--teal-primary); text-decoration:underline; font-family:var(--font-sans); font-weight:700; display:inline-flex; align-items:center; gap:0.35rem; word-break:break-all;">
+                  <span>🔗 Original Document &rarr;</span>
                 </a>
               </div>
             ` : `
-              <div style="margin-top: 0.65rem; margin-bottom: 0.85rem; font-size: 0.8rem; color: var(--text-muted); font-style: italic; font-family: var(--font-sans);">
+              <div style="margin-top: 0.35rem; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-muted); font-style: italic; font-family: var(--font-sans);">
                 No external link confirmed. Consult your packaging or prescriber.
               </div>
             `;
 
             card.innerHTML = `
               <div style="display: flex; flex-direction: column; flex: 1;">
-                <div class="library-source-meta">
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.5rem 0; line-height: 1.4;">
+                  ${this.escapeHtml(item.title)}
+                </h3>
+              </div>
+              <div class="library-card-footer" style="justify-content: flex-end; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid var(--border-subtle);">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="app.toggleAllInfo('${item.id}')" style="font-size:0.775rem; color:var(--teal-primary); font-family:var(--font-sans); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem; padding:0.35rem 0.75rem;">
+                  <span id="all-info-btn-text-${item.id}">All Info ▾</span>
+                </button>
+              </div>
+              <div id="all-info-${item.id}" class="all-info-div" style="display: none; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px dashed var(--border-subtle);">
+                <div class="library-source-meta" style="margin-bottom: 0.65rem; font-size: 0.75rem; color: var(--text-muted);">
                   <span>${this.escapeHtml(item.publisher)}</span>
                   <span>·</span>
                   <span>${this.escapeHtml(item.category)}</span>
                 </div>
-                <h3 style="font-size: 1.05rem; margin-bottom: 0.25rem;">${this.escapeHtml(item.title)}</h3>
-                ${linkHtml}
-                <div style="margin-top: auto; padding-top: 0.85rem;">
+                <div style="margin-bottom: 0.85rem;">
+                  <label style="display: block; font-size: 0.775rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.25rem; font-family: var(--font-sans);">
+                    Links to documents:
+                  </label>
+                  ${linkHtml}
+                </div>
+                <div style="margin-top: 0.65rem;">
                   <label for="library-note-${item.id}" style="display: block; font-size: 0.775rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.35rem; font-family: var(--font-sans);">
-                    My notes:
+                    My note:
                   </label>
                   <textarea id="library-note-${item.id}" class="form-control" rows="3" placeholder="Write your personal notes here..." style="width: 100%; font-size: 0.825rem; resize: vertical; font-family: var(--font-sans); box-sizing: border-box;" oninput="app.updateLibraryNote('${item.id}', this.value)">${this.escapeHtml(userNote)}</textarea>
                 </div>
-              </div>
-              <div class="library-card-footer" style="justify-content: flex-end; margin-top: 0.95rem;">
-                <a href="javascript:void(0)" onclick="app.viewArticle('${item.id}')" style="font-size:0.775rem; color:var(--teal-primary); text-decoration:none; font-family:var(--font-sans); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem;">
-                  All Info &rarr;
-                </a>
+                <div style="margin-top: 0.75rem; display: flex; justify-content: flex-end;">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="app.viewArticle('${item.id}')" style="font-size:0.725rem; display:inline-flex; align-items:center; gap:0.35rem; padding: 0.25rem 0.5rem;">
+                    <span>Open Fullscreen</span> &rarr;
+                  </button>
+                </div>
               </div>
             `;
             grid.appendChild(card);
           });
+        },
+
+        toggleAllInfo(id) {
+          const panel = document.getElementById(`all-info-${id}`);
+          const btnText = document.getElementById(`all-info-btn-text-${id}`);
+          if (!panel) return;
+          const isHidden = panel.style.display === 'none' || !panel.style.display;
+          panel.style.display = isHidden ? 'block' : 'none';
+          if (btnText) {
+            btnText.textContent = isHidden ? 'All Info ▴' : 'All Info ▾';
+          }
         },
 
         setLibraryCategory(cat, evt) {
@@ -6859,12 +6169,15 @@
               </h3>
 
               <div style="background: #0f172a; padding: 0.85rem 1rem; border-radius: 0.5rem; border: 1px solid #1e293b; margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.775rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.35rem;">
+                  Links to documents:
+                </label>
                 ${linkHtml}
               </div>
 
               <div style="margin-top: 1rem; margin-bottom: 1.25rem;">
                 <label for="modal-library-note-${item.id}" style="display: block; font-size: 0.825rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
-                  My notes:
+                  My note:
                 </label>
                 <textarea id="modal-library-note-${item.id}" class="form-control" rows="5" placeholder="Write your personal notes on this document here..." style="width: 100%; font-size: 0.85rem; resize: vertical; font-family: var(--font-sans); box-sizing: border-box;" oninput="app.updateLibraryNote('${item.id}', this.value)">${this.escapeHtml(userNote)}</textarea>
                 <div style="font-size: 0.725rem; color: var(--text-muted); margin-top: 0.25rem;">Notes are saved to your device.</div>
@@ -6897,6 +6210,49 @@
         closeModal(evt) {
           if (!evt || evt.target === document.getElementById('app-modal-backdrop') || evt.target.classList.contains('modal-close-btn')) {
             document.getElementById('app-modal-backdrop').classList.remove('open');
+          }
+        },
+
+        // MOBILE HAMBURGER MENU METHODS
+        toggleMobileMenu() {
+          const drawer = document.getElementById('mobile-nav-drawer');
+          const isOpen = drawer && drawer.classList.contains('open');
+          if (isOpen) {
+            this.closeMobileMenu();
+          } else {
+            this.openMobileMenu();
+          }
+        },
+
+        openMobileMenu() {
+          const drawer = document.getElementById('mobile-nav-drawer');
+          const backdrop = document.getElementById('mobile-menu-backdrop');
+          const btn = document.getElementById('mobile-menu-btn');
+          if (drawer) drawer.classList.add('open');
+          if (backdrop) backdrop.classList.add('open');
+          if (btn) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+          document.body.style.overflow = 'hidden';
+        },
+
+        closeMobileMenu() {
+          const drawer = document.getElementById('mobile-nav-drawer');
+          const backdrop = document.getElementById('mobile-menu-backdrop');
+          const btn = document.getElementById('mobile-menu-btn');
+          if (drawer) drawer.classList.remove('open');
+          if (backdrop) backdrop.classList.remove('open');
+          if (btn) {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+          }
+          const summaryOverlay = document.getElementById('prescriber-summary-overlay');
+          const modalBackdrop = document.getElementById('app-modal-backdrop');
+          const summaryOpen = summaryOverlay && summaryOverlay.style.display === 'block';
+          const modalOpen = modalBackdrop && modalBackdrop.classList.contains('open');
+          if (!summaryOpen && !modalOpen) {
+            document.body.style.overflow = '';
           }
         }
       };
