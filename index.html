@@ -2656,8 +2656,6 @@
           crisisNumber: '',
           warningDismissedUntil: 0,
           firstVisitAccepted: true,
-          prescriberQuestions: [],
-          _editingQuestionId: null,
           _summaryRange: 'all',
           _summaryCustomStart: '',
           _summaryCustomEnd: '',
@@ -2700,37 +2698,54 @@
         ],
 
         init() {
-          const now = new Date();
-          this.state.currentYear = now.getFullYear();
-          this.state.currentMonth = now.getMonth();
-          this.state.selectedDate = this.formatDate(now);
+          try {
+            const now = new Date();
+            this.state.currentYear = now.getFullYear();
+            this.state.currentMonth = now.getMonth();
+            this.state.selectedDate = this.formatDate(now);
+          } catch (e) {
+            console.error('Date initialization error in init:', e);
+          }
 
-          this.loadStorage();
-          this.renderAll(this.state.selectedDate);
+          try {
+            this.loadStorage();
+          } catch (e) {
+            console.error('Storage load error in init:', e);
+          }
 
-          document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-              this.closeMobileMenu();
-            }
-          });
+          try {
+            this.renderAll(this.state.selectedDate);
+          } catch (e) {
+            console.error('Rendering error in init:', e);
+          }
+
+          try {
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape') {
+                this.closeMobileMenu();
+              }
+            });
+          } catch (e) {
+            console.error('Event listener error in init:', e);
+          }
         },
 
         renderAll(dateToSelect = this.state.selectedDate) {
-          this.renderCrisisBanner();
-          this.renderUrgentHelpSection();
-          this.renderTablets();
-          this.renderQuickPillButtons();
-          this.renderCalendar();
-          this.renderConflictOverlay();
-          this.renderPlans();
-          this.renderLibrary();
+          try { this.renderCrisisBanner(); } catch (e) { console.error('Error rendering crisis banner:', e); }
+          try { this.renderUrgentHelpSection(); } catch (e) { console.error('Error rendering urgent help:', e); }
+          try { this.renderTablets(); } catch (e) { console.error('Error rendering tablets:', e); }
+          try { this.renderQuickPillButtons(); } catch (e) { console.error('Error rendering pill buttons:', e); }
+          try { this.renderCalendar(); } catch (e) { console.error('Error rendering calendar:', e); }
+          try { this.renderConflictOverlay(); } catch (e) { console.error('Error rendering conflict overlay:', e); }
+          try { this.renderPlans(); } catch (e) { console.error('Error rendering plans:', e); }
+          try { this.renderLibrary(); } catch (e) { console.error('Error rendering library:', e); }
           if (dateToSelect) {
-            this.selectDate(dateToSelect);
+            try { this.selectDate(dateToSelect); } catch (e) { console.error('Error selecting date:', e); }
           }
-          this.renderChart();
-          this.checkAdherence();
-          this.updateMetricBar();
-          this.syncPlanIndicationAndBaselineUI();
+          try { this.renderChart(); } catch (e) { console.error('Error rendering trajectory chart:', e); }
+          try { this.checkAdherence(); } catch (e) { console.error('Error checking adherence:', e); }
+          try { this.updateMetricBar(); } catch (e) { console.error('Error updating metric bar:', e); }
+          try { this.syncPlanIndicationAndBaselineUI(); } catch (e) { console.error('Error syncing baseline UI:', e); }
         },
 
         loadStorage() {
@@ -2802,25 +2817,16 @@
               if (parsed.firstVisitAccepted !== undefined) {
                 this.state.firstVisitAccepted = !!parsed.firstVisitAccepted;
               } else {
-                this.state.firstVisitAccepted = (localStorage.getItem('taper_diary_first_visit_accepted') === 'true');
-              }
-              if (parsed.prescriberQuestions && Array.isArray(parsed.prescriberQuestions)) {
-                this.state.prescriberQuestions = parsed.prescriberQuestions;
-              } else {
-                this.state.prescriberQuestions = this.getDefaultPrescriberQuestions();
+                this.state.firstVisitAccepted = true;
               }
             } else {
-              this.state.firstVisitAccepted = (localStorage.getItem('taper_diary_first_visit_accepted') === 'true');
-              this.state.prescriberQuestions = this.getDefaultPrescriberQuestions();
+              this.state.firstVisitAccepted = true;
             }
           } catch (e) {
             console.warn('Storage read error:', e);
           }
           if (this.state.firstVisitAccepted === undefined) {
-            this.state.firstVisitAccepted = (localStorage.getItem('taper_diary_first_visit_accepted') === 'true');
-          }
-          if (!this.state.prescriberQuestions || this.state.prescriberQuestions.length === 0) {
-            this.state.prescriberQuestions = this.getDefaultPrescriberQuestions();
+            this.state.firstVisitAccepted = true;
           }
         },
 
@@ -2836,7 +2842,6 @@
               crisisNumber: this.state.crisisNumber || '',
               warningDismissedUntil: this.state.warningDismissedUntil || 0,
               firstVisitAccepted: this.state.firstVisitAccepted,
-              prescriberQuestions: this.state.prescriberQuestions || [],
               unlockedDates: this.state.unlockedDates || {},
               libraryNotes: this.state.libraryNotes || {}
             }));
@@ -2925,7 +2930,6 @@
               liquidConcentration: this.state.liquidConcentration || '',
               crisisNumber: this.state.crisisNumber || '',
               warningDismissedUntil: this.state.warningDismissedUntil || 0,
-              prescriberQuestions: this.state.prescriberQuestions || [],
               libraryNotes: this.state.libraryNotes || {},
               activeIndication: this.state.activeIndication || '',
               firstVisitAccepted: this.state.firstVisitAccepted || false
@@ -3070,7 +3074,6 @@
           this.state.liquidConcentration = data.liquidConcentration !== undefined ? data.liquidConcentration : '';
           this.state.crisisNumber = data.crisisNumber !== undefined ? data.crisisNumber : '';
           this.state.warningDismissedUntil = data.warningDismissedUntil || 0;
-          this.state.prescriberQuestions = Array.isArray(data.prescriberQuestions) ? data.prescriberQuestions : this.getDefaultPrescriberQuestions();
           this.state.libraryNotes = data.libraryNotes || {};
           this.state.activeIndication = data.activeIndication || '';
           this.state.firstVisitAccepted = true;
@@ -3118,7 +3121,6 @@
           this.state.crisisNumber = '';
           this.state.warningDismissedUntil = 0;
           this.state.libraryNotes = {};
-          this.state.prescriberQuestions = this.getDefaultPrescriberQuestions();
           this.state.activeIndication = '';
           this.state.firstVisitAccepted = true;
 
@@ -3476,6 +3478,13 @@
         formatDisplayDate(dateStr) {
           const d = this.parseLocalDate(dateStr);
           return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        },
+
+        formatShortDisplayDate(dateStr) {
+          if (!dateStr) return '';
+          const d = this.parseLocalDate(dateStr);
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+          return `${d.getDate()} ${months[d.getMonth()]}`;
         },
 
         getNextDateStr(dateStr) {
@@ -4676,23 +4685,35 @@
 
         getPreviousPhaseDose(currentPlanId, currentStartDate) {
           const allPlans = this.state.plans || [];
-          const otherPlans = allPlans.filter(p => p.id !== currentPlanId);
-          if (otherPlans.length === 0) {
-            if (this.state.plan && this.state.plan.baselineDose && Number(this.state.plan.baselineDose) > 0) {
-              return { dose: Number(this.state.plan.baselineDose), source: 'Baseline dose' };
-            }
-            return null;
-          }
-          const sorted = [...otherPlans].sort((a, b) => (a.startDate || '').localeCompare(b.startDate || ''));
           if (currentStartDate) {
-            const before = sorted.filter(p => (p.startDate || '') <= currentStartDate);
+            const before = allPlans.filter(p => p.id !== currentPlanId && p.startDate && p.startDate < currentStartDate);
             if (before.length > 0) {
+              before.sort((a, b) => a.startDate.localeCompare(b.startDate));
               const prev = before[before.length - 1];
-              return { dose: this.calculatePlanAverageDailyDose(prev), source: prev.name, plan: prev };
+              return {
+                dose: this.calculatePlanAverageDailyDose(prev),
+                source: prev.name,
+                plan: prev,
+                isBaseline: false
+              };
             }
           }
-          const last = sorted[sorted.length - 1];
-          return { dose: this.calculatePlanAverageDailyDose(last), source: last.name, plan: last };
+
+          const rawBaseline = this.state.plan ? this.state.plan.baselineDose : null;
+          const baselineVal = (rawBaseline !== null && rawBaseline !== undefined && !isNaN(Number(rawBaseline)) && Number(rawBaseline) > 0)
+            ? Number(rawBaseline)
+            : null;
+
+          if (baselineVal !== null) {
+            return {
+              dose: baselineVal,
+              source: 'Baseline dose',
+              plan: null,
+              isBaseline: true
+            };
+          }
+
+          return null;
         },
 
         updatePlanEditorCalculation() {
@@ -4723,7 +4744,7 @@
                   <strong class="tabular-nums" style="font-size: 0.95rem; color: var(--teal-primary);">${currentAvg.toFixed(1)} mg/day</strong>
                 </div>
                 <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
-                  Starting phase (no previous phase dose recorded for percentage change comparison).
+                  Starting phase (no previous phase dose or baseline dose recorded for percentage comparison).
                 </div>
               </div>
             `;
@@ -4749,11 +4770,14 @@
             `;
           }
 
+          const sourceLabel = prevInfo.isBaseline ? 'Baseline dose' : `Previous phase (${this.escapeHtml(prevInfo.source)})`;
+          const changeLabel = prevInfo.isBaseline ? 'Percentage change from baseline dose:' : 'Percentage change from previous phase:';
+
           box.innerHTML = `
             <div style="background: #111827; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.85rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
                 <div>
-                  <span style="font-size: 0.775rem; color: var(--text-muted);">Previous phase (${this.escapeHtml(prevInfo.source)}):</span>
+                  <span style="font-size: 0.775rem; color: var(--text-muted);">${sourceLabel}:</span>
                   <strong class="tabular-nums" style="font-size: 0.85rem; color: var(--text-primary); margin-left: 0.35rem;">${prevDose.toFixed(1)} mg/day</strong>
                 </div>
                 <div>
@@ -4762,7 +4786,7 @@
                 </div>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.45rem; padding-top: 0.45rem; border-top: 1px solid #1e293b;">
-                <span style="font-size: 0.825rem; font-weight: 600; color: var(--text-secondary);">Percentage change from previous phase:</span>
+                <span style="font-size: 0.825rem; font-weight: 600; color: var(--text-secondary);">${changeLabel}</span>
                 <span class="tabular-nums" style="font-size: 0.95rem; font-weight: 700; color: ${pctChange < 0 ? '#38bdf8' : pctChange > 0 ? '#f59e0b' : 'var(--text-muted)'};">
                   ${formattedPct}
                 </span>
@@ -4785,6 +4809,7 @@
           if (suggestHoldBtn) {
             suggestHoldBtn.style.opacity = hasActivePlans ? '1' : '0.5';
           }
+          this.syncHoldConfirmUI();
 
           if (!grid) return;
           grid.innerHTML = '';
@@ -4862,7 +4887,8 @@
               const currentAvg = this.calculatePlanAverageDailyDose(plan);
               const pct = ((currentAvg - prevInfo.dose) / prevInfo.dose) * 100;
               const isLarge = (Math.abs(currentAvg - prevInfo.dose) / prevInfo.dose > 0.25) || (currentAvg === 0);
-              pctBadge = `<span class="pill-badge" style="border-color:#38bdf8; color:#7dd3fc; font-size:0.7rem; padding:0.15rem 0.5rem;">${pct > 0 ? '+' : ''}${pct.toFixed(1)}% vs prev phase</span>`;
+              const label = prevInfo.isBaseline ? 'vs baseline' : 'vs prev phase';
+              pctBadge = `<span class="pill-badge" style="border-color:#38bdf8; color:#7dd3fc; font-size:0.7rem; padding:0.15rem 0.5rem;">${pct > 0 ? '+' : ''}${pct.toFixed(1)}% ${label}</span>`;
               if (isLarge) {
                 largeNotice = `
                   <div style="font-size:0.75rem; color:#fbbf24; margin-top:0.35rem; background:rgba(245, 158, 11, 0.1); border:1px solid #f59e0b; border-radius:0.35rem; padding:0.35rem 0.6rem; display:flex; align-items:center; gap:0.4rem;">
@@ -5193,6 +5219,35 @@
           }
         },
 
+        getCurrentHoldPlan() {
+          const today = this.getTodayStr();
+          const activePlans = (this.state.plans || []).filter(p => p.active);
+          if (activePlans.length === 0) return null;
+
+          // 1. "Current phase" means the active plan whose start..end range includes today
+          const ongoing = activePlans.find(p => {
+            const end = this.getPlanEndDate(p);
+            return today >= p.startDate && today <= end;
+          });
+          if (ongoing) return ongoing;
+
+          // 2. If none, use the next upcoming active plan (earliest startDate > today)
+          const upcoming = activePlans
+            .filter(p => p.startDate > today)
+            .sort((a, b) => a.startDate.localeCompare(b.startDate));
+          if (upcoming.length > 0) return upcoming[0];
+
+          // 3. If none
+          return null;
+        },
+
+        getLaterActivePlans(targetPlan) {
+          if (!targetPlan) return [];
+          return (this.state.plans || [])
+            .filter(p => p.active && p.id !== targetPlan.id && p.startDate > targetPlan.startDate)
+            .sort((a, b) => a.startDate.localeCompare(b.startDate));
+        },
+
         suggestLongerHold() {
           this.showExtendHoldConfirm(7);
         },
@@ -5201,21 +5256,48 @@
           const box = document.getElementById('hold-confirm-inline');
           if (!box) return;
 
-          const activePlan = (this.state.plans || []).find(p => p.active);
+          box.style.display = 'flex';
+          this.renderHoldConfirmPrompt(days);
+          box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        },
+
+        renderHoldConfirmPrompt(days = 7) {
+          const box = document.getElementById('hold-confirm-inline');
+          if (!box) return;
+
+          const currentPlan = this.getCurrentHoldPlan();
           const msg = document.getElementById('hold-confirm-msg');
           const sub = document.getElementById('hold-confirm-sub');
           const actions = document.getElementById('hold-confirm-actions');
 
-          box.style.display = 'flex';
-
-          if (!activePlan) {
-            if (msg) msg.textContent = 'No active plan found to extend.';
-            if (sub) sub.textContent = 'Please create or activate a plan phase below before suggesting a hold extension.';
+          if (!currentPlan) {
+            if (msg) msg.textContent = 'No active plan to extend.';
+            if (sub) sub.textContent = 'This only lengthens your current plan. It never lowers your dose.';
             if (actions) actions.innerHTML = '<button class="btn btn-secondary btn-sm" onclick="app.cancelExtendHold()">Dismiss</button>';
             return;
           }
 
-          if (msg) msg.textContent = `Extend your current phase by ${days} days?`;
+          const oldEndStr = this.getPlanEndDate(currentPlan);
+          const oldEndFmt = this.formatShortDisplayDate(oldEndStr);
+
+          const d = this.parseLocalDate(currentPlan.startDate);
+          d.setDate(d.getDate() + ((currentPlan.durationDays || 21) + days - 1));
+          const newEndStr = this.formatDate(d);
+          const newEndFmt = this.formatShortDisplayDate(newEndStr);
+
+          const laterPlans = this.getLaterActivePlans(currentPlan);
+
+          let confirmText = `${currentPlan.name} ends ${newEndFmt} instead of ${oldEndFmt}`;
+          if (laterPlans.length > 0) {
+            const laterParts = laterPlans.map(lp => {
+              const startD = this.parseLocalDate(lp.startDate);
+              startD.setDate(startD.getDate() + days);
+              return `${lp.name} starts ${this.formatShortDisplayDate(this.formatDate(startD))}`;
+            });
+            confirmText += `; ${laterParts.join(', ')}`;
+          }
+
+          if (msg) msg.textContent = confirmText;
           if (sub) sub.textContent = 'This only lengthens your current plan. It never lowers your dose.';
           if (actions) {
             actions.innerHTML = `
@@ -5223,46 +5305,71 @@
               <button class="btn btn-secondary btn-sm" onclick="app.cancelExtendHold()">Cancel</button>
             `;
           }
-
-          box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         },
 
         confirmExtendHold(days = 7) {
-          const activePlan = (this.state.plans || []).find(p => p.active);
-          if (!activePlan) {
+          const currentPlan = this.getCurrentHoldPlan();
+          if (!currentPlan) {
             this.cancelExtendHold();
             return;
           }
 
-          const newDuration = (activePlan.durationDays || 21) + days;
+          const newDuration = (currentPlan.durationDays || 21) + days;
           if (newDuration < 1) {
             this.showToast('Plan duration cannot be less than 1 day.', 'error');
             return;
           }
-          activePlan.durationDays = newDuration;
+
+          currentPlan.durationDays = newDuration;
+          const newEndStr = this.getPlanEndDate(currentPlan);
+          const newEndFmt = this.formatShortDisplayDate(newEndStr);
+
+          const laterPlans = this.getLaterActivePlans(currentPlan);
+          laterPlans.forEach(lp => {
+            const startD = this.parseLocalDate(lp.startDate);
+            startD.setDate(startD.getDate() + days);
+            lp.startDate = this.formatDate(startD);
+          });
+
           this.saveStorage();
           this.renderConflictOverlay();
           this.renderPlans();
           this.renderCalendar();
           this.checkAdherence();
+          this.renderChart();
+          this.updateMetricBar();
 
           const box = document.getElementById('hold-confirm-inline');
           if (box) {
             const msg = document.getElementById('hold-confirm-msg');
             const sub = document.getElementById('hold-confirm-sub');
             const actions = document.getElementById('hold-confirm-actions');
-            if (msg) msg.textContent = `Extended current phase "${activePlan.name}" by ${days} days.`;
-            if (sub) sub.textContent = `New phase duration: ${activePlan.durationDays} days.`;
+
+            let successDesc = `Extended ${currentPlan.name} by ${days} days (ends ${newEndFmt}).`;
+            if (laterPlans.length > 0) {
+              const shiftDesc = laterPlans.map(lp => `${lp.name} starts ${this.formatShortDisplayDate(lp.startDate)}`).join(', ');
+              successDesc += ` Shifted: ${shiftDesc}.`;
+            }
+            if (msg) msg.textContent = successDesc;
+            if (sub) sub.textContent = 'This only lengthens your current plan. It never lowers your dose.';
             if (actions) actions.innerHTML = '<button class="btn btn-secondary btn-sm" onclick="app.cancelExtendHold()">Dismiss</button>';
             setTimeout(() => {
               this.cancelExtendHold();
-            }, 4000);
+            }, 5000);
           }
+
+          this.showToast(`Extended ${currentPlan.name} by ${days} days.`, 'success');
         },
 
         cancelExtendHold() {
           const box = document.getElementById('hold-confirm-inline');
           if (box) box.style.display = 'none';
+        },
+
+        syncHoldConfirmUI() {
+          const box = document.getElementById('hold-confirm-inline');
+          if (!box || box.style.display === 'none') return;
+          this.renderHoldConfirmPrompt(7);
         },
 
         applyAllPlansToCalendar() {
