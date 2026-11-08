@@ -96,6 +96,10 @@
         padding: 1.5rem 1.25rem 5rem 1.25rem;
       }
 
+      section {
+        scroll-margin-top: 5rem;
+      }
+
       /* Top Bar */
       header.top-nav {
         background: #0f172a;
@@ -2280,24 +2284,15 @@
             <h2>My Tablets</h2>
             <p>Configure your prescribed tablets and strengths to match your specific prescription.</p>
           </div>
-          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-            <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-              + Add Tablet
-            </button>
-          </div>
         </div>
 
         <div class="plan-section-card" style="margin-bottom: 2rem;">
           <!-- My Tablets List -->
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div style="margin-bottom: 0.75rem;">
               <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">
                 Configured Tablets:
               </span>
-              <button class="btn btn-secondary btn-sm" onclick="app.openTabletModal()">
-                + Add Tablet
-              </button>
             </div>
             <div id="tablets-container">
               <!-- Dynamically populated via app.renderTablets() -->
@@ -2559,35 +2554,6 @@
       </div>
     </footer>
 
-    <!-- First-Visit Full-Screen Notice Overlay -->
-    <div id="first-visit-overlay" style="display: none; position: fixed; inset: 0; background: rgba(5, 8, 16, 0.95); z-index: 10000; align-items: center; justify-content: center; padding: 1.25rem; backdrop-filter: blur(8px);">
-      <div style="background: #0f172a; border: 1.5px solid #334155; border-radius: 0.85rem; max-width: 560px; width: 100%; padding: 2rem 1.85rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
-        <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.15rem;">
-          <span style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 0.5rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 1.15rem;">
-            📋
-          </span>
-          <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin: 0;">
-            Important Notice
-          </h2>
-        </div>
-
-        <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary); margin: 0 0 1.35rem 0;">
-          This is a personal diary. It is not medical advice and it does not tell you how to taper. Do not change your dose because of anything this app shows. Stopping or reducing medication should be planned with your prescriber or pharmacist.
-        </p>
-
-        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid #1e293b; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-bottom: 1.35rem;">
-          <label style="display: flex; align-items: center; gap: 0.65rem; cursor: pointer; user-select: none; margin: 0;">
-            <input type="checkbox" id="first-visit-consent-check" onchange="app.toggleFirstVisitButton(this.checked)" style="width: 18px; height: 18px; accent-color: var(--teal-primary); cursor: pointer;" />
-            <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary);">I understand</span>
-          </label>
-        </div>
-
-        <button type="button" id="first-visit-continue-btn" class="btn btn-primary" disabled onclick="app.dismissFirstVisitNotice()" style="width: 100%; padding: 0.75rem 1.25rem; font-size: 0.925rem; font-weight: 700; opacity: 0.45; cursor: not-allowed; justify-content: center;">
-          Continue
-        </button>
-      </div>
-    </div>
-
     <!-- Total Summary of Intake Overlay (Print-Friendly Report) -->
     <div id="prescriber-summary-overlay" style="display: none; position: fixed; inset: 0; background: rgba(5, 8, 16, 0.95); z-index: 10000; overflow-y: auto; padding: 1.5rem; backdrop-filter: blur(8px);">
       <div id="prescriber-summary-modal" style="background: #0f172a; border: 1.5px solid #334155; border-radius: 0.85rem; max-width: 1050px; width: 100%; margin: 0 auto; padding: 2rem 2.25rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
@@ -2649,6 +2615,9 @@
       </div>
     </div>
 
+    <!-- Toast Notification Container (Non-blocking replacement for alert popups) -->
+    <div id="app-toast-container" style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99999; display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none; max-width: 420px; width: calc(100% - 3rem);"></div>
+
     <!-- Application Embedded Script -->
     <script>
       /**
@@ -2686,7 +2655,7 @@
           liquidConcentration: '',
           crisisNumber: '',
           warningDismissedUntil: 0,
-          firstVisitAccepted: false,
+          firstVisitAccepted: true,
           prescriberQuestions: [],
           _editingQuestionId: null,
           _summaryRange: 'all',
@@ -2737,7 +2706,6 @@
           this.state.selectedDate = this.formatDate(now);
 
           this.loadStorage();
-          this.checkFirstVisitNotice();
           this.renderAll(this.state.selectedDate);
 
           document.addEventListener('keydown', (e) => {
@@ -2877,45 +2845,42 @@
           }
         },
 
-        // FIRST-VISIT NOTICE METHODS
-        checkFirstVisitNotice() {
-          const overlay = document.getElementById('first-visit-overlay');
-          if (!overlay) return;
-          if (!this.state.firstVisitAccepted) {
-            overlay.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-          } else {
-            overlay.style.display = 'none';
-            document.body.style.overflow = '';
-          }
-        },
+        // Notice popup permanently removed
+        checkFirstVisitNotice() {},
+        toggleFirstVisitButton() {},
+        dismissFirstVisitNotice() {},
 
-        toggleFirstVisitButton(checked) {
-          const btn = document.getElementById('first-visit-continue-btn');
-          if (!btn) return;
-          btn.disabled = !checked;
-          if (checked) {
-            btn.style.opacity = '1';
-            btn.style.cursor = 'pointer';
-          } else {
-            btn.style.opacity = '0.45';
-            btn.style.cursor = 'not-allowed';
+        showToast(msg, type = 'info') {
+          const container = document.getElementById('app-toast-container');
+          if (!container) return;
+          const toast = document.createElement('div');
+          let borderColor = 'var(--teal-primary)';
+          const str = String(msg || '');
+          if (type === 'error' || /not allowed|cannot|conflict|error|failed/i.test(str)) {
+            borderColor = '#f43f5e';
+          } else if (type === 'success' || /success|saved|resolved|duplicated/i.test(str)) {
+            borderColor = '#10b981';
           }
-        },
-
-        dismissFirstVisitNotice() {
-          const check = document.getElementById('first-visit-consent-check');
-          if (check && !check.checked) return;
-          this.state.firstVisitAccepted = true;
-          try {
-            localStorage.setItem('taper_diary_first_visit_accepted', 'true');
-          } catch (e) {}
-          this.saveStorage();
-          const overlay = document.getElementById('first-visit-overlay');
-          if (overlay) {
-            overlay.style.display = 'none';
-          }
-          document.body.style.overflow = '';
+          toast.style.cssText = `background: #0f172a; border: 1px solid #334155; border-left: 4px solid ${borderColor}; border-radius: 0.5rem; padding: 0.85rem 1.15rem; color: #f8fafc; font-size: 0.85rem; font-family: var(--font-sans); box-shadow: 0 10px 25px rgba(0,0,0,0.5); pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; transition: opacity 0.25s ease, transform 0.25s ease; opacity: 0; transform: translateY(10px);`;
+          toast.innerHTML = `<span style="flex: 1; line-height: 1.4;">${this.escapeHtml(str)}</span><button type="button" aria-label="Close" style="background: transparent; border: none; color: #94a3b8; font-size: 1.25rem; cursor: pointer; padding: 0 0 0 0.5rem; line-height: 1;">&times;</button>`;
+          const closeBtn = toast.querySelector('button');
+          if (closeBtn) closeBtn.onclick = () => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            setTimeout(() => toast.remove(), 250);
+          };
+          container.appendChild(toast);
+          requestAnimationFrame(() => {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+          });
+          setTimeout(() => {
+            if (toast.parentNode) {
+              toast.style.opacity = '0';
+              toast.style.transform = 'translateY(10px)';
+              setTimeout(() => toast.remove(), 250);
+            }
+          }, 4500);
         },
 
 
@@ -3610,12 +3575,9 @@
                 <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 1rem; line-height: 1.5;">
                   Check the strength and appearance against your own box and leaflet. They differ between countries and brands.
                 </p>
-                <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                <div style="display: flex; justify-content: center;">
                   <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
                     + Add Tablet
-                  </button>
-                  <button class="btn btn-secondary btn-sm" onclick="app.seedDefaultTablets()">
-                    Load Standard 20mg Tablet
                   </button>
                 </div>
               </div>
@@ -3666,19 +3628,6 @@
               </button>
             </div>
           `;
-        },
-
-        seedDefaultTablets() {
-          if (!this.state.tablets) this.state.tablets = [];
-          this.state.tablets.push({
-            id: 'tab-' + Date.now(),
-            name: 'Paroxetine 20mg',
-            strength: 20.0,
-            color: 'White',
-            splittable: true
-          });
-          this.saveStorage();
-          this.renderAll(this.state.selectedDate);
         },
 
         openTabletModal(tabletId) {
@@ -4605,7 +4554,7 @@
         autoResolveConflicts() {
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length === 0) {
-            alert('No active conflicts detected.');
+            this.showToast('No active conflicts detected.', 'info');
             return;
           }
 
@@ -4626,7 +4575,7 @@
           this.renderPlans();
           this.renderCalendar();
           this.checkAdherence();
-          alert('Conflicts successfully resolved! Plans have been scheduled sequentially without date overlap.');
+          this.showToast('Conflicts successfully resolved! Plans have been scheduled sequentially without date overlap.', 'success');
         },
 
         getSymptomFeedback() {
@@ -5148,7 +5097,7 @@
           const durationDays = parseInt(durInp ? durInp.value : '0', 10);
 
           if (isNaN(durationDays) || durationDays < 1) {
-            alert('Plan duration must be at least 1 day. Negative or zero days are not allowed.');
+            this.showToast('Plan duration must be at least 1 day. Negative or zero days are not allowed.', 'error');
             if (durInp) {
               durInp.value = '1';
               durInp.focus();
@@ -5192,9 +5141,9 @@
 
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length > 0) {
-            alert(`Plan saved! Note: An active date conflict exists with another plan. Check the warning banner at the top of the Plan Section to resolve.`);
+            this.showToast(`Plan saved! Note: An active date conflict exists with another plan. Check the warning banner at the top of the Plan Section to resolve.`, 'info');
           } else {
-            alert(`Plan "${name}" saved and updated to calendar!`);
+            this.showToast(`Plan "${name}" saved and updated to calendar!`, 'success');
           }
         },
 
@@ -5217,7 +5166,7 @@
           this.renderPlans();
           this.renderCalendar();
           this.checkAdherence();
-          alert(`Plan duplicated! Starts on ${this.formatDisplayDate(copy.startDate)}.`);
+          this.showToast(`Plan duplicated! Starts on ${this.formatDisplayDate(copy.startDate)}.`, 'success');
         },
 
         togglePlanActive(planId) {
@@ -5287,7 +5236,7 @@
 
           const newDuration = (activePlan.durationDays || 21) + days;
           if (newDuration < 1) {
-            alert('Plan duration cannot be less than 1 day.');
+            this.showToast('Plan duration cannot be less than 1 day.', 'error');
             return;
           }
           activePlan.durationDays = newDuration;
@@ -5318,21 +5267,21 @@
 
         applyAllPlansToCalendar() {
           if (!this.state.plans || this.state.plans.length === 0) {
-            alert('No plans configured. Create an orientation plan first before updating the calendar.');
+            this.showToast('No plans configured. Create an orientation plan first before updating the calendar.', 'info');
             return;
           }
           const activePlans = this.state.plans.filter(p => p.active);
           if (activePlans.length === 0) {
-            alert('No active plans found. Please activate at least one plan phase using the "Activate" button so its schedule can be displayed on the calendar.');
+            this.showToast('No active plans found. Please activate at least one plan phase using the "Activate" button so its schedule can be displayed on the calendar.', 'info');
             return;
           }
           this.renderCalendar();
           this.checkAdherence();
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length > 0) {
-            alert(`Calendar updated with ${activePlans.length} active plan(s). Note: ${conflicts.length} scheduling conflict(s)/overlap(s) detected. Check the amber overlapping cells on the calendar.`);
+            this.showToast(`Calendar updated with ${activePlans.length} active plan(s). Note: ${conflicts.length} scheduling conflict(s)/overlap(s) detected. Check the amber overlapping cells on the calendar.`, 'info');
           } else {
-            alert(`All ${activePlans.length} active plan schedule(s) (${activePlans.map(p => p.name).join(', ')}) successfully updated across the calendar.`);
+            this.showToast(`All ${activePlans.length} active plan schedule(s) (${activePlans.map(p => p.name).join(', ')}) successfully updated across the calendar.`, 'success');
           }
         },
 
@@ -6338,6 +6287,7 @@
 
       // Auto-initialize on load
       document.addEventListener('DOMContentLoaded', () => {
+        window.alert = (msg) => app.showToast(msg);
         app.init();
       });
     </script>
