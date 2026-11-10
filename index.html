@@ -845,18 +845,19 @@
 
       /* 4. OVERLAPPING PLANS: Multiple active plans overlapping on this date */
       .calendar-day-cell.day-color-overlapping {
-        background: linear-gradient(155deg, rgba(120, 53, 15, 0.7) 0%, rgba(69, 26, 3, 0.9) 100%) !important;
-        border: 2px dashed #f59e0b !important;
-        box-shadow: inset 0 0 14px rgba(245, 158, 11, 0.22) !important;
+        background: rgba(245, 158, 11, 0.08) !important;
+        border: 1.5px dashed rgba(245, 158, 11, 0.65) !important;
+        box-shadow: none !important;
       }
       .calendar-day-cell.day-color-overlapping:hover {
-        border-color: #fbbf24 !important;
-        box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45) !important;
+        border-color: #f59e0b !important;
+        background: rgba(245, 158, 11, 0.14) !important;
+        box-shadow: none !important;
       }
       .calendar-day-cell.day-color-overlapping .day-code-badge {
-        background: rgba(245, 158, 11, 0.35) !important;
-        color: #fef08a !important;
-        border: 1px solid rgba(245, 158, 11, 0.85) !important;
+        background: rgba(245, 158, 11, 0.18) !important;
+        color: #fde68a !important;
+        border: 1px solid rgba(245, 158, 11, 0.5) !important;
       }
 
       /* Day code tag pill inside top row */
@@ -1135,21 +1136,16 @@
         margin-top: 1rem;
       }
 
-      /* Multi-Plan & Conflict Overlay Styles */
+      /* Multi-Plan & Overlap Notice Styles */
       .plan-conflict-overlay {
         display: none;
-        background: #3b0713;
-        border: 2px solid #f43f5e;
-        border-radius: 0.75rem;
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-left: 4px solid #f59e0b;
+        border-radius: 0.65rem;
         padding: 1.1rem 1.35rem;
         margin-bottom: 1.35rem;
-        box-shadow: 0 4px 20px rgba(244, 63, 94, 0.25);
-        animation: pulseConflict 2.5s infinite ease-in-out;
-      }
-
-      @keyframes pulseConflict {
-        0%, 100% { border-color: #f43f5e; }
-        50% { border-color: #fb7185; box-shadow: 0 0 16px rgba(244, 63, 94, 0.45); }
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
       }
 
       .plan-conflict-header {
@@ -1160,15 +1156,15 @@
       }
 
       .plan-conflict-title {
-        font-size: 1rem;
+        font-size: 0.975rem;
         font-weight: 700;
-        color: #ffe4e6;
+        color: #fef3c7;
         font-family: var(--font-sans);
       }
 
       .plan-conflict-body {
         font-size: 0.85rem;
-        color: #fecdd3;
+        color: #cbd5e1;
         line-height: 1.55;
         margin-bottom: 0.85rem;
         font-family: var(--font-sans);
@@ -1214,8 +1210,8 @@
       }
 
       .plan-list-row.conflict-plan {
-        border-color: #f43f5e;
-        background: linear-gradient(90deg, rgba(244, 63, 94, 0.08) 0%, #0f172a 100%);
+        border-color: #d97706;
+        background: linear-gradient(90deg, rgba(245, 158, 11, 0.06) 0%, #0f172a 100%);
       }
 
       .plan-list-left {
@@ -1307,10 +1303,10 @@
         }
       }
 
-      /* Calendar Conflict Styling */
+      /* Calendar Overlapping Plan Styling */
       .calendar-day-cell.day-conflict:not(.day-color-overlapping) {
-        border: 2px solid #f43f5e !important;
-        background: linear-gradient(135deg, rgba(244, 63, 94, 0.18) 0%, transparent 100%) !important;
+        border: 1.5px dashed rgba(245, 158, 11, 0.6) !important;
+        background: rgba(245, 158, 11, 0.06) !important;
       }
 
       .day-dose-conflict {
@@ -2037,7 +2033,7 @@
               </div>
               <div class="legend-color-item" title="Multiple active plans overlap on this date">
                 <span class="legend-swatch swatch-overlap"></span>
-                <span><strong>Overlapping Plans</strong> (Conflict / Review)</span>
+                <span><strong>Overlapping Plans</strong> (Multiple Active)</span>
               </div>
             </div>
 
@@ -2805,8 +2801,10 @@
           const toast = document.createElement('div');
           let borderColor = 'var(--teal-primary)';
           const str = String(msg || '');
-          if (type === 'error' || /not allowed|cannot|conflict|error|failed/i.test(str)) {
+          if (type === 'error' || /not allowed|cannot|\bfailed\b|\berror\b/i.test(str)) {
             borderColor = '#f43f5e';
+          } else if (type === 'warning' || /overlap/i.test(str)) {
+            borderColor = '#f59e0b';
           } else if (type === 'success' || /success|saved|resolved|duplicated/i.test(str)) {
             borderColor = '#10b981';
           }
@@ -3961,7 +3959,7 @@
             colorClass = 'day-color-overlapping';
             const dosesList = plannedInfo.allMatches.map(m => `${m.dose.toFixed(1).replace(/\.0$/, '')}mg`).join('/');
             const planNames = plannedInfo.allMatches.map(m => m.plan.name).join(' & ');
-            codeBadgeHtml = `<span class="day-code-badge" title="Overlapping active plans (${planNames})">⚠️ Overlap (${dosesList})</span>`;
+            codeBadgeHtml = `<span class="day-code-badge" title="Overlapping active plans (${planNames})">ℹ️ Overlap (${dosesList})</span>`;
           } else if (log && plannedInfo && Math.abs(Number(log.dose) - Number(plannedInfo.dose)) <= 0.1) {
             colorClass = 'day-color-both';
             codeBadgeHtml = `<span class="day-code-badge" title="Medication taken & in sync with active plan (ideal for taper success)">✓ Both Taken & Plan</span>`;
@@ -4002,7 +4000,7 @@
           } else if (plannedInfo) {
             if (isOverlapping) {
               const dosesText = plannedInfo.allMatches.map(m => `${m.dose.toFixed(1).replace(/\.0$/, '')}mg`).join('/');
-              doseDisplay = `<span class="day-dose-conflict" style="color:#fbbf24; font-weight:700;" title="Schedule overlap between active plans">⚠️ Overlap (${dosesText})</span>`;
+              doseDisplay = `<span class="day-dose-conflict" style="color:#fbbf24; font-weight:700;" title="Schedule overlap between active plans">ℹ️ Overlap (${dosesText})</span>`;
               pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem; color:#fde68a;">Overlapping Plans (${plannedInfo.allMatches.length})</span>`;
             } else {
               doseDisplay = `<span class="day-dose-planned" style="color:#60a5fa; font-weight:700;">📅 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
@@ -4612,20 +4610,20 @@
 
           overlay.innerHTML = `
             <div class="plan-conflict-header">
-              <span style="font-size: 1.35rem;">⚠️</span>
+              <span style="font-size: 1.25rem;">ℹ️</span>
               <div>
-                <div class="plan-conflict-title">Plan Scheduling Conflict Detected</div>
-                <div style="font-size: 0.775rem; color: #fbcfe8;">
-                  Active overlap window: <strong>${this.formatDisplayDate(c.overlapStart)}</strong> &rarr; <strong>${this.formatDisplayDate(c.overlapEnd)}</strong>
+                <div class="plan-conflict-title">Overlapping Plans Notice</div>
+                <div style="font-size: 0.775rem; color: #fde68a;">
+                  Overlap window: <strong>${this.formatDisplayDate(c.overlapStart)}</strong> &rarr; <strong>${this.formatDisplayDate(c.overlapEnd)}</strong>
                 </div>
               </div>
             </div>
             <div class="plan-conflict-body">
-              <strong>${this.escapeHtml(c.planA.name)}</strong> and <strong>${this.escapeHtml(c.planB.name)}</strong> are both marked active and overlap during these dates. ${mismatchDesc} Overlapping calendar cells are highlighted with red conflict alerts.
+              <strong>${this.escapeHtml(c.planA.name)}</strong> and <strong>${this.escapeHtml(c.planB.name)}</strong> both have active dates here. If you did this on purpose, you're good to go! If not, feel free to give it a look and change at your own will — you can adjust dates, pause a phase, or chain them sequentially whenever you like.
             </div>
             <div class="plan-conflict-actions">
-              <button class="btn btn-primary btn-sm" onclick="app.autoResolveConflicts()" style="background: #e11d48; border-color: #f43f5e;">
-                ⚡ Auto-Resolve: Chain Dates Sequentially
+              <button class="btn btn-secondary btn-sm" onclick="app.autoResolveConflicts()" style="border-color: #d97706; color: #fde68a;">
+                Chain Dates Sequentially
               </button>
               <button class="btn btn-secondary btn-sm" onclick="app.openPlanEditModal('${c.planB.id}')">
                 Adjust ${this.escapeHtml(c.planB.name)} Dates
@@ -4640,7 +4638,7 @@
         autoResolveConflicts() {
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length === 0) {
-            this.showToast('No active conflicts detected.', 'info');
+            this.showToast('No active overlaps detected.', 'info');
             return;
           }
 
@@ -4661,7 +4659,7 @@
           this.renderPlans();
           this.renderCalendar();
           this.checkAdherence();
-          this.showToast('Conflicts successfully resolved! Plans have been scheduled sequentially without date overlap.', 'success');
+          this.showToast('Plans have been scheduled sequentially without date overlap.', 'success');
         },
 
         getSymptomFeedback() {
@@ -4992,7 +4990,7 @@
                   <div class="plan-list-badges">
                     ${plan.active ? '<span class="pill-badge" style="border-color:#10b981; color:#34d399; font-size:0.7rem; padding:0.15rem 0.5rem;">● Active Plan</span>' : '<span class="pill-badge" style="border-color:#64748b; color:#94a3b8; font-size:0.7rem; padding:0.15rem 0.5rem;">○ Paused</span>'}
                     ${pctBadge}
-                    ${isConflicted ? '<span class="pill-badge" style="border-color:#f43f5e; color:#fbcfe8; font-size:0.7rem; padding:0.15rem 0.5rem;">⚠️ Conflict</span>' : ''}
+                    ${isConflicted ? '<span class="pill-badge" style="border-color:#d97706; color:#fde68a; font-size:0.7rem; padding:0.15rem 0.5rem;">ℹ️ Overlapping Dates</span>' : ''}
                   </div>
                 </div>
 
@@ -5247,7 +5245,7 @@
 
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length > 0) {
-            this.showToast(`Plan saved! Note: An active date conflict exists with another plan. Check the warning banner at the top of the Plan Section to resolve.`, 'info');
+            this.showToast(`Plan saved! Note: An active date overlap exists with another plan. You can review it above under your plans whenever you like.`, 'info');
           } else {
             this.showToast(`Plan "${name}" saved and updated to calendar!`, 'success');
           }
@@ -5466,7 +5464,7 @@
           this.checkAdherence();
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length > 0) {
-            this.showToast(`Calendar updated with ${activePlans.length} active plan(s). Note: ${conflicts.length} scheduling conflict(s)/overlap(s) detected. Check the amber overlapping cells on the calendar.`, 'info');
+            this.showToast(`Calendar updated with ${activePlans.length} active plan(s). Note: ${conflicts.length} overlapping date window(s) present on the calendar.`, 'info');
           } else {
             this.showToast(`All ${activePlans.length} active plan schedule(s) (${activePlans.map(p => p.name).join(', ')}) successfully updated across the calendar.`, 'success');
           }
