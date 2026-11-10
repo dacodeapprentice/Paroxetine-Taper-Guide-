@@ -999,59 +999,38 @@
         margin-top: 0.15rem;
       }
 
-      /* Quick Pill Amount Picker Buttons */
+      /* Quick Pill Amount Picker */
       .pill-quick-pickers {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 0.45rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
         margin-bottom: 0.85rem;
       }
 
-      @media (max-width: 480px) {
-        .pill-quick-pickers {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      .quick-pill-btn {
+      .quick-pill-card, .quick-pill-btn {
         background: #192234;
         border: 1px solid #334155;
         border-radius: 0.5rem;
-        padding: 0.45rem 0.2rem;
-        text-align: center;
+        padding: 0.65rem 0.85rem;
+        text-align: left;
         cursor: pointer;
         transition: all 0.15s ease;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
-        min-height: 58px;
-        aspect-ratio: 1 / 1;
+        justify-content: space-between;
+        gap: 0.75rem;
+        user-select: none;
       }
 
-      .quick-pill-btn:hover {
+      .quick-pill-card:hover, .quick-pill-btn:hover {
         border-color: var(--teal-primary);
         background: #1f2a40;
       }
 
-      .quick-pill-btn.active {
+      .quick-pill-card.active, .quick-pill-btn.active {
         border-color: var(--teal-primary);
         background: #042f2e;
         box-shadow: 0 0 0 1px var(--teal-primary);
-      }
-
-      .quick-pill-title {
-        font-size: 0.775rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        font-family: var(--font-mono);
-      }
-
-      .quick-pill-sub {
-        font-size: 0.625rem;
-        color: var(--text-muted);
-        margin-top: 0.15rem;
-        line-height: 1.15;
       }
 
       .form-group {
@@ -1693,17 +1672,7 @@
           padding: 1px 3px;
         }
         .pill-quick-pickers {
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0.35rem;
-        }
-        .quick-pill-btn {
-          padding: 0.4rem 0.25rem;
-        }
-        .quick-pill-title {
-          font-size: 0.72rem;
-        }
-        .quick-pill-sub {
-          font-size: 0.58rem;
+          gap: 0.4rem;
         }
       }
 
@@ -2033,7 +2002,7 @@
         <div class="section-heading">
           <div class="section-heading-left">
             <h2>Daily Intake & Symptom Calendar</h2>
-            <p>Track your daily Seroxat pill consumption day-by-day across all active formulations: 10 rose, 10 white half, white 20, and blue 30 mg. Click any date to log or inspect entries.</p>
+            <p>Track your daily medication consumption day-by-day across your configured tablets. Click any date to log or inspect entries.</p>
           </div>
         </div>
 
@@ -2084,7 +2053,7 @@
           <!-- Side Day Detail Inspector -->
           <div class="day-detail-panel" id="day-detail-panel">
             <div class="panel-header">
-              <div class="panel-header-kicker" id="panel-kicker">Seroxat Daily Entry</div>
+              <div class="panel-header-kicker" id="panel-kicker">Daily Medication Entry</div>
               <div class="panel-date-display" id="panel-date-str">October 2, 2026</div>
             </div>
 
@@ -2103,11 +2072,11 @@
               <div class="registry-metric-card">
                 <div class="registry-row">
                   <span class="reg-label">Actual Dose Administered:</span>
-                  <strong class="reg-value highlight-dose" id="reg-dose">10.0 mg</strong>
+                  <strong class="reg-value highlight-dose" id="reg-dose">0.0 mg</strong>
                 </div>
                 <div class="registry-row">
-                  <span class="reg-label">Seroxat Pill Formulation:</span>
-                  <span class="reg-value" id="reg-formulation">10 White Half (10mg)</span>
+                  <span class="reg-label">Tablet Formulation:</span>
+                  <span class="reg-value" id="reg-formulation">—</span>
                 </div>
                 <div class="registry-row">
                   <span class="reg-label">Time Administered:</span>
@@ -2252,7 +2221,7 @@
 
               <div class="form-group" style="margin-top: 0.85rem;">
                 <label for="input-notes">Notes and observations</label>
-                <textarea id="input-notes" class="form-control" rows="2" placeholder="e.g. Took 10 White Half along score line with breakfast; feeling stable."></textarea>
+                <textarea id="input-notes" class="form-control" rows="2" placeholder="e.g. Took dose with breakfast; feeling stable."></textarea>
               </div>
 
               <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
@@ -3518,12 +3487,6 @@
             }
           }
 
-          // Fallbacks for historical or common amounts
-          if (formulation === 'rosy-whole') return '10 Rose';
-          if (formulation === 'white-half') return '10 White Half';
-          if (formulation === 'white-whole') return 'White 20';
-          if (formulation === 'blue-whole') return 'Blue 30 mg';
-
           return `${d.toFixed(1).replace(/\.0$/, '')} mg`;
         },
 
@@ -3537,10 +3500,6 @@
             if (halfTab) return '🌗';
             return '💊';
           }
-          if (formulation === 'rosy-whole') return '🌸';
-          if (formulation === 'white-half') return '🌗';
-          if (formulation === 'white-whole') return '⚪';
-          if (formulation === 'blue-whole') return '🔵';
           return '💊';
         },
 
@@ -3780,7 +3739,7 @@
 
           if (!this.state.tablets || this.state.tablets.length === 0) {
             buttonsHtml += `
-              <div style="grid-column: 1 / -1; background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-bottom: 0.6rem;">
+              <div style="background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-bottom: 0.4rem;">
                 <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.6rem;">
                   This is where you will choose the dosages of the tablets you take, but you need to register them first in the <strong>My Tablets</strong> section.
                 </div>
@@ -3792,11 +3751,24 @@
             `;
           } else {
             this.state.tablets.forEach(tab => {
+              const colorStyle = tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : '#cbd5e1') : '#cbd5e1';
               const wholeIsActive = hasDose && ((formKey === tab.id) || (!formKey && Math.abs(doseVal - tab.strength) < 0.01));
               buttonsHtml += `
-                <div class="quick-pill-btn ${wholeIsActive ? 'active' : ''}" onclick="app.quickSelectTablet('${tab.id}', false)">
-                  <div class="quick-pill-title" style="color: ${tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : 'var(--text-primary)') : 'var(--text-primary)'};">${tab.strength} mg</div>
-                  <div class="quick-pill-sub">💊 ${this.escapeHtml(tab.name)}</div>
+                <div class="quick-pill-card ${wholeIsActive ? 'active' : ''}" data-form-key="${tab.id}" data-dose="${tab.strength}" onclick="app.quickSelectTablet('${tab.id}', false)">
+                  <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 0;">
+                    <div style="width: 18px; height: 18px; border-radius: 50%; background: ${colorStyle}; border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="${this.escapeHtml(tab.color || 'Tablet color')}"></div>
+                    <div style="display: flex; flex-direction: column; min-width: 0;">
+                      <div style="display: flex; align-items: baseline; gap: 0.45rem; flex-wrap: wrap;">
+                        <strong style="font-size: 0.85rem; color: var(--text-primary);">${this.escapeHtml(tab.name)}</strong>
+                        <span class="tabular-nums" style="font-size: 0.825rem; font-weight: 700; color: var(--teal-primary);">${tab.strength} mg</span>
+                        <span style="font-size: 0.725rem; color: var(--text-muted);">(${this.escapeHtml(tab.color || 'No colour')})</span>
+                      </div>
+                      <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.1rem;">
+                        Whole tablet
+                      </div>
+                    </div>
+                  </div>
+                  <span class="pill-check-indicator" style="font-size: 0.85rem; font-weight: 700; color: ${wholeIsActive ? 'var(--teal-primary)' : 'var(--text-muted)'}; margin-left: 0.5rem; flex-shrink: 0;">${wholeIsActive ? '✓' : '○'}</span>
                 </div>
               `;
               if (tab.splittable) {
@@ -3804,9 +3776,21 @@
                 const halfKey = `${tab.id}-half`;
                 const halfIsActive = hasDose && ((formKey === halfKey) || (!formKey && Math.abs(doseVal - halfDose) < 0.01));
                 buttonsHtml += `
-                  <div class="quick-pill-btn ${halfIsActive ? 'active' : ''}" onclick="app.quickSelectTablet('${tab.id}', true)">
-                    <div class="quick-pill-title" style="color: ${tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : 'var(--text-primary)') : 'var(--text-primary)'};">${halfDose.toFixed(1).replace(/\.0$/, '')} mg</div>
-                    <div class="quick-pill-sub">🌗 1/2 ${this.escapeHtml(tab.name)}</div>
+                  <div class="quick-pill-card ${halfIsActive ? 'active' : ''}" data-form-key="${halfKey}" data-dose="${halfDose}" onclick="app.quickSelectTablet('${tab.id}', true)">
+                    <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 0;">
+                      <div style="width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(90deg, ${colorStyle} 50%, #1e293b 50%); border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="Half ${this.escapeHtml(tab.color || '')}"></div>
+                      <div style="display: flex; flex-direction: column; min-width: 0;">
+                        <div style="display: flex; align-items: baseline; gap: 0.45rem; flex-wrap: wrap;">
+                          <strong style="font-size: 0.85rem; color: var(--text-primary);">1/2 ${this.escapeHtml(tab.name)}</strong>
+                          <span class="tabular-nums" style="font-size: 0.825rem; font-weight: 700; color: var(--teal-primary);">${halfDose.toFixed(1).replace(/\.0$/, '')} mg</span>
+                          <span style="font-size: 0.725rem; color: var(--text-muted);">(${this.escapeHtml(tab.color || 'No colour')} Half)</span>
+                        </div>
+                        <div style="font-size: 0.7rem; color: #34d399; margin-top: 0.1rem;">
+                          Scored half tablet
+                        </div>
+                      </div>
+                    </div>
+                    <span class="pill-check-indicator" style="font-size: 0.85rem; font-weight: 700; color: ${halfIsActive ? 'var(--teal-primary)' : 'var(--text-muted)'}; margin-left: 0.5rem; flex-shrink: 0;">${halfIsActive ? '✓' : '○'}</span>
                   </div>
                 `;
               }
@@ -3816,9 +3800,17 @@
           // 0 mg button always available - only active if a dose has been explicitly selected and is 0
           const zeroIsActive = hasDose && (doseVal === 0 || formKey === 'zero');
           buttonsHtml += `
-            <div class="quick-pill-btn ${zeroIsActive ? 'active' : ''}" onclick="app.quickSelectPill(0.0, 'zero')">
-              <div class="quick-pill-title">0 mg</div>
-              <div class="quick-pill-sub">○ No Intake</div>
+            <div class="quick-pill-card ${zeroIsActive ? 'active' : ''}" data-form-key="zero" data-dose="0" onclick="app.quickSelectPill(0.0, 'zero')">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 0;">
+                <div style="width: 18px; height: 18px; border-radius: 50%; border: 1.5px dashed #64748b; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--text-muted);">○</div>
+                <div style="display: flex; flex-direction: column; min-width: 0;">
+                  <div style="display: flex; align-items: baseline; gap: 0.45rem; flex-wrap: wrap;">
+                    <strong style="font-size: 0.85rem; color: var(--text-secondary);">0 mg / No Intake</strong>
+                    <span style="font-size: 0.725rem; color: var(--text-muted);">(Cessation / skipped dose)</span>
+                  </div>
+                </div>
+              </div>
+              <span class="pill-check-indicator" style="font-size: 0.85rem; font-weight: 700; color: ${zeroIsActive ? 'var(--teal-primary)' : 'var(--text-muted)'}; margin-left: 0.5rem; flex-shrink: 0;">${zeroIsActive ? '✓' : '○'}</span>
             </div>
           `;
 
@@ -4049,9 +4041,22 @@
               const d = this.parseLocalDate(dateStr);
               const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
               const dayKey = days[d.getDay()];
-              const rawDose = (plan.weekDays && plan.weekDays[dayKey] !== undefined) ? plan.weekDays[dayKey] : 10.0;
-              const dose = (rawDose === 10.5) ? 10.0 : rawDose;
-              const formulation = (rawDose === 10.5) ? 'rosy-whole' : (rawDose >= 30 ? 'blue-whole' : rawDose >= 20 ? 'white-whole' : rawDose >= 10 ? 'white-half' : 'zero');
+              const rawDose = (plan.weekDays && plan.weekDays[dayKey] !== undefined) ? Number(plan.weekDays[dayKey]) : 0;
+              const dose = rawDose;
+              let formulation = 'custom';
+              if (dose === 0) {
+                formulation = 'zero';
+              } else if (this.state.tablets && this.state.tablets.length > 0) {
+                const matchWhole = this.state.tablets.find(t => Math.abs(t.strength - dose) < 0.01);
+                if (matchWhole) {
+                  formulation = matchWhole.id;
+                } else {
+                  const matchHalf = this.state.tablets.find(t => t.splittable && Math.abs((t.strength / 2) - dose) < 0.01);
+                  if (matchHalf) {
+                    formulation = `${matchHalf.id}-half`;
+                  }
+                }
+              }
               matches.push({ plan, dose, rawDose, formulation });
             }
           }
@@ -4110,7 +4115,7 @@
             if (formView) formView.style.display = 'none';
             if (regView) regView.style.display = 'block';
 
-            if (kicker) kicker.textContent = 'Seroxat Daily Entry (Concluded)';
+            if (kicker) kicker.textContent = 'Daily Medication Entry (Concluded)';
             if (dot) dot.style.background = 'var(--teal-primary)';
             if (badge) {
               badge.style.color = 'var(--teal-primary)';
@@ -4384,14 +4389,36 @@
         },
 
         updateQuickPillButtons(doseVal, formulationKey) {
-          document.querySelectorAll('.quick-pill-btn').forEach(btn => {
-            btn.classList.remove('active');
+          document.querySelectorAll('.quick-pill-card, .quick-pill-btn').forEach(card => {
+            card.classList.remove('active');
+            const checkIcon = card.querySelector('.pill-check-indicator');
+            if (checkIcon) {
+              checkIcon.textContent = '○';
+              checkIcon.style.color = 'var(--text-muted)';
+            }
+
             if (doseVal === null || doseVal === undefined) return;
-            const onclickAttr = btn.getAttribute('onclick') || '';
-            if (formulationKey && onclickAttr.includes(`'${formulationKey}'`)) {
-              btn.classList.add('active');
-            } else if (!formulationKey && (onclickAttr.includes(`(${doseVal.toFixed(1)}`) || onclickAttr.includes(`(${doseVal},`))) {
-              btn.classList.add('active');
+            const cForm = card.getAttribute('data-form-key');
+            const cDose = parseFloat(card.getAttribute('data-dose') || '-1');
+            const onclickAttr = card.getAttribute('onclick') || '';
+
+            let matches = false;
+            if (formulationKey && cForm) {
+              matches = (cForm === formulationKey);
+            } else if (formulationKey && onclickAttr.includes(`'${formulationKey}'`)) {
+              matches = true;
+            } else if (cDose >= 0 && !isNaN(cDose)) {
+              matches = Math.abs(cDose - Number(doseVal)) < 0.01;
+            } else if (onclickAttr.includes(`(${Number(doseVal).toFixed(1)}`) || onclickAttr.includes(`(${Number(doseVal)},`)) {
+              matches = true;
+            }
+
+            if (matches) {
+              card.classList.add('active');
+              if (checkIcon) {
+                checkIcon.textContent = '✓';
+                checkIcon.style.color = 'var(--teal-primary)';
+              }
             }
           });
         },
@@ -4501,7 +4528,7 @@
 
         clearDayLog() {
           const dateStr = this.state.selectedDate;
-          if (confirm(`Clear recorded Seroxat intake for ${this.formatDisplayDate(dateStr)}?`)) {
+          if (confirm(`Clear recorded intake for ${this.formatDisplayDate(dateStr)}?`)) {
             delete this.state.logs[dateStr];
             this.state.isEditingCurrentDay = false;
             this.saveStorage();
@@ -5045,7 +5072,7 @@
             `;
           }).join('');
 
-          // Preset options from My Tablets
+          // Quick set options strictly from My Tablets
           let presetOptionsHtml = '';
           if (this.state.tablets && this.state.tablets.length > 0) {
             this.state.tablets.forEach(t => {
@@ -5055,12 +5082,6 @@
                 presetOptionsHtml += `<option value="${t.strength / 2}">1/2 ${this.escapeHtml(t.name)} (${h} mg)</option>`;
               }
             });
-          } else {
-            presetOptionsHtml += `
-              <option value="20.0">20 mg</option>
-              <option value="10.0">10 mg</option>
-              <option value="5.0">5 mg</option>
-            `;
           }
           presetOptionsHtml += `<option value="0.0">0 mg (No Intake / Cessation)</option>`;
 
