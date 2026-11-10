@@ -2150,15 +2150,12 @@
             <!-- VIEW 2: DAILY ENTRY MENU (Accessible for any day; intake is independent of plans) -->
             <form id="day-log-form" onsubmit="app.saveDayLog(event)">
               <!-- Hidden form inputs for dose and formulation to prevent null querySelector errors -->
-              <input type="hidden" id="input-dose" value="10.0" />
-              <input type="hidden" id="input-formulation" value="white-half" />
+              <input type="hidden" id="input-dose" value="" />
+              <input type="hidden" id="input-formulation" value="" />
 
               <!-- Quick Pill Amount Picker Buttons -->
               <div class="form-group">
-                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; flex-wrap: wrap; gap: 0.25rem;">
-                  <label style="margin-bottom: 0;">Daily Dose Registry (Quick Pill Amount Selection)</label>
-                  <a href="#tablets-section" style="font-size: 0.75rem; color: var(--teal-primary); font-weight: 600; text-decoration: underline;">Configure in My Tablets</a>
-                </div>
+                <label>Daily Dose Registry (Quick Pill Amount Selection)</label>
                 <div class="pill-quick-pickers" id="pill-quick-pickers">
                   <!-- Dynamically populated via app.renderQuickPillButtons() -->
                 </div>
@@ -2259,7 +2256,7 @@
               </div>
 
               <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                <button type="submit" class="btn btn-primary" style="flex: 1;" id="btn-save-log">Save & Conclude Day</button>
+                <button type="submit" class="btn btn-primary" style="flex: 1; opacity: 0.5; cursor: not-allowed;" id="btn-save-log" disabled title="Choose today's dose to enable saving">Save & Conclude Day</button>
                 <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-edit" onclick="app.cancelDayEdit()" style="display: none;">Cancel</button>
               </div>
             </form>
@@ -2333,7 +2330,7 @@
             <div style="font-size: 0.825rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">
               Configured Tapering Plans & Weekly Schedules:
             </div>
-            <span style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans);">
+            <span id="plan-header-hint" style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans);">
               Click "Edit Plan" to customize daily amounts, duration, or dates
             </span>
           </div>
@@ -2343,7 +2340,7 @@
           </div>
 
           <!-- Action Plan Control Buttons in div below plans -->
-          <div style="margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
+          <div id="plan-control-bar" style="margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
             <div style="display: flex; gap: 0.65rem; align-items: center; flex-wrap: wrap;">
               <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
@@ -2750,36 +2747,13 @@
 
         loadStorage() {
           try {
-            let saved = localStorage.getItem('taper_diary_state');
-            if (!saved) {
-              const oldSaved = localStorage.getItem('seroxat_taper_state');
-              if (oldSaved) {
-                saved = oldSaved;
-                try {
-                  localStorage.setItem('taper_diary_state', oldSaved);
-                  localStorage.removeItem('seroxat_taper_state');
-                } catch (e) {}
-              }
-            }
+            const saved = localStorage.getItem('taper_diary_v2');
             if (saved) {
               const parsed = JSON.parse(saved);
-              if (parsed.logs) {
-                // Sanitize historical logs and remove any old demo/example data so state remains a clean slate
-                Object.keys(parsed.logs).forEach(date => {
-                  const entry = parsed.logs[date];
-                  if (!entry || entry.isExample || (typeof entry.notes === 'string' && entry.notes.includes('[EXAMPLE DATA]'))) {
-                    delete parsed.logs[date];
-                    return;
-                  }
-                  if (entry.formulation === 'white-half-quarter') {
-                    entry.dose = 20.0;
-                    entry.formulation = 'white-whole';
-                  } else if (entry.formulation === 'white-quarter') {
-                    entry.dose = 10.0;
-                    entry.formulation = 'white-half';
-                  }
-                });
+              if (parsed.logs && typeof parsed.logs === 'object') {
                 this.state.logs = parsed.logs;
+              } else {
+                this.state.logs = {};
               }
               if (parsed.plans && Array.isArray(parsed.plans)) {
                 this.state.plans = parsed.plans;
@@ -2789,7 +2763,6 @@
               if (parsed.plan) {
                 this.state.plan = parsed.plan;
                 if (this.state.plan.steps && Array.isArray(this.state.plan.steps)) {
-                  // Remove any legacy alternative step row
                   this.state.plan.steps = this.state.plan.steps.filter(s => !s.reduction || !s.reduction.includes('Alternative'));
                 }
               } else {
@@ -2814,12 +2787,14 @@
               } else {
                 this.state.libraryNotes = {};
               }
-              if (parsed.firstVisitAccepted !== undefined) {
-                this.state.firstVisitAccepted = !!parsed.firstVisitAccepted;
-              } else {
-                this.state.firstVisitAccepted = true;
-              }
+              this.state.firstVisitAccepted = true;
             } else {
+              // Clean slate on first load:
+              this.state.logs = {};
+              this.state.plans = [];
+              this.state.tablets = [];
+              this.state.plan = { indication: '', baselineDose: null, steps: [] };
+              this.state.libraryNotes = {};
               this.state.firstVisitAccepted = true;
             }
           } catch (e) {
@@ -2832,16 +2807,16 @@
 
         saveStorage() {
           try {
-            localStorage.setItem('taper_diary_state', JSON.stringify({
-              logs: this.state.logs,
-              plans: this.state.plans,
-              plan: this.state.plan,
-              activeIndication: this.state.activeIndication,
+            localStorage.setItem('taper_diary_v2', JSON.stringify({
+              logs: this.state.logs || {},
+              plans: this.state.plans || [],
+              plan: this.state.plan || { indication: '', baselineDose: null, steps: [] },
+              activeIndication: this.state.activeIndication || '',
               tablets: this.state.tablets || [],
               liquidConcentration: this.state.liquidConcentration || '',
               crisisNumber: this.state.crisisNumber || '',
               warningDismissedUntil: this.state.warningDismissedUntil || 0,
-              firstVisitAccepted: this.state.firstVisitAccepted,
+              firstVisitAccepted: true,
               unlockedDates: this.state.unlockedDates || {},
               libraryNotes: this.state.libraryNotes || {}
             }));
@@ -3109,6 +3084,7 @@
           if (box) box.style.display = 'none';
 
           try {
+            localStorage.removeItem('taper_diary_v2');
             localStorage.removeItem('taper_diary_state');
             localStorage.removeItem('seroxat_taper_state');
           } catch (e) {}
@@ -3752,19 +3728,6 @@
             });
           }
 
-          // Synchronize current date form intake if not yet logged
-          const selectedLog = this.state.logs[this.state.selectedDate];
-          if (!selectedLog) {
-            this.state.currentEntryDose = this._editingTablet.strength;
-            this.state.currentEntryFormulation = this._editingTablet.id;
-            const doseInp = document.getElementById('input-dose');
-            if (doseInp) doseInp.value = this._editingTablet.strength;
-            const formSel = document.getElementById('input-formulation');
-            if (formSel) formSel.value = this._editingTablet.id;
-            const directInp = document.getElementById('input-dose-direct');
-            if (directInp) directInp.value = this._editingTablet.strength;
-          }
-
           this.saveStorage();
           this.closeModal();
           this.renderAll(this.state.selectedDate);
@@ -3790,29 +3753,46 @@
           }
         },
 
+        scrollToTablets(event) {
+          if (event && event.preventDefault) event.preventDefault();
+          const target = document.getElementById('tablets-section');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            try {
+              history.pushState(null, '', '#tablets-section');
+            } catch (err) {}
+          }
+        },
+
         renderQuickPillButtons(activeDose, activeFormulation) {
           const container = document.getElementById('pill-quick-pickers');
           if (!container) return;
 
-          const doseVal = activeDose !== undefined ? Number(activeDose) : (this.state.currentEntryDose !== undefined ? Number(this.state.currentEntryDose) : 0);
-          const formKey = activeFormulation || this.state.currentEntryFormulation || (doseVal === 0 ? 'zero' : '');
+          const hasDose = (activeDose !== undefined && activeDose !== null) || (this.state.currentEntryDose !== undefined && this.state.currentEntryDose !== null);
+          const doseVal = (activeDose !== undefined && activeDose !== null)
+            ? Number(activeDose)
+            : ((this.state.currentEntryDose !== undefined && this.state.currentEntryDose !== null) ? Number(this.state.currentEntryDose) : null);
+          const formKey = activeFormulation !== undefined
+            ? activeFormulation
+            : (this.state.currentEntryFormulation !== undefined ? this.state.currentEntryFormulation : null);
 
           let buttonsHtml = '';
 
           if (!this.state.tablets || this.state.tablets.length === 0) {
             buttonsHtml += `
-              <div style="grid-column: 1 / -1; background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 0.5rem; padding: 0.75rem 0.95rem; margin-bottom: 0.5rem;">
-                <div style="font-size: 0.775rem; color: var(--text-secondary); line-height: 1.45;">
-                  Check the strength and appearance against your own box and leaflet. They differ between countries and brands.
+              <div style="grid-column: 1 / -1; background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-bottom: 0.6rem;">
+                <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.6rem;">
+                  This is where you will choose the dosages of the tablets you take, but you need to register them first in the <strong>My Tablets</strong> section.
                 </div>
-                <div style="margin-top: 0.45rem;">
-                  <a href="#tablets-section" style="font-size: 0.75rem; color: var(--teal-primary); font-weight: 600; text-decoration: underline;">Configure in My Tablets</a>
-                </div>
+                <a href="#tablets-section" onclick="app.scrollToTablets(event)" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; font-size: 0.775rem; padding: 0.35rem 0.75rem; border-color: rgba(16, 185, 129, 0.35);">
+                  <span style="color: #10b981; font-weight: 600;">Go to My Tablets</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" style="color: #10b981;"><path d="M7 13l5 5 5-5M12 4v14"/></svg>
+                </a>
               </div>
             `;
           } else {
             this.state.tablets.forEach(tab => {
-              const wholeIsActive = (formKey === tab.id) || (!formKey && Math.abs(doseVal - tab.strength) < 0.01);
+              const wholeIsActive = hasDose && ((formKey === tab.id) || (!formKey && Math.abs(doseVal - tab.strength) < 0.01));
               buttonsHtml += `
                 <div class="quick-pill-btn ${wholeIsActive ? 'active' : ''}" onclick="app.quickSelectTablet('${tab.id}', false)">
                   <div class="quick-pill-title" style="color: ${tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : 'var(--text-primary)') : 'var(--text-primary)'};">${tab.strength} mg</div>
@@ -3822,7 +3802,7 @@
               if (tab.splittable) {
                 const halfDose = tab.strength / 2;
                 const halfKey = `${tab.id}-half`;
-                const halfIsActive = (formKey === halfKey) || (!formKey && Math.abs(doseVal - halfDose) < 0.01);
+                const halfIsActive = hasDose && ((formKey === halfKey) || (!formKey && Math.abs(doseVal - halfDose) < 0.01));
                 buttonsHtml += `
                   <div class="quick-pill-btn ${halfIsActive ? 'active' : ''}" onclick="app.quickSelectTablet('${tab.id}', true)">
                     <div class="quick-pill-title" style="color: ${tab.color ? (tab.color.startsWith('#') || tab.color.startsWith('rgb') ? tab.color : 'var(--text-primary)') : 'var(--text-primary)'};">${halfDose.toFixed(1).replace(/\.0$/, '')} mg</div>
@@ -3833,23 +3813,12 @@
             });
           }
 
-          // 0 mg button always available
-          const zeroIsActive = doseVal === 0 || formKey === 'zero';
+          // 0 mg button always available - only active if a dose has been explicitly selected and is 0
+          const zeroIsActive = hasDose && (doseVal === 0 || formKey === 'zero');
           buttonsHtml += `
             <div class="quick-pill-btn ${zeroIsActive ? 'active' : ''}" onclick="app.quickSelectPill(0.0, 'zero')">
               <div class="quick-pill-title">0 mg</div>
               <div class="quick-pill-sub">○ No Intake</div>
-            </div>
-          `;
-
-          // Direct custom mg input
-          buttonsHtml += `
-            <div style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.35rem; padding-top: 0.35rem; border-top: 1px solid #1e293b; flex-wrap: wrap;">
-              <a href="#tablets-section" style="font-size: 0.725rem; color: var(--teal-primary); font-weight: 600; text-decoration: underline;">Configure in My Tablets</a>
-              <div style="display: flex; align-items: center; gap: 0.5rem; margin-left: auto;">
-                <span style="font-size: 0.75rem; color: var(--text-muted);">Other / manual dose (mg):</span>
-                <input type="number" step="0.1" min="0" id="input-dose-direct" class="form-control" style="width: 100px; font-size: 0.8rem; padding: 0.25rem 0.5rem; text-align: center;" value="${doseVal}" oninput="app.setDirectDose(this.value)" />
-              </div>
             </div>
           `;
 
@@ -3865,15 +3834,47 @@
         },
 
         setDirectDose(val) {
-          const mg = parseFloat(val);
+          const raw = String(val).trim();
+          const saveBtn = document.getElementById('btn-save-log');
+          const doseInp = document.getElementById('input-dose');
+          const formSel = document.getElementById('input-formulation');
+
+          if (raw === '') {
+            this.state.currentEntryDose = null;
+            this.state.currentEntryFormulation = null;
+            if (doseInp) doseInp.value = '';
+            if (formSel) formSel.value = '';
+            this.updateQuickPillButtons(null, null);
+            if (saveBtn) {
+              saveBtn.disabled = true;
+              saveBtn.style.opacity = '0.5';
+              saveBtn.style.cursor = 'not-allowed';
+              saveBtn.title = "Choose today's dose to enable saving";
+            }
+            const badge = document.getElementById('panel-adherence-badge');
+            if (badge && (!this.state.logs[this.state.selectedDate])) {
+              badge.textContent = "Choose today's dose";
+            }
+            return;
+          }
+
+          const mg = parseFloat(raw);
           if (!isNaN(mg) && mg >= 0) {
             this.state.currentEntryDose = mg;
             this.state.currentEntryFormulation = mg === 0 ? 'zero' : 'custom';
-            const doseInp = document.getElementById('input-dose');
             if (doseInp) doseInp.value = mg;
-            const formSel = document.getElementById('input-formulation');
             if (formSel) formSel.value = this.state.currentEntryFormulation;
             this.updateQuickPillButtons(mg, this.state.currentEntryFormulation);
+            if (saveBtn) {
+              saveBtn.disabled = false;
+              saveBtn.style.opacity = '1';
+              saveBtn.style.cursor = 'pointer';
+              saveBtn.title = '';
+            }
+            const badge = document.getElementById('panel-adherence-badge');
+            if (badge && (!this.state.logs[this.state.selectedDate])) {
+              badge.textContent = `Dose Selected: ${mg} mg`;
+            }
           }
         },
 
@@ -4215,14 +4216,32 @@
               }
             } else {
               if (kicker) kicker.textContent = 'Daily Dosage Intake Registry';
-              if (saveBtn) saveBtn.textContent = 'Save & Conclude Day';
               if (cancelBtn) cancelBtn.style.display = 'none';
               if (dot) dot.style.background = 'var(--teal-primary)';
-              if (badge) {
-                badge.style.color = 'var(--teal-primary)';
-                badge.textContent = plannedInfo
-                  ? `Plan Target: ${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})`
-                  : 'Awaiting Dosage Taken Input';
+              if (log) {
+                if (saveBtn) {
+                  saveBtn.textContent = 'Save & Conclude Day';
+                  saveBtn.disabled = false;
+                  saveBtn.style.opacity = '1';
+                  saveBtn.style.cursor = 'pointer';
+                  saveBtn.title = '';
+                }
+                if (badge) {
+                  badge.style.color = 'var(--teal-primary)';
+                  badge.textContent = `Logged Intake: ${log.dose.toFixed(1)} mg`;
+                }
+              } else {
+                if (saveBtn) {
+                  saveBtn.textContent = 'Save & Conclude Day';
+                  saveBtn.disabled = true;
+                  saveBtn.style.opacity = '0.5';
+                  saveBtn.style.cursor = 'not-allowed';
+                  saveBtn.title = "Choose today's dose to enable saving";
+                }
+                if (badge) {
+                  badge.style.color = 'var(--teal-primary)';
+                  badge.textContent = "Choose today's dose";
+                }
               }
             }
 
@@ -4272,18 +4291,22 @@
             const formSel = document.getElementById('input-formulation');
             const timeInput = document.getElementById('input-time');
             const notesInput = document.getElementById('input-notes');
-
-            const configuredTab = (this.state.tablets && this.state.tablets.length > 0) ? this.state.tablets[0] : null;
-            let currentDose = configuredTab ? configuredTab.strength : (this.state.plan?.baselineDose || 0.0);
-            let currentFormulation = currentDose === 0 ? 'zero' : (configuredTab ? configuredTab.id : 'custom');
+            let currentDose = null;
+            let currentFormulation = null;
 
             if (log) {
               currentDose = log.dose;
-              currentFormulation = log.formulation || (configuredTab ? configuredTab.id : 'custom');
+              currentFormulation = log.formulation || 'custom';
               if (doseInput) doseInput.value = log.dose;
               if (formSel) formSel.value = currentFormulation;
               if (timeInput) timeInput.value = log.time || '08:30';
               if (notesInput) notesInput.value = log.notes || '';
+              if (saveBtn) {
+                saveBtn.disabled = false;
+                saveBtn.style.opacity = '1';
+                saveBtn.style.cursor = 'pointer';
+                saveBtn.title = '';
+              }
               const s = log.symptoms || {};
               this.setSlider('zaps', s.zaps || 0);
               this.setSlider('vertigo', s.vertigo || 0);
@@ -4300,12 +4323,19 @@
               if (rSometimes) rSometimes.checked = (safetyVal === 'Sometimes');
               if (rYes) rYes.checked = (safetyVal === 'Yes');
             } else {
-              currentDose = plannedInfo ? plannedInfo.dose : (configuredTab ? configuredTab.strength : (this.state.plan?.baselineDose || 0.0));
-              currentFormulation = currentDose === 0 ? 'zero' : (configuredTab ? configuredTab.id : 'custom');
-              if (doseInput) doseInput.value = currentDose;
-              if (formSel) formSel.value = currentFormulation;
+              // Unlogged day: DO NOT preselect any dose button or 0 mg value!
+              currentDose = null;
+              currentFormulation = null;
+              if (doseInput) doseInput.value = '';
+              if (formSel) formSel.value = '';
               if (timeInput) timeInput.value = '08:30';
               if (notesInput) notesInput.value = '';
+              if (saveBtn) {
+                saveBtn.disabled = true;
+                saveBtn.style.opacity = '0.5';
+                saveBtn.style.cursor = 'not-allowed';
+                saveBtn.title = "Choose today's dose to enable saving";
+              }
               this.setSlider('zaps', 0);
               this.setSlider('vertigo', 0);
               this.setSlider('sleep', 0);
@@ -4327,8 +4357,6 @@
             this.state.currentEntryDose = currentDose;
             this.state.currentEntryFormulation = currentFormulation;
             this.renderQuickPillButtons(currentDose, currentFormulation);
-            const directInp = document.getElementById('input-dose-direct');
-            if (directInp) directInp.value = currentDose;
             this.recalcAvgSymptom();
           }
         },
@@ -4341,11 +4369,24 @@
           const formSel = document.getElementById('input-formulation');
           if (formSel) formSel.value = formulationKey;
           this.updateQuickPillButtons(doseVal, formulationKey);
+
+          const saveBtn = document.getElementById('btn-save-log');
+          if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.style.opacity = '1';
+            saveBtn.style.cursor = 'pointer';
+            saveBtn.title = '';
+          }
+          const badge = document.getElementById('panel-adherence-badge');
+          if (badge && (!this.state.logs[this.state.selectedDate])) {
+            badge.textContent = `Dose Chosen: ${doseVal} mg`;
+          }
         },
 
         updateQuickPillButtons(doseVal, formulationKey) {
           document.querySelectorAll('.quick-pill-btn').forEach(btn => {
             btn.classList.remove('active');
+            if (doseVal === null || doseVal === undefined) return;
             const onclickAttr = btn.getAttribute('onclick') || '';
             if (formulationKey && onclickAttr.includes(`'${formulationKey}'`)) {
               btn.classList.add('active');
@@ -4383,6 +4424,16 @@
           event.preventDefault();
           const dateStr = this.state.selectedDate;
 
+          // Dose selection validation
+          if (this.state.currentEntryDose === null || this.state.currentEntryDose === undefined || isNaN(this.state.currentEntryDose)) {
+            this.showToast("Please choose today's dose before saving.", "error");
+            const picker = document.getElementById('pill-quick-pickers');
+            if (picker) {
+              picker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+          }
+
           // Required Daily Safety Question Validation
           const safetyRadios = document.getElementsByName('safety-check');
           let safetyVal = '';
@@ -4401,10 +4452,9 @@
           }
           if (validationMsg) validationMsg.style.display = 'none';
 
-          const doseEl = document.getElementById('input-dose');
-          const dose = doseEl ? parseFloat(doseEl.value) : (this.state.currentEntryDose !== undefined ? this.state.currentEntryDose : 10.0);
+          const dose = Number(this.state.currentEntryDose);
           const formEl = document.getElementById('input-formulation');
-          const formulation = formEl ? formEl.value : (this.state.currentEntryFormulation || (dose >= 20.0 ? 'white-whole' : dose >= 10.0 ? 'white-half' : 'zero'));
+          const formulation = this.state.currentEntryFormulation || (formEl ? formEl.value : (dose === 0 ? 'zero' : 'custom'));
           const time = document.getElementById('input-time')?.value || '08:30';
           const notes = document.getElementById('input-notes')?.value || '';
 
@@ -4800,9 +4850,17 @@
           const grid = document.getElementById('plans-grid');
           const updateCalBtn = document.getElementById('btn-update-calendar');
           const suggestHoldBtn = document.getElementById('btn-suggest-hold');
+          const planControlBar = document.getElementById('plan-control-bar');
+          const planHeaderHint = document.getElementById('plan-header-hint');
           const hasPlans = this.state.plans && this.state.plans.length > 0;
           const hasActivePlans = hasPlans && this.state.plans.some(p => p.active);
 
+          if (planControlBar) {
+            planControlBar.style.display = hasPlans ? 'flex' : 'none';
+          }
+          if (planHeaderHint) {
+            planHeaderHint.style.display = hasPlans ? 'inline' : 'none';
+          }
           if (updateCalBtn) {
             updateCalBtn.style.display = hasPlans ? 'inline-flex' : 'none';
           }
@@ -4816,15 +4874,16 @@
 
           if (!hasPlans) {
             grid.innerHTML = `
-              <div style="grid-column: 1 / -1; padding: 2.5rem 1.5rem; text-align: center; background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 12px;">
-                <div style="font-size: 2.2rem; margin-bottom: 0.75rem;">🧭</div>
-                <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">No Orientation Plans Configured</h4>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto 1.25rem; line-height: 1.55;">
-                  Your <strong>Daily Pill Intake Registry is 100% independent</strong> and operates normally without any plans. You can register your pills and symptoms freely on any calendar day. Action plans are purely orientation tools designed to outline an ideal tapering schedule for your success.
+              <div style="grid-column: 1 / -1; padding: 1.75rem 1.25rem; text-align: center; background: rgba(15, 23, 42, 0.5); border: 1px dashed #334155; border-radius: 0.5rem;">
+                <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">🧭</div>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 1rem; line-height: 1.5;">
+                  Your daily intake registry is completely independent and operates normally without plans. Create an orientation plan whenever you are ready to structure a tapering schedule.
                 </p>
-                <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
-                  + Create Orientation Plan
-                </button>
+                <div style="display: flex; justify-content: center;">
+                  <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
+                    Prepare your plan
+                  </button>
+                </div>
               </div>
             `;
             return;
