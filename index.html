@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Taper Diary — Dose and Symptom Diary</title>
     <meta name="description" content="A tapering tracker and dose and symptom diary for logging daily medication doses and symptom severity over time." />
     <meta property="og:title" content="Taper Diary — Dose and Symptom Diary" />
@@ -1432,21 +1432,24 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1rem;
+        gap: 0.75rem 1rem;
         margin-bottom: 1.25rem;
         flex-wrap: wrap;
+        min-width: 0;
       }
 
       .library-category-pills {
         display: flex;
-        gap: 0.4rem;
+        gap: 0.45rem;
         flex-wrap: wrap;
+        min-width: 0;
+        max-width: 100%;
       }
 
       .cat-pill {
         border: 1px solid var(--border-medium);
         background: var(--surface-subtle);
-        padding: 0.35rem 0.75rem;
+        padding: 0.4rem 0.8rem;
         border-radius: 0.4rem;
         font-size: 0.775rem;
         font-weight: 600;
@@ -1470,8 +1473,9 @@
 
       .library-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 1.35rem;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+        gap: 1.25rem;
+        align-items: stretch;
       }
 
       .library-card {
@@ -1482,6 +1486,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        height: 100%;
+        min-width: 0;
         transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
       }
 
@@ -1492,38 +1498,563 @@
         background: var(--surface-hover);
       }
 
-      .library-source-meta {
-        font-size: 0.75rem;
-        color: var(--text-muted);
+      .library-card-body {
         display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        margin-bottom: 0.5rem;
-        font-family: var(--font-sans);
-        font-weight: 600;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
       }
 
-      .library-card h3 {
-        font-size: 1.1rem;
+      .library-card-title {
+        font-size: 1.05rem;
         font-weight: 700;
         color: var(--text-primary);
-        margin-bottom: 0.65rem;
-        line-height: 1.35;
+        margin: 0 0 0.5rem 0;
+        line-height: 1.4;
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
-      .library-card p {
-        font-size: 0.885rem;
+      .library-card-title-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease;
+      }
+
+      .library-card-title-link:hover {
+        color: var(--teal-primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .library-card-title-link:focus-visible {
+        color: var(--teal-primary);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .library-ext-icon {
+        font-size: 0.85em;
+        color: var(--teal-primary);
+        margin-left: 0.2rem;
+        font-weight: 700;
+      }
+
+      .library-source-line {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin: 0 0 0.6rem 0;
+        font-family: var(--font-sans);
+        font-weight: 600;
+        overflow-wrap: break-word;
+      }
+
+      .library-card p.library-card-desc {
+        font-size: 0.85rem;
         color: var(--text-secondary);
-        margin-bottom: 1.15rem;
-        line-height: 1.6;
+        margin: 0 0 1rem 0;
+        line-height: 1.45;
+        overflow-wrap: break-word;
       }
 
       .library-card-footer {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
         border-top: 1px solid var(--border-subtle);
-        padding-top: 0.85rem;
+        padding-top: 0.75rem;
+        margin-top: auto;
+      }
+
+      .library-more-btn {
+        color: var(--teal-primary);
+        font-weight: 700;
+      }
+
+      .library-cat-chip {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--teal-primary);
+        background: var(--surface-subtle);
+        border: 1px solid var(--border-medium);
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.35rem;
+        font-family: var(--font-sans);
+      }
+
+      .library-subbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.85rem;
+        flex-wrap: wrap;
+        margin: 0 0 1rem 0;
+      }
+
+      .library-disclaimer {
+        font-size: 0.825rem;
+        color: var(--text-muted);
+        margin: 0;
+        flex: 1 1 320px;
+        line-height: 1.5;
+        font-family: var(--font-sans);
+      }
+
+      .library-print-only {
+        display: none;
+      }
+
+      .library-print-sheet {
+        font-family: var(--font-sans);
+      }
+
+      .library-all-notes-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .library-print-notice {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .library-print-entry {
+        border: 1px solid var(--border-subtle);
+        background: var(--surface-subtle);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .library-print-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0 0 0.35rem 0;
+        line-height: 1.4;
+      }
+
+      .library-print-meta {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.45rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 1rem;
+      }
+
+      .library-print-url {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        word-break: break-all;
+        margin-bottom: 0.35rem;
+      }
+
+      .library-print-note {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        font-size: 0.875rem;
+        line-height: 1.55;
+        color: var(--text-primary);
+        background: var(--surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.45rem;
+        padding: 0.75rem 0.9rem;
+        margin-top: 0.55rem;
+        font-family: var(--font-sans);
+      }
+
+      .library-print-note.is-empty {
+        font-style: italic;
+        color: var(--text-muted);
+      }
+
+      .library-expanded-section {
+        margin-bottom: 1rem;
+      }
+
+      .library-field-label {
+        display: block;
+        font-size: 0.775rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        margin-bottom: 0.35rem;
+        font-family: var(--font-sans);
+      }
+
+      .library-link-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .library-link-item {
+        padding-bottom: 0.75rem;
+        border-bottom: 1px dashed var(--border-subtle);
+      }
+
+      .library-link-item:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .library-inline-link {
+        font-size: 0.9rem;
+        color: var(--teal-primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        border-radius: 0.25rem;
+      }
+
+      .library-inline-link:hover {
+        color: var(--text-primary);
+      }
+
+      .library-link-unavailable {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        display: inline-block;
+      }
+
+      .library-link-url {
+        margin-top: 0.2rem;
+        font-size: 0.76rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        word-break: break-all;
+        user-select: all;
+        line-height: 1.4;
+      }
+
+      .library-pdf-note {
+        margin: 0.35rem 0 0 0;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.45;
+      }
+
+      .library-last-checked {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        font-family: var(--font-sans);
+        margin-top: 0.85rem;
+        padding-top: 0.7rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .library-note-textarea {
+        width: 100%;
+        font-size: 0.85rem;
+        resize: vertical;
+        font-family: var(--font-sans);
+        box-sizing: border-box;
+      }
+
+      .library-note-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 0.35rem;
+        min-height: 1.15rem;
+        font-family: var(--font-sans);
+        font-size: 0.74rem;
+      }
+
+      .library-note-status {
+        color: var(--teal-primary);
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+
+      .library-note-status.visible {
+        opacity: 1;
+      }
+
+      .library-note-status.error {
+        color: var(--rose-alert);
+      }
+
+      .library-note-count {
+        margin-left: auto;
+        color: var(--text-muted);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .library-note-count.at-limit {
+        color: var(--amber-warning);
+        font-weight: 600;
+      }
+
+      .library-modal-wrap {
+        font-family: var(--font-sans);
+      }
+
+      .library-modal-meta {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.65rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .library-modal-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0 0 0.55rem 0;
+        line-height: 1.38;
+      }
+
+      .library-modal-desc {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin: 0 0 1.15rem 0;
+        line-height: 1.5;
+      }
+
+      .library-modal-link-box {
+        background: var(--surface-subtle);
+        padding: 1rem;
+        border-radius: 0.55rem;
+        border: 1px solid var(--border-subtle);
+        margin-bottom: 1.25rem;
+      }
+
+      .library-modal-note-hint {
+        font-size: 0.74rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+
+      .library-modal-print-row {
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 0.95rem;
+        margin-top: 1.25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .library-search-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        flex: 1 1 240px;
+        width: 100%;
+        max-width: 420px;
+        min-width: 0;
+      }
+
+      .library-search-input {
+        width: 100%;
+        max-width: 420px;
+        padding-right: 2.25rem;
+        box-sizing: border-box;
+      }
+
+      .library-search-clear {
+        position: absolute;
+        right: 0.35rem;
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        font-size: 1.15rem;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0.2rem 0.45rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.25rem;
+      }
+
+      .library-search-clear:hover {
+        color: var(--text-primary);
+      }
+
+      .library-search-clear.visible {
+        display: inline-flex;
+      }
+
+      .library-filter-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.775rem;
+        color: var(--text-muted);
+        font-family: var(--font-sans);
+      }
+
+      .library-result-count {
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      .library-empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 2rem 1.25rem;
+        background: var(--surface);
+        border: 1px dashed var(--border-medium);
+        border-radius: 0.75rem;
+        color: var(--text-secondary);
+      }
+
+      .library-empty-state p {
+        margin: 0 0 0.85rem 0;
+        font-size: 0.9rem;
+      }
+
+      .library-header-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 620px;
+        justify-content: flex-end;
+        min-width: 0;
+      }
+
+      .library-add-panel {
+        display: none;
+        background: var(--surface);
+        border: 1px solid var(--border-medium);
+        border-radius: 0.75rem;
+        padding: 1.15rem 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .library-add-panel.open {
+        display: block;
+      }
+
+      .library-add-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0 0 0.35rem 0;
+      }
+
+      .library-add-hint {
+        font-size: 0.825rem;
+        color: var(--text-muted);
+        margin: 0 0 0.9rem 0;
+        line-height: 1.45;
+        font-family: var(--font-sans);
+      }
+
+      .library-add-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 0.8rem;
+      }
+
+      .library-add-field label {
+        display: block;
+        font-size: 0.775rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        margin-bottom: 0.3rem;
+        font-family: var(--font-sans);
+      }
+
+      .library-add-field.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .library-form-error {
+        display: none;
+        margin-top: 0.75rem;
+        padding: 0.55rem 0.75rem;
+        border-radius: 0.45rem;
+        background: rgba(244, 63, 94, 0.12);
+        border: 1px solid var(--rose-alert);
+        color: #fecdd3;
+        font-size: 0.8rem;
+        font-family: var(--font-sans);
+      }
+
+      .library-form-error.visible {
+        display: block;
+      }
+
+      .library-add-actions {
+        margin-top: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      .library-my-link-tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        background: var(--surface-subtle);
+        border: 1px solid var(--teal-primary);
+        padding: 0.15rem 0.45rem;
+        border-radius: 0.35rem;
+        font-family: var(--font-sans);
+      }
+
+      .library-delete-btn {
+        color: #fda4af;
+      }
+
+      .library-delete-confirm {
+        margin-top: 0.85rem;
+        padding: 0.75rem 0.9rem;
+        border-radius: 0.5rem;
+        background: var(--surface-subtle);
+        border: 1px solid var(--border-medium);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        font-size: 0.825rem;
+        color: var(--text-secondary);
+        font-family: var(--font-sans);
+      }
+
+      .library-delete-confirm-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .library-close-text {
+        display: none;
       }
 
       /* Modals */
@@ -1578,6 +2109,149 @@
 
       .modal-close-btn:hover {
         color: var(--text-primary);
+      }
+
+      /* True Full-Screen Reference Overlay */
+      .modal-backdrop.library-fullscreen {
+        padding: 0;
+        align-items: stretch;
+        justify-content: stretch;
+        background: var(--bg-main);
+        backdrop-filter: none;
+      }
+
+      .modal-backdrop.library-fullscreen .modal-box {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+        border: none;
+        padding: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        box-shadow: none;
+        background: var(--bg-main);
+      }
+
+      .modal-backdrop.library-fullscreen .modal-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: calc(0.65rem + env(safe-area-inset-top)) calc(1.25rem + env(safe-area-inset-right)) 0.65rem calc(1.25rem + env(safe-area-inset-left));
+        margin-bottom: 0;
+        align-items: center;
+      }
+
+      .modal-backdrop.library-fullscreen .modal-close-btn {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        background: var(--surface-subtle);
+        border: 1px solid var(--border-medium);
+        border-radius: 0.45rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        flex-shrink: 0;
+      }
+
+      .modal-backdrop.library-fullscreen .modal-close-btn:hover {
+        background: var(--surface-hover);
+        border-color: var(--teal-primary);
+      }
+
+      .modal-backdrop.library-fullscreen .library-close-text {
+        display: inline;
+      }
+
+      .modal-backdrop.library-fullscreen #modal-body {
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 1.5rem calc(1.25rem + env(safe-area-inset-right)) calc(2.25rem + env(safe-area-inset-bottom)) calc(1.25rem + env(safe-area-inset-left));
+        box-sizing: border-box;
+        flex: 1 0 auto;
+      }
+
+      @media (max-width: 768px) {
+        #library-section .section-heading {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.75rem;
+        }
+        .library-header-controls {
+          max-width: 100%;
+          justify-content: flex-start;
+        }
+        .library-search-wrap {
+          max-width: 420px;
+          flex: 1 1 100%;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .library-filter-bar {
+          align-items: stretch;
+        }
+        .library-category-pills {
+          width: 100%;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scroll-snap-type: x proximity;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 0.35rem;
+        }
+        .library-category-pills .cat-pill {
+          flex: 0 0 auto;
+          white-space: nowrap;
+          scroll-snap-align: start;
+        }
+      }
+
+      @media (pointer: coarse), (max-width: 768px) {
+        #library-section :is(button, a, .cat-pill),
+        .modal-backdrop.library-fullscreen :is(button, a) {
+          min-height: 44px;
+        }
+        #library-section .library-card-title-link {
+          min-height: 44px;
+          padding: 0.2rem 0;
+        }
+        #library-section .library-search-input {
+          min-height: 44px;
+          padding-right: 2.85rem;
+        }
+        #library-section .library-search-clear {
+          min-width: 44px;
+          min-height: 44px;
+          right: 0.1rem;
+        }
+        .modal-backdrop.library-fullscreen .library-inline-link {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+        }
+      }
+
+      .modal-close-btn:focus-visible,
+      #app-modal-box :is(button, a, input, select, textarea):focus-visible,
+      #library-section :is(button, a, input, select, textarea):focus-visible {
+        outline: 2px solid var(--teal-primary);
+        outline-offset: 2px;
+      }
+
+      #app-modal-box:focus {
+        outline: none;
       }
 
       /* Mobile & Tablet Responsiveness Enhancements */
@@ -1698,24 +2372,38 @@
       @media print {
         body {
           background: #ffffff !important;
-          color: #000000 !important;
+          color: #0f172a !important;
+          margin: 0 !important;
+          padding: 0 !important;
         }
         body > *:not(#app-modal-backdrop):not(#prescriber-summary-overlay) {
           display: none !important;
         }
-        #app-modal-backdrop {
+        #app-modal-backdrop:not(.open) {
+          display: none !important;
+        }
+        #prescriber-summary-overlay[style*="display: none"],
+        body.modal-open #prescriber-summary-overlay {
+          display: none !important;
+        }
+        #app-modal-backdrop.open {
           position: static !important;
-          background: transparent !important;
+          background: #ffffff !important;
           display: block !important;
           padding: 0 !important;
           backdrop-filter: none !important;
+          overflow: visible !important;
         }
         #app-modal-box {
           max-width: 100% !important;
+          width: 100% !important;
+          max-height: none !important;
+          height: auto !important;
+          overflow: visible !important;
           box-shadow: none !important;
           border: none !important;
           background: #ffffff !important;
-          color: #111827 !important;
+          color: #0f172a !important;
           padding: 0 !important;
         }
         #prescriber-summary-overlay {
@@ -1742,8 +2430,47 @@
         .modal-header h3 {
           color: #0f172a !important;
         }
+        #app-modal-backdrop.library-print-active .modal-header,
+        .library-screen-only,
         .modal-close-btn, .modal-header button, button[onclick*="printArticle"], .btn, .no-print {
           display: none !important;
+        }
+        .library-print-only {
+          display: block !important;
+        }
+        .library-print-sheet,
+        .library-print-title,
+        .library-field-label {
+          color: #0f172a !important;
+          background: #ffffff !important;
+        }
+        .library-print-title {
+          break-after: avoid;
+          page-break-after: avoid;
+        }
+        .library-print-notice,
+        .library-print-meta,
+        .library-print-url {
+          color: #475569 !important;
+        }
+        .library-print-entry {
+          background: #ffffff !important;
+          border: 1px solid #cbd5e1 !important;
+          padding: 0.85rem 1rem !important;
+          margin-bottom: 0.9rem !important;
+          break-inside: auto !important;
+          page-break-inside: auto !important;
+        }
+        .library-print-note {
+          background: #f8fafc !important;
+          border: 1px solid #cbd5e1 !important;
+          color: #0f172a !important;
+        }
+        .library-print-note.is-empty {
+          color: #64748b !important;
+        }
+        .library-all-notes-toolbar {
+          border-bottom: 1px solid #cbd5e1 !important;
         }
         table.prescriber-summary-table {
           color: #0f172a !important;
@@ -2317,8 +3044,12 @@
             <h2>Digital Library</h2>
             <p>Reference links to medication leaflets, clinical guidelines, and research literature.</p>
           </div>
-          <div style="display: flex; gap: 0.5rem; align-items: center;">
-            <input type="text" id="library-search" placeholder="Search links or notes..." class="form-control" style="width: 280px;" oninput="app.filterLibrary(this.value)" />
+          <div class="library-header-controls">
+            <div class="library-search-wrap">
+              <input type="text" id="library-search" aria-label="Search library links or notes" placeholder="Search links or notes..." class="form-control library-search-input" oninput="app.filterLibrary(this.value)" />
+              <button type="button" id="library-search-clear" class="library-search-clear" aria-label="Clear search" onclick="app.clearLibrarySearch()">&times;</button>
+            </div>
+            <button type="button" id="library-add-toggle-btn" class="btn btn-primary btn-sm" aria-expanded="false" aria-controls="library-add-panel" onclick="app.toggleLibraryAddForm()">+ Add my own link</button>
           </div>
         </div>
 
@@ -2326,12 +3057,67 @@
         <!-- Filter Category Tabs -->
         <div class="library-filter-bar">
           <div class="library-category-pills">
-            <button class="cat-pill active" onclick="app.setLibraryCategory('all', event)">All Links</button>
-            <button class="cat-pill" onclick="app.setLibraryCategory('Leaflet', event)">Medication Leaflet</button>
-            <button class="cat-pill" onclick="app.setLibraryCategory('Clinical Guidelines', event)">Guidelines (NICE/RCPsych)</button>
-            <button class="cat-pill" onclick="app.setLibraryCategory('Research', event)">Research</button>
+            <button type="button" class="cat-pill active" data-category="all" data-label="All Links" aria-pressed="true" onclick="app.setLibraryCategory('all')">All Links</button>
+            <button type="button" class="cat-pill" data-category="Leaflet" data-label="Medication Leaflet" aria-pressed="false" onclick="app.setLibraryCategory('Leaflet')">Medication Leaflet</button>
+            <button type="button" class="cat-pill" data-category="Clinical Guidelines" data-label="Guidelines (NICE/RCPsych)" aria-pressed="false" onclick="app.setLibraryCategory('Clinical Guidelines')">Guidelines (NICE/RCPsych)</button>
+            <button type="button" class="cat-pill" data-category="Research" data-label="Research" aria-pressed="false" onclick="app.setLibraryCategory('Research')">Research</button>
+            <button type="button" class="cat-pill" data-category="My links" data-label="My links" aria-pressed="false" onclick="app.setLibraryCategory('My links')">My links</button>
           </div>
-          <span style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans);">External reference links</span>
+          <div class="library-filter-meta">
+            <span id="library-result-count" class="library-result-count"></span>
+            <span>External reference links</span>
+          </div>
+        </div>
+
+        <div id="library-add-panel" class="library-add-panel">
+          <h3 class="library-add-title">Add my own link</h3>
+          <p class="library-add-hint">Tablets from another country? Add the leaflet from your own country's medicines regulator or the one in your pack.</p>
+          <form id="library-add-form" novalidate onsubmit="app.addCustomLibraryLink(event)">
+            <div class="library-add-grid">
+              <div class="library-add-field">
+                <label for="custom-lib-title">Title</label>
+                <input type="text" id="custom-lib-title" class="form-control" placeholder="e.g. Country leaflet" />
+              </div>
+              <div class="library-add-field">
+                <label for="custom-lib-link">Website link (https:// or http://)</label>
+                <input type="text" id="custom-lib-link" class="form-control" placeholder="https://..." />
+              </div>
+              <div class="library-add-field">
+                <label for="custom-lib-pdf">PDF link (optional, https:// or http://)</label>
+                <input type="text" id="custom-lib-pdf" class="form-control" placeholder="https://..." />
+              </div>
+              <div class="library-add-field">
+                <label for="custom-lib-publisher">Publisher (optional)</label>
+                <input type="text" id="custom-lib-publisher" class="form-control" placeholder="e.g. National medicines agency" />
+              </div>
+              <div class="library-add-field">
+                <label for="custom-lib-category">Category</label>
+                <select id="custom-lib-category" class="form-control">
+                  <option value="My links">My links</option>
+                  <option value="Leaflet">Medication Leaflet</option>
+                  <option value="Clinical Guidelines">Guidelines (NICE/RCPsych)</option>
+                  <option value="Research">Research</option>
+                </select>
+              </div>
+              <div class="library-add-field full-width">
+                <label for="custom-lib-note">Note (optional)</label>
+                <textarea id="custom-lib-note" maxlength="5000" class="form-control library-note-textarea" rows="2" placeholder="Optional personal note..." oninput="app.updateCustomFormNoteCount(this.value)"></textarea>
+                <div class="library-note-meta">
+                  <span id="custom-lib-note-count" class="library-note-count">0 / 5000</span>
+                </div>
+              </div>
+            </div>
+            <div id="custom-lib-error" class="library-form-error" role="alert"></div>
+            <div class="library-add-actions">
+              <button type="submit" class="btn btn-primary btn-sm">Add link</button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="app.toggleLibraryAddForm(false, true)">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="library-subbar">
+          <p class="library-disclaimer">These are links to external sources. The app does not summarise them. Read the originals and talk to your prescriber or pharmacist.</p>
+          <button type="button" id="library-print-all-btn" class="btn btn-secondary btn-sm" onclick="app.printAllLibraryNotes()">Print all my notes</button>
         </div>
 
         <div class="library-grid" id="library-grid">
@@ -2546,11 +3332,11 @@
     </div>
 
     <!-- Modal for Detailed Article Summaries & Plan Config -->
-    <div class="modal-backdrop" id="app-modal-backdrop" onclick="app.closeModal(event)">
-      <div class="modal-box" id="app-modal-box" onclick="event.stopPropagation()">
-        <div class="modal-header">
+    <div class="modal-backdrop" id="app-modal-backdrop" onmousedown="app.handleModalBackdropMouseDown(event)" onclick="app.closeModal(event)">
+      <div class="modal-box" id="app-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" onclick="app.handleModalBoxClick(event)">
+        <div class="modal-header" onclick="event.stopPropagation()">
           <h3 id="modal-title" style="font-size: 1.25rem; color: var(--text-primary); font-weight: 700;">Document Overview</h3>
-          <button class="modal-close-btn" onclick="app.closeModal()">&times;</button>
+          <button type="button" class="modal-close-btn" aria-label="Close modal" onclick="app.closeModal()">&times;<span class="library-close-text"> Close</span></button>
         </div>
         <div id="modal-body">
           <!-- Populated via JS -->
@@ -2585,6 +3371,9 @@
             speed: true
           },
           currentCategory: 'all',
+          librarySearch: '',
+          customLibrary: [],
+          _confirmDeleteCustomId: null,
           activeIndication: '',
           plans: [],
           plan: {
@@ -2611,32 +3400,135 @@
 
         libraryArticles: [
           {
-            id: 'seroxat-leaflet-indications',
-            title: 'Seroxat (Paroxetine) Package Leaflet: Information for the User',
-            publisher: 'electronic Medicines Compendium (emc)',
+            id: 'seroxat-pil-tablets',
             category: 'Leaflet',
-            link: ''
+            sourceLabel: 'emc',
+            publisher: 'emc (electronic Medicines Compendium), GlaxoSmithKline UK',
+            title: 'Seroxat 20 mg tablets: Patient Information Leaflet (UK)',
+            description: 'Official patient leaflet for the UK-supplied product. Check it matches the pack you were given.',
+            websiteUrl: 'https://www.medicines.org.uk/emc/product/7593/pil',
+            pdfUrl: 'https://www.medicines.org.uk/emc/files/pil.7593.pdf',
+            lastChecked: '2026-11'
           },
           {
-            id: 'lancet-horowitz',
-            title: 'Tapering of SSRI treatment to mitigate withdrawal symptoms',
-            publisher: 'The Lancet Psychiatry',
-            category: 'Research',
-            link: 'https://doi.org/10.1016/S2215-0366(19)30032-X'
+            id: 'nhs-paroxetine',
+            category: 'Leaflet',
+            sourceLabel: 'NHS',
+            publisher: 'NHS (National Health Service, UK)',
+            title: 'Paroxetine: a medicine to treat depression',
+            description: 'Official UK NHS medicines guide covering uses, dosing, side effects, and stopping paroxetine.',
+            websiteUrl: 'https://www.nhs.uk/medicines/paroxetine/',
+            pdfUrl: null,
+            pdfNote: "This is a web page, not a PDF. To keep a copy, use your browser's Print and choose Save as PDF.",
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'mhra-antidepressants-safety',
+            category: 'Leaflet',
+            sourceLabel: 'MHRA',
+            publisher: 'Medicines and Healthcare products Regulatory Agency (GOV.UK)',
+            title: 'Antidepressants: use and safety',
+            description: 'UK medicines regulator (MHRA) safety information on SSRI and SNRI antidepressants.',
+            websiteUrl: 'https://www.gov.uk/government/publications/antidepressants-use-and-safety',
+            pdfUrl: null,
+            pdfNote: "This is a web page, not a PDF. To keep a copy, use your browser's Print and choose Save as PDF.",
+            lastChecked: '2026-11'
           },
           {
             id: 'rcpsych-guidelines',
-            title: 'Stopping antidepressants',
-            publisher: 'Royal College of Psychiatrists (RCPsych)',
             category: 'Clinical Guidelines',
-            link: 'https://www.rcpsych.ac.uk/mental-health/treatments-and-wellbeing/stopping-antidepressants'
+            sourceLabel: 'RCPsych',
+            publisher: 'Royal College of Psychiatrists',
+            title: 'Stopping antidepressants',
+            description: 'Patient information about stopping antidepressants.',
+            websiteUrl: 'https://www.rcpsych.ac.uk/mental-health/treatments-and-wellbeing/stopping-antidepressants',
+            pdfUrl: null,
+            pdfNote: "This is a web page, not a PDF. To keep a copy, use your browser's Print and choose Save as PDF.",
+            lastChecked: '2026-11'
           },
           {
-            id: 'nice-guidelines',
-            title: 'Depression in adults: treatment and management (NICE guideline NG222)',
-            publisher: 'National Institute for Health and Care Excellence (NICE)',
+            id: 'rcpsych-what-is-psychiatry',
             category: 'Clinical Guidelines',
-            link: 'https://www.nice.org.uk/guidance/ng222'
+            sourceLabel: 'RCPsych',
+            publisher: 'Royal College of Psychiatrists',
+            title: 'What is psychiatry',
+            description: 'Royal College of Psychiatrists overview of psychiatry, mental health care, and what psychiatrists do.',
+            websiteUrl: 'https://www.rcpsych.ac.uk/become-a-psychiatrist/choose-psychiatry/what-is-psychiatry',
+            pdfUrl: null,
+            pdfNote: "This is a web page, not a PDF. To keep a copy, use your browser's Print and choose Save as PDF.",
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'nice-ng215',
+            category: 'Clinical Guidelines',
+            sourceLabel: 'NICE',
+            publisher: 'National Institute for Health and Care Excellence (NICE)',
+            title: 'Medicines associated with dependence or withdrawal symptoms: safe prescribing and withdrawal management for adults (NG215)',
+            description: 'NICE guideline for health professionals; includes antidepressants.',
+            websiteUrl: 'https://www.nice.org.uk/guidance/ng215',
+            pdfUrl: 'https://www.nice.org.uk/guidance/ng215/resources/medicines-associated-with-dependence-or-withdrawal-symptoms-safe-prescribing-and-withdrawal-management-for-adults-pdf-66143776880581',
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'sps-deprescribing',
+            category: 'Clinical Guidelines',
+            sourceLabel: 'NHS SPS',
+            publisher: 'NHS Specialist Pharmacy Service (SPS)',
+            title: 'Addressing inappropriate use of antidepressants for depression and anxiety',
+            description: 'NHS Specialist Pharmacy Service clinical guidance on reviewing, tapering, and stopping antidepressants.',
+            websiteUrl: 'https://www.sps.nhs.uk/articles/deprescribing-of-antidepressants-for-depression-and-anxiety/',
+            pdfUrl: null,
+            pdfNote: 'This is a web page, not a PDF. Some linked NHS tools may require a healthcare staff login.',
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'bma-dependence-report',
+            category: 'Clinical Guidelines',
+            sourceLabel: 'BMA',
+            publisher: 'British Medical Association (BMA) Board of Science',
+            title: 'Prescribed drugs associated with dependence and withdrawal: building a consensus for action',
+            description: 'British Medical Association report examining prescribed medicine dependence, withdrawal, and clinical support.',
+            websiteUrl: 'https://www.bma.org.uk/what-we-do/population-health/improving-care-and-peoples-experience-of-services/prescribed-drugs-associated-with-dependence-and-withdrawal',
+            pdfUrl: 'https://www.bma.org.uk/media/4611/bma-2015-consensus-report-prescribed-drugs.pdf',
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'lancet-horowitz',
+            category: 'Research',
+            sourceLabel: 'The Lancet Psychiatry',
+            publisher: 'The Lancet Psychiatry (Horowitz & Taylor, 2019)',
+            title: 'Tapering of SSRI treatment to mitigate withdrawal symptoms',
+            description: 'Review article proposing gradual, hyperbolic tapering of SSRIs.',
+            websiteUrl: 'https://pubmed.ncbi.nlm.nih.gov/30850328/',
+            doi: 'https://doi.org/10.1016/S2215-0366(19)30032-X',
+            pdfUrl: null,
+            pdfNote: 'No free PDF confirmed. The website link shows the free abstract; the publisher page may require access.',
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'jstor-seroxat-trial-data',
+            category: 'Research',
+            sourceLabel: 'JSTOR',
+            publisher: 'Journal of Medical Ethics via JSTOR (McGoey & Jackson, 2009)',
+            title: 'Seroxat and the suppression of clinical trial data: regulatory failure and the uses of legal ambiguity',
+            description: 'Peer-reviewed medical ethics article examining clinical trial disclosure and regulatory oversight for Seroxat.',
+            websiteUrl: 'https://www.jstor.org/stable/27720271',
+            doi: 'https://doi.org/10.1136/jme.2008.025361',
+            pdfUrl: null,
+            pdfNote: 'Hosted on JSTOR; full text or PDF download may require institutional or free JSTOR account access.',
+            lastChecked: '2026-11'
+          },
+          {
+            id: 'ncbi-biomedical-hub',
+            category: 'Research',
+            sourceLabel: 'NCBI',
+            publisher: 'U.S. National Library of Medicine (NIH)',
+            title: 'National Center for Biotechnology Information (NCBI)',
+            description: 'Biomedical and genomic information portal providing access to PubMed, PubMed Central, and clinical literature.',
+            websiteUrl: 'https://www.ncbi.nlm.nih.gov/',
+            pdfUrl: null,
+            pdfNote: 'Research database portal rather than a single downloadable PDF.',
+            lastChecked: '2026-11'
           }
         ],
 
@@ -2664,7 +3556,26 @@
 
           try {
             document.addEventListener('keydown', (e) => {
+              const modalBackdrop = document.getElementById('app-modal-backdrop');
+              const isModalOpen = Boolean(modalBackdrop && modalBackdrop.classList.contains('open'));
+              if (isModalOpen) {
+                if (e.key === 'Escape') {
+                  e.preventDefault();
+                  this.closeModal();
+                  return;
+                }
+                if (e.key === 'Tab') {
+                  this.trapModalFocus(e);
+                  return;
+                }
+              }
               if (e.key === 'Escape') {
+                const addPanel = document.getElementById('library-add-panel');
+                if (addPanel && addPanel.classList.contains('open') && addPanel.contains(document.activeElement)) {
+                  e.preventDefault();
+                  this.toggleLibraryAddForm(false, true);
+                  return;
+                }
                 this.closeMobileMenu();
               }
             });
@@ -2733,6 +3644,11 @@
               } else {
                 this.state.libraryNotes = {};
               }
+              if (parsed.customLibrary && Array.isArray(parsed.customLibrary)) {
+                this.state.customLibrary = this.sanitizeCustomLibraryArray(parsed.customLibrary);
+              } else {
+                this.state.customLibrary = [];
+              }
               this.state.firstVisitAccepted = true;
             } else {
               // Clean slate on first load:
@@ -2741,6 +3657,7 @@
               this.state.tablets = [];
               this.state.plan = { indication: '', baselineDose: null, steps: [] };
               this.state.libraryNotes = {};
+              this.state.customLibrary = [];
               this.state.firstVisitAccepted = true;
             }
           } catch (e) {
@@ -2751,7 +3668,7 @@
           }
         },
 
-        saveStorage() {
+        saveStorage(options = {}) {
           try {
             localStorage.setItem('taper_diary_v2', JSON.stringify({
               logs: this.state.logs || {},
@@ -2764,10 +3681,26 @@
               warningDismissedUntil: this.state.warningDismissedUntil || 0,
               firstVisitAccepted: true,
               unlockedDates: this.state.unlockedDates || {},
-              libraryNotes: this.state.libraryNotes || {}
+              libraryNotes: this.state.libraryNotes || {},
+              customLibrary: this.state.customLibrary || []
             }));
+            return true;
           } catch (e) {
             console.warn('Storage write error:', e);
+            const errText = String((e && (e.name || e.message)) || '');
+            const isQuotaError = Boolean(e) && (
+              e.name === 'QuotaExceededError' ||
+              e.name === 'NS_ERROR_DOM_QUOTA_REACHED' ||
+              e.code === 22 ||
+              e.code === 1014 ||
+              /quota|exceeded|full/i.test(errText)
+            );
+            if (options.isNoteSave || isQuotaError) {
+              this.showToast('Could not save your note. Export a backup.', 'error');
+            } else {
+              this.showToast('Could not save data. Export a backup.', 'error');
+            }
+            return false;
           }
         },
 
@@ -2854,6 +3787,7 @@
               crisisNumber: this.state.crisisNumber || '',
               warningDismissedUntil: this.state.warningDismissedUntil || 0,
               libraryNotes: this.state.libraryNotes || {},
+              customLibrary: this.state.customLibrary || [],
               activeIndication: this.state.activeIndication || '',
               firstVisitAccepted: this.state.firstVisitAccepted || false
             }
@@ -2927,6 +3861,39 @@
           if (data.tablets !== undefined && data.tablets !== null && !Array.isArray(data.tablets)) {
             return { valid: false, error: 'Could not import backup: "tablets" must be an array.' };
           }
+          if (data.customLibrary !== undefined && data.customLibrary !== null) {
+            if (!Array.isArray(data.customLibrary)) {
+              return { valid: false, error: 'Could not import backup: "customLibrary" must be an array.' };
+            }
+            for (const c of data.customLibrary) {
+              if (!c || typeof c !== 'object' || Array.isArray(c)) {
+                return { valid: false, error: 'Could not import backup: Custom library entry must be an object.' };
+              }
+              if (typeof c.id !== 'string' || !/^custom-[a-zA-Z0-9_-]+$/.test(c.id.trim())) {
+                return { valid: false, error: 'Could not import backup: Custom library entry has an invalid id.' };
+              }
+              if (typeof c.title !== 'string' || !c.title.trim()) {
+                return { valid: false, error: 'Could not import backup: Custom library entry is missing a title.' };
+              }
+              const rawSiteUrl = c.websiteUrl !== undefined ? c.websiteUrl : c.link;
+              if (typeof rawSiteUrl !== 'string' || !this.isValidHttpUrl(rawSiteUrl)) {
+                return { valid: false, error: 'Could not import backup: Custom library entry link must start with https:// or http://.' };
+              }
+              if (c.pdfUrl !== undefined && c.pdfUrl !== null && c.pdfUrl !== '' && (typeof c.pdfUrl !== 'string' || !this.isValidHttpUrl(c.pdfUrl))) {
+                return { valid: false, error: 'Could not import backup: Custom library PDF link must start with https:// or http://.' };
+              }
+              if (c.publisher !== undefined && c.publisher !== null && typeof c.publisher !== 'string') {
+                return { valid: false, error: 'Could not import backup: Custom library publisher must be text.' };
+              }
+              if (c.description !== undefined && c.description !== null && typeof c.description !== 'string') {
+                return { valid: false, error: 'Could not import backup: Custom library description must be text.' };
+              }
+              const allowedCustomCats = ['Leaflet', 'Clinical Guidelines', 'Research', 'My links'];
+              if (c.category !== undefined && c.category !== null && (typeof c.category !== 'string' || !allowedCustomCats.includes(c.category.trim()))) {
+                return { valid: false, error: 'Could not import backup: Custom library category is invalid.' };
+              }
+            }
+          }
 
           return { valid: true };
         },
@@ -2998,6 +3965,8 @@
           this.state.crisisNumber = data.crisisNumber !== undefined ? data.crisisNumber : '';
           this.state.warningDismissedUntil = data.warningDismissedUntil || 0;
           this.state.libraryNotes = data.libraryNotes || {};
+          this.state.customLibrary = Array.isArray(data.customLibrary) ? this.sanitizeCustomLibraryArray(data.customLibrary) : [];
+          this.state._confirmDeleteCustomId = null;
           this.state.activeIndication = data.activeIndication || '';
           this.state.firstVisitAccepted = true;
 
@@ -3044,7 +4013,16 @@
           this.state.liquidConcentration = '';
           this.state.crisisNumber = '';
           this.state.warningDismissedUntil = 0;
+          if (this._libraryNoteTimers) {
+            Object.keys(this._libraryNoteTimers).forEach(k => clearTimeout(this._libraryNoteTimers[k]));
+          }
+          this._libraryNoteTimers = {};
+          this._libraryNoteDirty = {};
           this.state.libraryNotes = {};
+          this.state.customLibrary = [];
+          this.state.librarySearch = '';
+          this.state.currentCategory = 'all';
+          this.state._confirmDeleteCustomId = null;
           this.state.activeIndication = '';
           this.state.firstVisitAccepted = true;
 
@@ -6056,196 +7034,753 @@
             .replace(/'/g, '&#039;');
         },
 
+        _libraryNoteTimers: {},
+        _libraryNoteDirty: {},
+
+        updateCustomFormNoteCount(text) {
+          const noteEl = document.getElementById('custom-lib-note');
+          const safeText = String(text || '').slice(0, 5000);
+          if (noteEl && noteEl.value !== safeText) noteEl.value = safeText;
+          const countEl = document.getElementById('custom-lib-note-count');
+          if (countEl) {
+            countEl.textContent = `${safeText.length} / 5000`;
+            countEl.classList.toggle('at-limit', safeText.length >= 5000);
+          }
+        },
+
+        setLibraryNoteStatus(id, message, isError = false, visible = true) {
+          const el = document.getElementById(`modal-library-note-status-${id}`);
+          if (!el) return;
+          el.textContent = message || '';
+          el.classList.toggle('error', Boolean(isError));
+          el.classList.toggle('visible', Boolean(visible && message));
+        },
+
+        commitLibraryNoteSave(id) {
+          if (this._libraryNoteTimers && this._libraryNoteTimers[id]) {
+            clearTimeout(this._libraryNoteTimers[id]);
+            delete this._libraryNoteTimers[id];
+          }
+          const saved = this.saveStorage({ isNoteSave: true });
+          if (saved) {
+            if (this._libraryNoteDirty) delete this._libraryNoteDirty[id];
+            this.setLibraryNoteStatus(id, 'Saved', false, true);
+          } else {
+            if (!this._libraryNoteDirty) this._libraryNoteDirty = {};
+            this._libraryNoteDirty[id] = true;
+            this.setLibraryNoteStatus(id, 'Could not save your note. Export a backup.', true, true);
+          }
+          return saved;
+        },
+
+        flushLibraryNoteSave(id) {
+          if (!id) return;
+          const hasTimer = Boolean(this._libraryNoteTimers && this._libraryNoteTimers[id]);
+          const isDirty = Boolean(this._libraryNoteDirty && this._libraryNoteDirty[id]);
+          if (hasTimer || isDirty) {
+            this.commitLibraryNoteSave(id);
+          }
+        },
+
+        flushAllLibraryNoteSaves() {
+          const ids = new Set([
+            ...Object.keys(this._libraryNoteTimers || {}),
+            ...Object.keys(this._libraryNoteDirty || {})
+          ]);
+          ids.forEach(id => this.flushLibraryNoteSave(id));
+        },
+
         updateLibraryNote(id, text) {
           if (!this.state.libraryNotes) this.state.libraryNotes = {};
-          this.state.libraryNotes[id] = text;
-          this.saveStorage();
-          const cardArea = document.getElementById(`library-note-${id}`);
-          if (cardArea && cardArea.value !== text) cardArea.value = text;
+          const safeText = String(text || '').slice(0, 5000);
+          this.state.libraryNotes[id] = safeText;
+
           const modalArea = document.getElementById(`modal-library-note-${id}`);
-          if (modalArea && modalArea.value !== text) modalArea.value = text;
+          if (modalArea && modalArea.value !== safeText) modalArea.value = safeText;
+          const modalPrintNote = document.getElementById(`modal-library-print-note-${id}`);
+          if (modalPrintNote) {
+            const hasContent = Boolean(safeText.trim());
+            modalPrintNote.textContent = hasContent ? safeText : 'No personal note written.';
+            modalPrintNote.classList.toggle('is-empty', !hasContent);
+          }
+
+          const countEl = document.getElementById(`modal-library-note-count-${id}`);
+          if (countEl) {
+            countEl.textContent = `${safeText.length} / 5000`;
+            countEl.classList.toggle('at-limit', safeText.length >= 5000);
+          }
+
+          if (!this._libraryNoteDirty) this._libraryNoteDirty = {};
+          this._libraryNoteDirty[id] = true;
+          this.setLibraryNoteStatus(id, '', false, false);
+
+          if (!this._libraryNoteTimers) this._libraryNoteTimers = {};
+          if (this._libraryNoteTimers[id]) {
+            clearTimeout(this._libraryNoteTimers[id]);
+          }
+          this._libraryNoteTimers[id] = setTimeout(() => {
+            delete this._libraryNoteTimers[id];
+            this.commitLibraryNoteSave(id);
+          }, 400);
         },
 
         // DIGITAL LIBRARY METHODS
+        isValidHttpUrl(rawUrl) {
+          if (typeof rawUrl !== 'string') return false;
+          const trimmed = rawUrl.trim();
+          if (!/^https?:\/\//i.test(trimmed)) return false;
+          try {
+            const parsed = new URL(trimmed);
+            return (parsed.protocol === 'http:' || parsed.protocol === 'https:') && Boolean(parsed.hostname);
+          } catch (e) {
+            return false;
+          }
+        },
+
+        sanitizeCustomLibraryEntry(entry) {
+          if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return null;
+          const id = typeof entry.id === 'string' ? entry.id.trim() : '';
+          const title = typeof entry.title === 'string' ? entry.title.trim() : '';
+          const rawSite = entry.websiteUrl !== undefined ? entry.websiteUrl : entry.link;
+          const websiteUrl = typeof rawSite === 'string' ? rawSite.trim() : '';
+          if (!/^custom-[a-zA-Z0-9_-]+$/.test(id) || !title || !this.isValidHttpUrl(websiteUrl)) return null;
+          const rawPdf = typeof entry.pdfUrl === 'string' ? entry.pdfUrl.trim() : '';
+          const pdfUrl = rawPdf && this.isValidHttpUrl(rawPdf) ? rawPdf : null;
+          const allowedCats = ['Leaflet', 'Clinical Guidelines', 'Research', 'My links'];
+          const rawCat = typeof entry.category === 'string' ? entry.category.trim() : 'My links';
+          const category = allowedCats.includes(rawCat) ? rawCat : 'My links';
+          const publisher = typeof entry.publisher === 'string' ? entry.publisher.trim() : '';
+          const description = typeof entry.description === 'string' ? entry.description.trim() : '';
+          return {
+            id,
+            title,
+            websiteUrl,
+            pdfUrl,
+            sourceLabel: '',
+            publisher,
+            category,
+            description,
+            lastChecked: '',
+            isCustom: true
+          };
+        },
+
+        sanitizeCustomLibraryArray(arr) {
+          if (!Array.isArray(arr)) return [];
+          const out = [];
+          arr.forEach(item => {
+            const clean = this.sanitizeCustomLibraryEntry(item);
+            if (clean) out.push(clean);
+          });
+          return out;
+        },
+
+        getAllLibraryArticles() {
+          const builtIn = Array.isArray(this.libraryArticles) ? this.libraryArticles : [];
+          const custom = Array.isArray(this.state.customLibrary) ? this.state.customLibrary : [];
+          return [...builtIn, ...custom];
+        },
+
+        clearLibrarySearch() {
+          this.filterLibrary('');
+          const searchInput = document.getElementById('library-search');
+          if (searchInput) searchInput.focus();
+        },
+
+        toggleLibraryAddForm(forceOpen = null, returnFocus = false) {
+          const panel = document.getElementById('library-add-panel');
+          const toggleBtn = document.getElementById('library-add-toggle-btn');
+          const errEl = document.getElementById('custom-lib-error');
+          if (!panel) return;
+          const nextOpen = forceOpen !== null ? Boolean(forceOpen) : !panel.classList.contains('open');
+          panel.classList.toggle('open', nextOpen);
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+          if (!nextOpen && errEl) {
+            errEl.textContent = '';
+            errEl.classList.remove('visible');
+          }
+          if (nextOpen) {
+            const titleEl = document.getElementById('custom-lib-title');
+            if (titleEl) titleEl.focus();
+          } else if (returnFocus && toggleBtn) {
+            toggleBtn.focus();
+          }
+        },
+
+        addCustomLibraryLink(evt) {
+          if (evt && evt.preventDefault) evt.preventDefault();
+          const titleEl = document.getElementById('custom-lib-title');
+          const linkEl = document.getElementById('custom-lib-link');
+          const pdfEl = document.getElementById('custom-lib-pdf');
+          const pubEl = document.getElementById('custom-lib-publisher');
+          const catEl = document.getElementById('custom-lib-category');
+          const noteEl = document.getElementById('custom-lib-note');
+          const errEl = document.getElementById('custom-lib-error');
+
+          const showErr = (msg) => {
+            if (errEl) {
+              errEl.textContent = msg;
+              errEl.classList.add('visible');
+            }
+          };
+
+          const title = titleEl ? titleEl.value.trim() : '';
+          const websiteUrl = linkEl ? linkEl.value.trim() : '';
+          const pdfRaw = pdfEl ? pdfEl.value.trim() : '';
+          const publisher = pubEl ? pubEl.value.trim() : '';
+          const category = catEl ? catEl.value.trim() : 'My links';
+          const note = noteEl ? noteEl.value.trim().slice(0, 5000) : '';
+
+          if (!title) {
+            showErr('Please enter a title for your link.');
+            if (titleEl) titleEl.focus();
+            return;
+          }
+
+          if (!this.isValidHttpUrl(websiteUrl)) {
+            showErr('Website link must start with https:// or http:// (other link types are not allowed).');
+            if (linkEl) linkEl.focus();
+            return;
+          }
+
+          if (pdfRaw && !this.isValidHttpUrl(pdfRaw)) {
+            showErr('PDF link must start with https:// or http:// (other link types are not allowed).');
+            if (pdfEl) pdfEl.focus();
+            return;
+          }
+
+          if (errEl) {
+            errEl.textContent = '';
+            errEl.classList.remove('visible');
+          }
+
+          const newId = `custom-${Date.now()}`;
+          const newEntry = this.sanitizeCustomLibraryEntry({
+            id: newId,
+            title,
+            websiteUrl,
+            pdfUrl: pdfRaw || null,
+            publisher,
+            category,
+            description: ''
+          });
+          if (!newEntry) {
+            showErr('Could not add link. Please check the title and URL.');
+            return;
+          }
+
+          if (!Array.isArray(this.state.customLibrary)) this.state.customLibrary = [];
+          this.state.customLibrary.push(newEntry);
+
+          if (note) {
+            if (!this.state.libraryNotes) this.state.libraryNotes = {};
+            this.state.libraryNotes[newId] = note;
+          }
+
+          this.saveStorage({ isNoteSave: Boolean(note) });
+
+          if (titleEl) titleEl.value = '';
+          if (linkEl) linkEl.value = '';
+          if (pdfEl) pdfEl.value = '';
+          if (pubEl) pubEl.value = '';
+          if (catEl) catEl.value = 'My links';
+          if (noteEl) noteEl.value = '';
+          this.updateCustomFormNoteCount('');
+          this.toggleLibraryAddForm(false, true);
+
+          this.renderLibrary();
+          this.showToast('Custom link added to your library.', 'success');
+        },
+
+        promptDeleteCustomLink(id) {
+          const exists = Array.isArray(this.state.customLibrary) && this.state.customLibrary.some(c => c.id === id);
+          if (!exists) return;
+          this.state._confirmDeleteCustomId = id;
+          const wrap = document.getElementById(`modal-delete-wrap-${id}`);
+          if (wrap) {
+            wrap.innerHTML = `
+              <div class="library-delete-confirm">
+                <span>Delete this custom link?</span>
+                <div class="library-delete-confirm-actions">
+                  <button type="button" class="btn btn-secondary btn-sm library-delete-btn" onclick="app.confirmDeleteCustomLink('${this.escapeHtml(id)}')">Confirm Delete</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="app.cancelDeleteCustomLink('${this.escapeHtml(id)}')">Cancel</button>
+                </div>
+              </div>
+            `;
+            const confirmBtn = wrap.querySelector('button');
+            if (confirmBtn) confirmBtn.focus();
+          }
+        },
+
+        cancelDeleteCustomLink(id = null) {
+          this.state._confirmDeleteCustomId = null;
+          const wrap = id ? document.getElementById(`modal-delete-wrap-${id}`) : null;
+          if (wrap && id) {
+            wrap.innerHTML = `
+              <button type="button" class="btn btn-secondary btn-sm library-delete-btn library-card-delete-trigger" onclick="app.promptDeleteCustomLink('${this.escapeHtml(id)}')">Delete custom link</button>
+            `;
+            const delBtn = wrap.querySelector('button');
+            if (delBtn) delBtn.focus();
+          }
+        },
+
+        confirmDeleteCustomLink(id) {
+          if (!Array.isArray(this.state.customLibrary)) return;
+          const idx = this.state.customLibrary.findIndex(c => c.id === id);
+          if (idx === -1) return;
+          this.state.customLibrary.splice(idx, 1);
+          if (this._libraryNoteTimers && this._libraryNoteTimers[id]) {
+            clearTimeout(this._libraryNoteTimers[id]);
+            delete this._libraryNoteTimers[id];
+          }
+          if (this._libraryNoteDirty) delete this._libraryNoteDirty[id];
+          if (this.state.libraryNotes && Object.prototype.hasOwnProperty.call(this.state.libraryNotes, id)) {
+            delete this.state.libraryNotes[id];
+          }
+          this.state._confirmDeleteCustomId = null;
+          this.saveStorage();
+          this.closeModal();
+          this.renderLibrary();
+          const nextFocusTarget = document.querySelector('#library-grid button, #library-grid a') || document.getElementById('library-search');
+          if (nextFocusTarget) nextFocusTarget.focus();
+          this.showToast('Custom link removed.', 'info');
+        },
+
+        getLibraryDomain(url) {
+          if (!this.isValidHttpUrl(url)) return '';
+          try {
+            return new URL(url.trim()).hostname.replace(/^www\./, '');
+          } catch (e) {
+            return '';
+          }
+        },
+
         renderLibrary() {
+          if (this.state.libraryNotes && Object.prototype.hasOwnProperty.call(this.state.libraryNotes, 'seroxat-leaflet-indications')) {
+            const legacyNote = this.state.libraryNotes['seroxat-leaflet-indications'];
+            if (legacyNote && !this.state.libraryNotes['seroxat-pil-tablets']) {
+              this.state.libraryNotes['seroxat-pil-tablets'] = legacyNote;
+            } else if (legacyNote && this.state.libraryNotes['seroxat-pil-tablets'] && this.state.libraryNotes['seroxat-pil-tablets'] !== legacyNote) {
+              this.state.libraryNotes['seroxat-pil-tablets'] = `${this.state.libraryNotes['seroxat-pil-tablets']}\n\n${legacyNote}`;
+            }
+            delete this.state.libraryNotes['seroxat-leaflet-indications'];
+            this.saveStorage();
+          }
+
+          const allArticles = this.getAllLibraryArticles();
+          const cat = this.state.currentCategory || 'all';
+          const rawSearch = this.state.librarySearch || '';
+          const q = rawSearch.toLowerCase().trim();
+
+          const searchInput = document.getElementById('library-search');
+          if (searchInput && searchInput.value !== rawSearch) {
+            searchInput.value = rawSearch;
+          }
+          const clearBtn = document.getElementById('library-search-clear');
+          if (clearBtn) {
+            clearBtn.classList.toggle('visible', rawSearch.length > 0);
+          }
+
+          document.querySelectorAll('#library-section .cat-pill').forEach(pill => {
+            const pillCat = pill.dataset.category || 'all';
+            const baseLabel = pill.dataset.label || pill.textContent;
+            const count = pillCat === 'all'
+              ? allArticles.length
+              : allArticles.filter(a => (a.category || '').trim() === pillCat).length;
+            pill.textContent = `${baseLabel} (${count})`;
+            const isActive = pillCat === cat;
+            pill.classList.toggle('active', isActive);
+            pill.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+          });
+
+          const filtered = allArticles.filter(item => {
+            const itemCat = (item.category || '').trim();
+            if (cat !== 'all' && itemCat !== cat) return false;
+            if (!q) return true;
+            const noteText = (this.state.libraryNotes && this.state.libraryNotes[item.id]) || '';
+            return (
+              (item.title || '').trim().toLowerCase().includes(q) ||
+              (item.publisher || '').trim().toLowerCase().includes(q) ||
+              (item.sourceLabel || '').trim().toLowerCase().includes(q) ||
+              itemCat.toLowerCase().includes(q) ||
+              (item.description || '').trim().toLowerCase().includes(q) ||
+              noteText.toLowerCase().includes(q)
+            );
+          });
+
+          const countEl = document.getElementById('library-result-count');
+          if (countEl) {
+            countEl.textContent = `${filtered.length} of ${allArticles.length}`;
+          }
+
           const grid = document.getElementById('library-grid');
           if (!grid) return;
           grid.innerHTML = '';
 
-          const filtered = this.libraryArticles.filter(item => {
-            if (this.state.currentCategory === 'all') return true;
-            return item.category === this.state.currentCategory;
-          });
+          if (filtered.length === 0) {
+            grid.innerHTML = `
+              <div class="library-empty-state">
+                <p>No references match your search</p>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="app.clearLibrarySearch()">Clear search</button>
+              </div>
+            `;
+            return;
+          }
 
           filtered.forEach(item => {
             const card = document.createElement('div');
             card.className = 'library-card';
-            card.id = `library-card-${item.id}`;
-            const userNote = (this.state.libraryNotes && this.state.libraryNotes[item.id]) ? this.state.libraryNotes[item.id] : '';
+            const cleanId = String(item.id || '').trim();
+            card.id = `library-card-${cleanId}`;
 
-            const linkHtml = item.link ? `
-              <div style="margin-top: 0.35rem; margin-bottom: 0.5rem;">
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="font-size:0.825rem; color:var(--teal-primary); text-decoration:underline; font-family:var(--font-sans); font-weight:700; display:inline-flex; align-items:center; gap:0.35rem; word-break:break-all;">
-                  <span>🔗 Original Document &rarr;</span>
-                </a>
-              </div>
-            ` : `
-              <div style="margin-top: 0.35rem; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-muted); font-style: italic; font-family: var(--font-sans);">
-                No external link confirmed. Consult your packaging or prescriber.
-              </div>
-            `;
+            const cleanTitle = (item.title || '').trim();
+            const cleanSourceLabel = (item.sourceLabel || '').trim();
+            const cleanDesc = (item.description || '').trim();
+            const rawSite = item.websiteUrl !== undefined ? item.websiteUrl : item.link;
+            const safeWebsiteUrl = this.isValidHttpUrl(rawSite) ? rawSite.trim() : '';
+            const domain = this.getLibraryDomain(safeWebsiteUrl);
+            const sourceParts = [];
+            if (cleanSourceLabel) sourceParts.push(cleanSourceLabel);
+            if (domain) sourceParts.push(domain);
+            const sourceLine = sourceParts.join(' · ');
 
             card.innerHTML = `
-              <div style="display: flex; flex-direction: column; flex: 1;">
-                <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.5rem 0; line-height: 1.4;">
-                  ${this.escapeHtml(item.title)}
+              <div class="library-card-body">
+                <h3 class="library-card-title">
+                  <a href="${this.escapeHtml(safeWebsiteUrl)}" target="_blank" rel="noopener noreferrer" class="library-card-title-link" aria-label="${this.escapeHtml(cleanTitle)} (opens in a new tab)"><span>${this.escapeHtml(cleanTitle)} <span class="library-ext-icon" aria-hidden="true">↗</span></span></a>
                 </h3>
+                ${sourceLine ? `<div class="library-source-line">${this.escapeHtml(sourceLine)}</div>` : ''}
+                ${cleanDesc ? `<p class="library-card-desc">${this.escapeHtml(cleanDesc)}</p>` : ''}
               </div>
-              <div class="library-card-footer" style="justify-content: flex-end; margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid var(--border-subtle);">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="app.toggleAllInfo('${item.id}')" style="font-size:0.775rem; color:var(--teal-primary); font-family:var(--font-sans); font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:0.35rem; padding:0.35rem 0.75rem;">
-                  <span id="all-info-btn-text-${item.id}">All Info ▾</span>
-                </button>
-              </div>
-              <div id="all-info-${item.id}" class="all-info-div" style="display: none; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px dashed var(--border-subtle);">
-                <div class="library-source-meta" style="margin-bottom: 0.65rem; font-size: 0.75rem; color: var(--text-muted);">
-                  <span>${this.escapeHtml(item.publisher)}</span>
-                  <span>·</span>
-                  <span>${this.escapeHtml(item.category)}</span>
-                </div>
-                <div style="margin-bottom: 0.85rem;">
-                  <label style="display: block; font-size: 0.775rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.25rem; font-family: var(--font-sans);">
-                    Links to documents:
-                  </label>
-                  ${linkHtml}
-                </div>
-                <div style="margin-top: 0.65rem;">
-                  <label for="library-note-${item.id}" style="display: block; font-size: 0.775rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.35rem; font-family: var(--font-sans);">
-                    My note:
-                  </label>
-                  <textarea id="library-note-${item.id}" class="form-control" rows="3" placeholder="Write your personal notes here..." style="width: 100%; font-size: 0.825rem; resize: vertical; font-family: var(--font-sans); box-sizing: border-box;" oninput="app.updateLibraryNote('${item.id}', this.value)">${this.escapeHtml(userNote)}</textarea>
-                </div>
-                <div style="margin-top: 0.75rem; display: flex; justify-content: flex-end;">
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="app.viewArticle('${item.id}')" style="font-size:0.725rem; display:inline-flex; align-items:center; gap:0.35rem; padding: 0.25rem 0.5rem;">
-                    <span>Open Fullscreen</span> &rarr;
-                  </button>
-                </div>
+              <div class="library-card-footer">
+                <button type="button" class="btn btn-secondary btn-sm library-more-btn" onclick="app.viewArticle('${this.escapeHtml(cleanId)}')">More info</button>
               </div>
             `;
             grid.appendChild(card);
           });
         },
 
-        toggleAllInfo(id) {
-          const panel = document.getElementById(`all-info-${id}`);
-          const btnText = document.getElementById(`all-info-btn-text-${id}`);
-          if (!panel) return;
-          const isHidden = panel.style.display === 'none' || !panel.style.display;
-          panel.style.display = isHidden ? 'block' : 'none';
-          if (btnText) {
-            btnText.textContent = isHidden ? 'All Info ▴' : 'All Info ▾';
-          }
-        },
-
-        setLibraryCategory(cat, evt) {
-          this.state.currentCategory = cat;
-          document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-          if (evt && evt.target) evt.target.classList.add('active');
+        setLibraryCategory(cat) {
+          this.state.currentCategory = cat || 'all';
           this.renderLibrary();
         },
 
         filterLibrary(term) {
-          const q = (term || '').toLowerCase().trim();
-          document.querySelectorAll('.library-card').forEach((card, idx) => {
-            const filtered = this.libraryArticles.filter(item => {
-              if (this.state.currentCategory === 'all') return true;
-              return item.category === this.state.currentCategory;
-            });
-            const article = filtered[idx];
-            if (!article) return;
-            const noteText = (this.state.libraryNotes && this.state.libraryNotes[article.id]) || '';
-            const match = article.title.toLowerCase().includes(q) ||
-                          (article.publisher || '').toLowerCase().includes(q) ||
-                          (article.category || '').toLowerCase().includes(q) ||
-                          noteText.toLowerCase().includes(q);
-            card.style.display = match ? 'flex' : 'none';
-          });
+          this.state.librarySearch = term || '';
+          this.renderLibrary();
         },
 
         viewArticle(id) {
-          const item = this.libraryArticles.find(a => a.id === id);
+          const item = this.getAllLibraryArticles().find(a => a.id === id);
           if (!item) return;
 
-          const userNote = (this.state.libraryNotes && this.state.libraryNotes[item.id]) ? this.state.libraryNotes[item.id] : '';
+          this.state._confirmDeleteCustomId = null;
+          const cleanId = String(item.id || '').trim();
+          const isCustom = Boolean(item.isCustom) && Array.isArray(this.state.customLibrary) && this.state.customLibrary.some(c => c.id === cleanId);
+          const cleanTitle = (item.title || '').trim();
+          const cleanCategory = (item.category || '').trim();
+          const cleanPublisher = (item.publisher || '').trim();
+          const cleanDesc = (item.description || '').trim();
+          const cleanPdfNote = (item.pdfNote || '').trim();
+          const cleanLastChecked = (item.lastChecked || '').trim();
+          const rawSite = item.websiteUrl !== undefined ? item.websiteUrl : item.link;
+          const safeWebsiteUrl = this.isValidHttpUrl(rawSite) ? rawSite.trim() : '';
+          const safePdfUrl = item.pdfUrl && this.isValidHttpUrl(item.pdfUrl) ? item.pdfUrl.trim() : '';
+          const safeDoi = item.doi && this.isValidHttpUrl(item.doi) ? item.doi.trim() : '';
 
-          const linkHtml = item.link ? `
-            <div style="font-size: 0.825rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 0.5rem;">
-              <span style="font-size: 1rem; line-height: 1.2;">🔗</span>
-              <div>
-                <strong style="color: var(--text-primary);">External Link:</strong>
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="color: var(--teal-primary); text-decoration: underline; margin-left: 0.35rem; word-break: break-all;">
-                  ${item.link} &rarr;
-                </a>
-              </div>
-            </div>
+          const userNote = (this.state.libraryNotes && this.state.libraryNotes[cleanId]) ? this.state.libraryNotes[cleanId] : '';
+          const hasNote = Boolean(userNote && userNote.trim());
+          const todayStr = this.formatPrintDate(new Date());
+
+          const pdfItemHtml = safePdfUrl ? `
+            <li class="library-link-item">
+              <a href="${this.escapeHtml(safePdfUrl)}" target="_blank" rel="noopener noreferrer" class="library-inline-link">Open PDF <span aria-hidden="true">↗</span></a>
+              <div class="library-link-url">${this.escapeHtml(safePdfUrl)}</div>
+              ${cleanPdfNote ? `<p class="library-pdf-note">${this.escapeHtml(cleanPdfNote)}</p>` : ''}
+            </li>
           ` : `
-            <div style="font-size: 0.825rem; color: var(--text-muted); font-style: italic;">
-              No external link confirmed. Consult your packaging or prescriber.
-            </div>
+            <li class="library-link-item">
+              <span class="library-link-unavailable">No PDF available</span>
+              ${cleanPdfNote ? `<p class="library-pdf-note">${this.escapeHtml(cleanPdfNote)}</p>` : ''}
+            </li>
           `;
 
+          const websiteItemHtml = safeWebsiteUrl ? `
+            <li class="library-link-item">
+              <a href="${this.escapeHtml(safeWebsiteUrl)}" target="_blank" rel="noopener noreferrer" class="library-inline-link">Open website <span aria-hidden="true">↗</span></a>
+              <div class="library-link-url">${this.escapeHtml(safeWebsiteUrl)}</div>
+            </li>
+          ` : '';
+
+          const doiItemHtml = safeDoi ? `
+            <li class="library-link-item">
+              <a href="${this.escapeHtml(safeDoi)}" target="_blank" rel="noopener noreferrer" class="library-inline-link">Publisher page (DOI) <span aria-hidden="true">↗</span></a>
+              <div class="library-link-url">${this.escapeHtml(safeDoi)}</div>
+            </li>
+          ` : '';
+
+          const deleteWrapHtml = isCustom ? `
+            <div id="modal-delete-wrap-${this.escapeHtml(cleanId)}">
+              <button type="button" class="btn btn-secondary btn-sm library-delete-btn library-card-delete-trigger" onclick="app.promptDeleteCustomLink('${this.escapeHtml(cleanId)}')">Delete custom link</button>
+            </div>
+          ` : '<span></span>';
+
           const body = `
-            <div style="font-family: var(--font-sans);">
-              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-weight: 600; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-                <span class="pill-badge" style="font-size:0.7rem; border-color:var(--teal-primary); color:var(--teal-primary); padding:0.15rem 0.5rem;">${this.escapeHtml(item.category)}</span>
-                <span>${this.escapeHtml(item.publisher)}</span>
+            <div class="library-modal-wrap library-screen-only">
+              <div class="library-modal-meta">
+                <span class="library-cat-chip">${this.escapeHtml(cleanCategory)}</span>
+                ${isCustom ? '<span class="library-my-link-tag">My link</span>' : ''}
+                ${cleanPublisher ? `<span>${this.escapeHtml(cleanPublisher)}</span>` : ''}
               </div>
 
-              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.15rem; line-height: 1.4;">
-                ${this.escapeHtml(item.title)}
-              </h3>
+              <h2 id="library-fullscreen-title" class="library-modal-title">${this.escapeHtml(cleanTitle)}</h2>
+              ${cleanDesc ? `<p class="library-modal-desc">${this.escapeHtml(cleanDesc)}</p>` : ''}
 
-              <div style="background: #0f172a; padding: 0.85rem 1rem; border-radius: 0.5rem; border: 1px solid #1e293b; margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.775rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.35rem;">
-                  Links to documents:
-                </label>
-                ${linkHtml}
+              <div class="library-modal-link-box">
+                <ul class="library-link-list">
+                  ${pdfItemHtml}
+                  ${websiteItemHtml}
+                  ${doiItemHtml}
+                </ul>
+                ${cleanLastChecked ? `<div class="library-last-checked">Link last checked: ${this.escapeHtml(cleanLastChecked)}</div>` : ''}
               </div>
 
-              <div style="margin-top: 1rem; margin-bottom: 1.25rem;">
-                <label for="modal-library-note-${item.id}" style="display: block; font-size: 0.825rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
-                  My note:
-                </label>
-                <textarea id="modal-library-note-${item.id}" class="form-control" rows="5" placeholder="Write your personal notes on this document here..." style="width: 100%; font-size: 0.85rem; resize: vertical; font-family: var(--font-sans); box-sizing: border-box;" oninput="app.updateLibraryNote('${item.id}', this.value)">${this.escapeHtml(userNote)}</textarea>
-                <div style="font-size: 0.725rem; color: var(--text-muted); margin-top: 0.25rem;">Notes are saved to your device.</div>
+              <div class="library-expanded-section">
+                <label for="modal-library-note-${this.escapeHtml(cleanId)}" class="library-field-label">My note:</label>
+                <textarea id="modal-library-note-${this.escapeHtml(cleanId)}" maxlength="5000" class="form-control library-note-textarea" rows="5" placeholder="Write your personal notes on this document here..." oninput="app.updateLibraryNote('${this.escapeHtml(cleanId)}', this.value)" onblur="app.flushLibraryNoteSave('${this.escapeHtml(cleanId)}')">${this.escapeHtml(userNote)}</textarea>
+                <div class="library-note-meta">
+                  <span id="modal-library-note-status-${this.escapeHtml(cleanId)}" class="library-note-status" aria-live="polite"></span>
+                  <span id="modal-library-note-count-${this.escapeHtml(cleanId)}" class="library-note-count${userNote.length >= 5000 ? ' at-limit' : ''}">${userNote.length} / 5000</span>
+                </div>
+                <div class="library-modal-note-hint">Notes are saved to your device.</div>
               </div>
 
-              <!-- Print Document Button Bellow All -->
-              <div style="border-top: 1px solid var(--border-subtle); padding-top: 0.85rem; margin-top: 1.15rem; display: flex; justify-content: flex-end;">
-                <button class="btn btn-secondary btn-sm" onclick="app.printArticle('${item.id}')" style="display:inline-flex; align-items:center; gap:0.45rem;">
+              <div class="library-modal-print-row">
+                ${deleteWrapHtml}
+                <button type="button" class="btn btn-secondary btn-sm" onclick="app.printArticle('${this.escapeHtml(cleanId)}')">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                  <span>Print Document</span>
+                  <span>Print</span>
                 </button>
               </div>
             </div>
+
+            <div class="library-print-only library-print-sheet">
+              <div class="library-all-notes-toolbar">
+                <span class="library-print-notice">Personal reference note. Not medical advice.</span>
+                <span id="modal-library-print-date-${this.escapeHtml(cleanId)}" class="library-print-notice">Date: ${this.escapeHtml(todayStr)}</span>
+              </div>
+              <div class="library-print-entry">
+                <h2 class="library-print-title">${this.escapeHtml(cleanTitle)}</h2>
+                <div class="library-print-meta">
+                  <span>Category: ${this.escapeHtml(cleanCategory)}</span>
+                  ${cleanPublisher ? `<span>Publisher: ${this.escapeHtml(cleanPublisher)}</span>` : ''}
+                </div>
+                <div class="library-print-url">Website: ${safeWebsiteUrl ? this.escapeHtml(safeWebsiteUrl) : 'No external link confirmed.'}</div>
+                ${safePdfUrl ? `<div class="library-print-url">PDF: ${this.escapeHtml(safePdfUrl)}</div>` : ''}
+                ${safeDoi ? `<div class="library-print-url">DOI: ${this.escapeHtml(safeDoi)}</div>` : ''}
+                <div class="library-field-label">My note:</div>
+                <div id="modal-library-print-note-${this.escapeHtml(cleanId)}" class="library-print-note${hasNote ? '' : ' is-empty'}">${hasNote ? this.escapeHtml(userNote) : 'No personal note written.'}</div>
+              </div>
+            </div>
           `;
 
-          this.openModal(item.title, body);
+          this.openModal(cleanTitle, body, {
+            isLibraryPrint: true,
+            isLibraryFullscreen: true,
+            titleId: 'library-fullscreen-title'
+          });
+        },
+
+        formatPrintDate(dateObj = new Date()) {
+          try {
+            return dateObj.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+          } catch (e) {
+            return this.formatDate(dateObj);
+          }
         },
 
         printArticle(id) {
+          this.flushLibraryNoteSave(id);
+          const dateEl = document.getElementById(`modal-library-print-date-${id}`);
+          if (dateEl) dateEl.textContent = `Date: ${this.formatPrintDate(new Date())}`;
+          const noteEl = document.getElementById(`modal-library-print-note-${id}`);
+          if (noteEl) {
+            const rawNote = (this.state.libraryNotes && this.state.libraryNotes[id]) || '';
+            const hasContent = Boolean(rawNote.trim());
+            noteEl.textContent = hasContent ? rawNote : 'No personal note written.';
+            noteEl.classList.toggle('is-empty', !hasContent);
+          }
           window.print();
         },
 
+        printAllLibraryNotes() {
+          this.flushAllLibraryNoteSaves();
+          const todayStr = this.formatPrintDate(new Date());
+          const allArticles = this.getAllLibraryArticles();
+          const notedItems = allArticles.filter(item => {
+            const txt = (this.state.libraryNotes && this.state.libraryNotes[item.id]) || '';
+            return Boolean(txt.trim());
+          });
+
+          const entriesHtml = notedItems.length > 0
+            ? notedItems.map(item => {
+                const cleanId = String(item.id || '').trim();
+                const cleanTitle = (item.title || '').trim();
+                const cleanCategory = (item.category || '').trim();
+                const cleanPublisher = (item.publisher || '').trim();
+                const rawSite = item.websiteUrl !== undefined ? item.websiteUrl : item.link;
+                const safeWebsiteUrl = this.isValidHttpUrl(rawSite) ? rawSite.trim() : '';
+                const safePdfUrl = item.pdfUrl && this.isValidHttpUrl(item.pdfUrl) ? item.pdfUrl.trim() : '';
+                const safeDoi = item.doi && this.isValidHttpUrl(item.doi) ? item.doi.trim() : '';
+                const noteText = (this.state.libraryNotes && this.state.libraryNotes[cleanId]) || '';
+                return `
+                  <div class="library-print-entry">
+                    <h3 class="library-print-title">${this.escapeHtml(cleanTitle)}</h3>
+                    <div class="library-print-meta">
+                      <span>Category: ${this.escapeHtml(cleanCategory)}</span>
+                      ${cleanPublisher ? `<span>Publisher: ${this.escapeHtml(cleanPublisher)}</span>` : ''}
+                    </div>
+                    <div class="library-print-url">Website: ${safeWebsiteUrl ? this.escapeHtml(safeWebsiteUrl) : 'No external link confirmed.'}</div>
+                    ${safePdfUrl ? `<div class="library-print-url">PDF: ${this.escapeHtml(safePdfUrl)}</div>` : ''}
+                    ${safeDoi ? `<div class="library-print-url">DOI: ${this.escapeHtml(safeDoi)}</div>` : ''}
+                    <div class="library-print-note">${this.escapeHtml(noteText)}</div>
+                  </div>
+                `;
+              }).join('')
+            : `<div class="library-print-entry"><div class="library-print-note is-empty">You do not have any saved personal notes yet.</div></div>`;
+
+          const body = `
+            <div class="library-print-sheet">
+              <div class="library-all-notes-toolbar">
+                <div>
+                  <div class="library-print-notice">Personal reference note. Not medical advice.</div>
+                  <div class="library-print-notice">Date: ${this.escapeHtml(todayStr)}</div>
+                </div>
+                ${notedItems.length > 0 ? '<button type="button" class="btn btn-primary btn-sm no-print" onclick="window.print()">Print Notes</button>' : ''}
+              </div>
+              ${entriesHtml}
+            </div>
+          `;
+
+          this.openModal('All My Library Notes', body, { isLibraryPrint: true, isLibraryFullscreen: true });
+          if (notedItems.length > 0) {
+            setTimeout(() => window.print(), 50);
+          }
+        },
+
         // MODAL HELPERS
-        openModal(title, bodyHtml) {
-          document.getElementById('modal-title').textContent = title;
+        _lastModalTrigger: null,
+        _modalMouseDownOnBackdrop: false,
+
+        isModalBackdropClickTarget(target) {
+          const backdrop = document.getElementById('app-modal-backdrop');
+          const box = document.getElementById('app-modal-box');
+          const bodyEl = document.getElementById('modal-body');
+          if (!backdrop || !target) return false;
+          if (target === backdrop) return true;
+          if (backdrop.classList.contains('library-fullscreen') && (target === box || target === bodyEl)) {
+            return true;
+          }
+          return false;
+        },
+
+        handleModalBackdropMouseDown(evt) {
+          this._modalMouseDownOnBackdrop = Boolean(evt && this.isModalBackdropClickTarget(evt.target));
+        },
+
+        handleModalBoxClick(evt) {
+          const backdrop = document.getElementById('app-modal-backdrop');
+          if (backdrop && backdrop.classList.contains('library-fullscreen') && evt && this.isModalBackdropClickTarget(evt.target)) {
+            return;
+          }
+          if (evt && evt.stopPropagation) evt.stopPropagation();
+        },
+
+        getModalFocusableElements() {
+          const box = document.getElementById('app-modal-box');
+          if (!box) return [];
+          const selector = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+          return Array.from(box.querySelectorAll(selector)).filter(el => el.offsetParent !== null || el.getClientRects().length > 0);
+        },
+
+        trapModalFocus(evt) {
+          const box = document.getElementById('app-modal-box');
+          if (!box) return;
+          const focusables = this.getModalFocusableElements();
+          if (focusables.length === 0) {
+            evt.preventDefault();
+            box.focus();
+            return;
+          }
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (evt.shiftKey) {
+            if (document.activeElement === first || !box.contains(document.activeElement)) {
+              evt.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last || !box.contains(document.activeElement)) {
+              evt.preventDefault();
+              first.focus();
+            }
+          }
+        },
+
+        openModal(title, bodyHtml, options = {}) {
+          const backdrop = document.getElementById('app-modal-backdrop');
+          const box = document.getElementById('app-modal-box');
+          if (!backdrop || !box) return;
+          if (!backdrop.classList.contains('open')) {
+            this._lastModalTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+          }
+          this._modalMouseDownOnBackdrop = false;
+          document.getElementById('modal-title').textContent = options.isLibraryFullscreen ? 'Digital Library' : title;
           document.getElementById('modal-body').innerHTML = bodyHtml;
-          document.getElementById('app-modal-backdrop').classList.add('open');
+          box.setAttribute('aria-labelledby', options.titleId || 'modal-title');
+          backdrop.classList.toggle('library-print-active', Boolean(options.isLibraryPrint));
+          backdrop.classList.toggle('library-fullscreen', Boolean(options.isLibraryFullscreen));
+          backdrop.classList.add('open');
+          document.body.classList.add('modal-open');
+          document.body.style.overflow = 'hidden';
+
+          const focusables = this.getModalFocusableElements();
+          if (focusables.length > 0) {
+            focusables[0].focus();
+          } else {
+            box.focus();
+          }
         },
 
         closeModal(evt) {
-          if (!evt || evt.target === document.getElementById('app-modal-backdrop') || evt.target.classList.contains('modal-close-btn')) {
-            document.getElementById('app-modal-backdrop').classList.remove('open');
+          const backdrop = document.getElementById('app-modal-backdrop');
+          if (!backdrop) return;
+          const isCloseBtn = Boolean(evt && evt.target && evt.target.closest && evt.target.closest('.modal-close-btn'));
+          const isValidBackdropClick = Boolean(evt && this.isModalBackdropClickTarget(evt.target) && this._modalMouseDownOnBackdrop);
+          this._modalMouseDownOnBackdrop = false;
+
+          if (!evt || isCloseBtn || isValidBackdropClick) {
+            this.flushAllLibraryNoteSaves();
+            backdrop.classList.remove('open');
+            backdrop.classList.remove('library-print-active');
+            backdrop.classList.remove('library-fullscreen');
+            const box = document.getElementById('app-modal-box');
+            if (box) box.setAttribute('aria-labelledby', 'modal-title');
+            document.body.classList.remove('modal-open');
+
+            const drawer = document.getElementById('mobile-nav-drawer');
+            const summaryOverlay = document.getElementById('prescriber-summary-overlay');
+            const drawerOpen = Boolean(drawer && drawer.classList.contains('open'));
+            const summaryOpen = Boolean(summaryOverlay && summaryOverlay.style.display === 'block');
+            if (!drawerOpen && !summaryOpen) {
+              document.body.style.overflow = '';
+            }
+
+            const trigger = this._lastModalTrigger;
+            this._lastModalTrigger = null;
+            if (trigger && typeof trigger.focus === 'function' && document.contains(trigger)) {
+              trigger.focus();
+            }
           }
         },
 
