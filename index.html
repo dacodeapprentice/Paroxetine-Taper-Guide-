@@ -306,26 +306,6 @@
         justify-content: center;
       }
 
-      .mobile-nav-link.highlight {
-        color: var(--teal-primary);
-        font-weight: 700;
-        background: rgba(20, 184, 166, 0.08);
-        border: 1px solid rgba(20, 184, 166, 0.2);
-      }
-
-      .mobile-nav-link.highlight:hover {
-        background: rgba(20, 184, 166, 0.16);
-      }
-
-      .mobile-nav-link.danger {
-        color: #fca5a5;
-      }
-
-      .mobile-nav-link.danger:hover {
-        background: rgba(239, 68, 68, 0.1);
-        color: #ef4444;
-      }
-
       .mobile-drawer-footer {
         padding: 1rem 1.25rem;
         border-top: 1px solid #1e293b;
@@ -437,14 +417,6 @@
       }
 
       /* Cards & Surfaces */
-      .card {
-        background: var(--surface);
-        border: 1px solid var(--border-subtle);
-        border-radius: 0.75rem;
-        padding: 1.35rem;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-      }
-
       .pill-badge {
         display: inline-flex;
         align-items: center;
@@ -459,17 +431,6 @@
       }
 
       /* Big Picture Chart Section */
-      .chart-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1.25rem;
-        margin-bottom: 1.25rem;
-        padding-bottom: 0.85rem;
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
       .segmented-control {
         display: flex;
         background: var(--surface-subtle);
@@ -2368,6 +2329,1450 @@
         }
       }
 
+      /* === SECTION 1: HEADER & TOP CRISIS BANNER === */
+      .mobile-drawer-brand .brand-icon {
+        color: var(--teal-primary);
+        display: flex;
+        align-items: center;
+      }
+      .mobile-drawer-brand-text {
+        font-weight: 800;
+        font-size: 1.15rem;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+      }
+      .mobile-drawer-brand-text .accent {
+        color: var(--teal-primary);
+      }
+      .mobile-drawer-note {
+        font-size: 0.725rem;
+        color: var(--text-muted);
+        line-height: 1.45;
+      }
+      .crisis-safety-banner {
+        display: none;
+        background: #450a0a;
+        border: 2px solid #ef4444;
+        border-radius: 0.75rem;
+        padding: 1.15rem 1.35rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+      }
+      .crisis-banner-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+      }
+      .crisis-banner-main {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+        max-width: 860px;
+      }
+      .crisis-banner-icon {
+        font-size: 1.6rem;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .crisis-banner-title {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #fee2e2;
+        font-family: var(--font-sans);
+        letter-spacing: 0.01em;
+      }
+      .crisis-banner-desc {
+        font-size: 0.875rem;
+        color: #fecaca;
+        margin-top: 0.35rem;
+        line-height: 1.5;
+        font-family: var(--font-sans);
+      }
+      .crisis-custom-contact {
+        display: none;
+        font-size: 0.825rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-top: 0.45rem;
+        font-family: var(--font-mono);
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.35rem;
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        width: fit-content;
+      }
+      .crisis-banner-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-top: 0.25rem;
+      }
+      .btn.crisis-ack-btn {
+        background: rgba(0, 0, 0, 0.35);
+        border-color: #fca5a5;
+        color: #ffffff;
+        font-weight: 700;
+      }
+
+      /* === SECTION 2: CALENDAR === */
+      .calendar-nav-controls {
+        display: flex;
+        gap: 0.4rem;
+      }
+      .calendar-legend-label {
+        font-weight: 700;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+      }
+      .day-dose-conflict-sub {
+        font-size: 0.625rem;
+      }
+      .day-dose-planned.day-dose-planned-main {
+        color: #60a5fa;
+        font-weight: 700;
+      }
+      .day-ready-label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+
+      /* === SECTION 3: DAY PANEL === */
+      .panel-registry-view.is-hidden-init,
+      .btn.is-hidden-init,
+      .safety-validation-msg {
+        display: none;
+      }
+      .reg-adherence-val {
+        color: var(--teal-primary);
+        font-weight: 700;
+      }
+      .reg-symptom-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.6rem;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 0.4rem;
+      }
+      .reg-symptom-heading {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .reg-avg-symptom {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--teal-primary);
+      }
+      .reg-notes-label {
+        font-size: 0.725rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        display: block;
+        margin-bottom: 0.35rem;
+      }
+      .reg-notes-text {
+        font-size: 0.825rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        font-style: italic;
+        margin: 0;
+      }
+      .reg-actions-row {
+        margin-top: 0.75rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+      .flex-1 {
+        flex: 1;
+      }
+      .btn.btn-clear-danger {
+        color: #f87171;
+      }
+      .symptom-section-header.physical-header {
+        margin-top: 1rem;
+      }
+      .symptom-section-header.psych-header {
+        margin-top: 1.15rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .symptom-section-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      .symptom-avg-display {
+        font-size: 0.775rem;
+        font-weight: 700;
+        color: var(--teal-primary);
+      }
+      .low-mood-label {
+        font-weight: 700;
+        color: #e2e8f0;
+      }
+      .low-mood-hint {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 0.2rem;
+      }
+      .form-group.safety-box {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1.5px solid #334155;
+        border-radius: 0.5rem;
+        padding: 0.85rem 1rem;
+        margin-top: 0.75rem;
+        margin-bottom: 0.85rem;
+      }
+      .form-group label.safety-question-label {
+        font-size: 0.825rem;
+        font-weight: 700;
+        color: #f8fafc;
+        display: block;
+        margin-bottom: 0.45rem;
+        line-height: 1.4;
+      }
+      .safety-required-star {
+        color: #f43f5e;
+        font-weight: 800;
+      }
+      .safety-options-row {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .form-group label.safety-option {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        margin-bottom: 0.35rem;
+      }
+      .form-group label.safety-option.opt-sometimes {
+        color: #fbbf24;
+      }
+      .form-group label.safety-option.opt-yes {
+        color: #f87171;
+      }
+      .safety-radio-no {
+        accent-color: var(--teal-primary);
+      }
+      .safety-radio-sometimes {
+        accent-color: #f59e0b;
+      }
+      .safety-radio-yes {
+        accent-color: #ef4444;
+      }
+      .safety-validation-msg {
+        color: #f87171;
+        font-size: 0.75rem;
+        margin-top: 0.4rem;
+        font-weight: 600;
+      }
+      .form-group.notes-group {
+        margin-top: 0.85rem;
+      }
+      .day-form-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .btn.day-save-btn {
+        flex: 1;
+      }
+      .btn.day-save-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .panel-locked-hidden {
+        display: none !important;
+      }
+      /* Quick Pill Picker Cards */
+      .no-tablets-callout {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px dashed #334155;
+        border-radius: 0.5rem;
+        padding: 0.85rem 1rem;
+        margin-bottom: 0.4rem;
+      }
+      .no-tablets-desc {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        margin-bottom: 0.6rem;
+      }
+      .btn.go-tablets-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        text-decoration: none;
+        font-size: 0.775rem;
+        padding: 0.35rem 0.75rem;
+        border-color: rgba(16, 185, 129, 0.35);
+      }
+      .go-tablets-text {
+        color: #10b981;
+        font-weight: 600;
+      }
+      .go-tablets-icon {
+        color: #10b981;
+      }
+      .quick-pill-row {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex: 1;
+        min-width: 0;
+      }
+      .quick-pill-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        flex-shrink: 0;
+      }
+      .quick-pill-dot-zero {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1.5px dashed #64748b;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        color: var(--text-muted);
+      }
+      .quick-pill-col {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .quick-pill-title-row {
+        display: flex;
+        align-items: baseline;
+        gap: 0.45rem;
+        flex-wrap: wrap;
+      }
+      .quick-pill-name {
+        font-size: 0.85rem;
+        color: var(--text-primary);
+      }
+      .quick-pill-name.is-muted {
+        color: var(--text-secondary);
+      }
+      .quick-pill-strength {
+        font-size: 0.825rem;
+        font-weight: 700;
+        color: var(--teal-primary);
+      }
+      .quick-pill-color {
+        font-size: 0.725rem;
+        color: var(--text-muted);
+      }
+      .quick-pill-sub {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 0.1rem;
+      }
+      .quick-pill-sub.is-half {
+        color: #34d399;
+      }
+      .pill-check-indicator {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        margin-left: 0.5rem;
+        flex-shrink: 0;
+      }
+      .pill-check-indicator.is-active {
+        color: var(--teal-primary);
+      }
+      /* Concluded Registry Symptom Grid & Orientation Banner */
+      .reg-safety-row {
+        grid-column: 1 / -1;
+        padding: 0.5rem 0.65rem;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .reg-safety-row.is-no {
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid #10b981;
+      }
+      .reg-safety-row.is-sometimes {
+        background: rgba(245, 158, 11, 0.15);
+        border: 1px solid #f59e0b;
+      }
+      .reg-safety-row.is-yes {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid #ef4444;
+      }
+      .reg-safety-label {
+        font-size: 0.725rem;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .reg-safety-val {
+        font-size: 0.775rem;
+        font-family: var(--font-sans);
+        font-weight: 800;
+      }
+      .reg-safety-val.is-no { color: #10b981; }
+      .reg-safety-val.is-sometimes { color: #f59e0b; }
+      .reg-safety-val.is-yes { color: #ef4444; }
+      .reg-symptom-cell {
+        background: #0f172a;
+        padding: 0.4rem 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #1e293b;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .reg-symptom-cell-label {
+        font-size: 0.725rem;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .reg-symptom-cell-score {
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+      }
+      .reg-symptom-cell-score.score-low { color: var(--teal-primary); }
+      .reg-symptom-cell-score.score-mid { color: var(--amber-warning); }
+      .reg-symptom-cell-score.score-high { color: #f43f5e; }
+      .form-banner-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .form-banner-status {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+      .form-banner-status.is-overlap {
+        color: #f59e0b;
+        font-weight: 700;
+      }
+      .form-banner-status.is-sync {
+        color: var(--teal-primary);
+        font-weight: 700;
+      }
+      .form-banner-sub {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+
+      /* === SECTION 4: PLANS === */
+      .plan-grid-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.85rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .section-sub-heading {
+        font-size: 0.825rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .plan-header-hint {
+        font-size: 0.775rem;
+        color: var(--text-muted);
+        font-family: var(--font-sans);
+      }
+      .plan-control-bar {
+        margin-top: 1.25rem;
+        padding-top: 1.15rem;
+        border-top: 1px solid var(--border-subtle);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+      }
+      .plan-control-actions {
+        display: flex;
+        gap: 0.65rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .plan-conflict-icon {
+        font-size: 1.25rem;
+      }
+      .plan-conflict-window {
+        font-size: 0.775rem;
+        color: #fde68a;
+      }
+      .btn.plan-resolve-btn {
+        border-color: #d97706;
+        color: #fde68a;
+      }
+      .plan-calc-card {
+        background: #111827;
+        border: 1px solid #334155;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        margin-top: 0.85rem;
+      }
+      .plan-calc-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .plan-calc-avg-label {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+      .plan-calc-avg-val {
+        font-size: 0.95rem;
+        color: var(--teal-primary);
+      }
+      .plan-calc-hint {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+      .plan-large-notice {
+        margin-top: 0.65rem;
+        background: rgba(245, 158, 11, 0.12);
+        border: 1px solid #f59e0b;
+        border-radius: 0.45rem;
+        padding: 0.65rem 0.85rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .plan-large-notice-icon {
+        color: #f59e0b;
+        font-size: 0.95rem;
+        line-height: 1.2;
+      }
+      .plan-large-notice-text {
+        font-size: 0.8rem;
+        color: #fbbf24;
+        line-height: 1.45;
+      }
+      .plan-calc-sub {
+        font-size: 0.775rem;
+        color: var(--text-muted);
+      }
+      .plan-calc-val-prev {
+        font-size: 0.85rem;
+        color: var(--text-primary);
+        margin-left: 0.35rem;
+      }
+      .plan-calc-val-curr {
+        font-size: 0.85rem;
+        color: var(--teal-primary);
+        margin-left: 0.35rem;
+      }
+      .plan-calc-change-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.45rem;
+        padding-top: 0.45rem;
+        border-top: 1px solid #1e293b;
+      }
+      .plan-calc-change-label {
+        font-size: 0.825rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+      .plan-calc-pct {
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+      .plan-calc-pct.is-neg { color: #38bdf8; }
+      .plan-calc-pct.is-pos { color: #f59e0b; }
+      .plan-calc-pct.is-zero { color: var(--text-muted); }
+      .empty-state-box {
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px dashed #334155;
+        border-radius: 0.5rem;
+      }
+      .empty-state-box.grid-span-all {
+        grid-column: 1 / -1;
+      }
+      .empty-state-icon {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+      .empty-state-desc {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        max-width: 540px;
+        margin: 0 auto 1rem;
+        line-height: 1.5;
+      }
+      .empty-state-actions {
+        display: flex;
+        justify-content: center;
+      }
+      .pill-badge.plan-badge {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
+      }
+      .pill-badge.plan-badge-pct {
+        border-color: #38bdf8;
+        color: #7dd3fc;
+      }
+      .pill-badge.plan-badge-active {
+        border-color: #10b981;
+        color: #34d399;
+      }
+      .pill-badge.plan-badge-paused {
+        border-color: #64748b;
+        color: #94a3b8;
+      }
+      .pill-badge.plan-badge-overlap {
+        border-color: #d97706;
+        color: #fde68a;
+      }
+      .plan-card-large-notice {
+        font-size: 0.75rem;
+        color: #fbbf24;
+        margin-top: 0.35rem;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid #f59e0b;
+        border-radius: 0.35rem;
+        padding: 0.35rem 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .plan-schedule-line {
+        font-size: 0.8rem;
+        font-family: var(--font-mono);
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+      }
+      .plan-schedule-date {
+        color: var(--teal-primary);
+      }
+      .plan-paused-note {
+        color: #94a3b8;
+        font-style: italic;
+        margin-left: 0.5rem;
+      }
+      .plan-card-notes {
+        font-size: 0.775rem;
+        color: var(--text-muted);
+        font-style: italic;
+        margin-top: 0.1rem;
+      }
+      .form-control.editor-day-input {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.5rem;
+        text-align: center;
+      }
+      .editor-day-pill-sub {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        display: block;
+        margin-top: 0.2rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .modal-form-wrap {
+        font-family: var(--font-sans);
+      }
+      .modal-two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .plan-end-date-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 0.75rem;
+      }
+      .plan-computed-end-date {
+        font-size: 0.8rem;
+        font-family: var(--font-mono);
+        color: var(--teal-primary);
+        font-weight: 700;
+      }
+      .plan-weekly-section {
+        margin-top: 1.25rem;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 1rem;
+      }
+      .plan-weekly-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .plan-weekly-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+      }
+      .plan-preset-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .plan-preset-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+      .form-control.modal-quick-preset {
+        font-size: 0.775rem;
+        padding: 0.25rem 0.5rem;
+        width: auto;
+      }
+      .btn.modal-preset-apply {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.6rem;
+      }
+      .form-group.plan-notes-group {
+        margin-top: 1.15rem;
+      }
+      .plan-active-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+        margin-bottom: 1.15rem;
+      }
+      .plan-active-checkbox {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--teal-primary);
+      }
+      .plan-active-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        cursor: pointer;
+        margin: 0;
+      }
+      .modal-actions-row {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.75rem;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 1rem;
+      }
+
+      /* === SECTION 5: TABLETS === */
+      .plan-section-card.tablets-card {
+        margin-bottom: 2rem;
+      }
+      .tablets-list-header {
+        margin-bottom: 0.75rem;
+      }
+      .pill-badge.tablet-split-badge {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.45rem;
+      }
+      .tablet-row-card {
+        background: #192234;
+        border: 1px solid #334155;
+        border-radius: 0.5rem;
+        padding: 0.85rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .tablet-row-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .tablet-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        flex-shrink: 0;
+      }
+      .tablet-title-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .tablet-row-name {
+        font-size: 0.9rem;
+        color: var(--text-primary);
+      }
+      .tablet-split-wrap {
+        margin-top: 0.25rem;
+      }
+      .tablet-row-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .tablets-grid {
+        display: grid;
+        gap: 0.65rem;
+      }
+      .tablets-footer-actions {
+        margin-top: 0.75rem;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+      }
+      .form-group.tablet-splittable-group {
+        margin-top: 0.5rem;
+      }
+      .tablet-splittable-hint {
+        font-size: 0.725rem;
+        color: var(--text-muted);
+        margin-top: 0.3rem;
+      }
+      .modal-actions-row.tablet-actions {
+        margin-top: 1.25rem;
+      }
+
+      /* === SECTION 6: CHART === */
+      .square-charts-container.chart-wrap-rel {
+        position: relative;
+      }
+      .chart-color-dose { color: #38bdf8; }
+      .chart-color-symptoms { color: #fb7185; }
+      .chart-color-speed { color: #34d399; }
+      .chart-color-muted { color: #94a3b8; }
+      .summary-intake-cta-wrap {
+        margin-top: 1.25rem;
+        display: flex;
+        justify-content: center;
+        scroll-margin-top: 5rem;
+      }
+      .btn.summary-intake-cta-btn {
+        padding: 0.75rem 1.6rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        box-shadow: 0 4px 14px rgba(20, 184, 166, 0.25);
+      }
+      .chart-disclaimer {
+        margin-top: 0.85rem;
+        font-size: 0.775rem;
+        color: var(--text-muted);
+        text-align: center;
+        font-family: var(--font-sans);
+      }
+      .chart-hover-target {
+        cursor: crosshair;
+      }
+      .chart-crosshair {
+        display: none;
+        pointer-events: none;
+      }
+      .chart-tip-header {
+        font-weight: 700;
+        border-bottom: 1px solid #334155;
+        padding-bottom: 5px;
+        margin-bottom: 6px;
+        color: #f8fafc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .chart-tip-day {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+      }
+      .chart-tip-grid {
+        font-size: 0.7rem;
+        background: #1e293b;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        margin-bottom: 6px;
+        font-family: var(--font-mono);
+        border: 1px solid #334155;
+      }
+      .chart-tip-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 3px;
+      }
+      .chart-tip-label-dose {
+        color: #38bdf8;
+        font-weight: 600;
+      }
+      .chart-tip-label-sym {
+        color: #fb7185;
+        font-weight: 600;
+      }
+      .chart-tip-detail {
+        font-size: 0.675rem;
+        color: #94a3b8;
+        margin-bottom: 4px;
+        font-family: var(--font-mono);
+      }
+      .chart-tip-speed-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 4px;
+        border-top: 1px solid #1e293b;
+      }
+      .chart-tip-label-speed {
+        color: #10b981;
+        font-weight: 600;
+      }
+      .chart-tip-note {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        margin-top: 5px;
+        border-top: 1px solid #334155;
+        padding-top: 4px;
+        font-style: italic;
+      }
+
+      /* === SECTION 8: SUMMARY, BOTTOM SECTIONS & GLOBAL === */
+      .urgent-help-section,
+      .data-privacy-section {
+        margin-top: 2.5rem;
+        border-top: 1px solid var(--border-subtle);
+        padding-top: 1.75rem;
+      }
+      .section-heading-left h2.urgent-help-heading {
+        color: #fca5a5;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .urgent-help-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+        margin-top: 0.75rem;
+      }
+      .urgent-help-card {
+        background: rgba(69, 10, 10, 0.45);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        border-radius: 0.65rem;
+        padding: 1.15rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+      .urgent-help-card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .urgent-help-icon {
+        color: #ef4444;
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+      .urgent-help-icon.is-soft {
+        color: #f87171;
+      }
+      .urgent-help-title {
+        color: #fee2e2;
+        font-size: 0.95rem;
+        font-family: var(--font-sans);
+      }
+      .urgent-help-text {
+        font-size: 0.825rem;
+        color: #fecaca;
+        line-height: 1.5;
+        margin: 0;
+        font-family: var(--font-sans);
+      }
+      #urgent-custom-contact-box {
+        display: none;
+        margin-top: 1rem;
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.825rem;
+        color: var(--text-secondary);
+        font-family: var(--font-sans);
+      }
+      .urgent-custom-contact-label {
+        color: var(--text-primary);
+      }
+      #urgent-custom-contact-val {
+        margin-left: 0.35rem;
+        color: var(--teal-primary);
+        font-family: var(--font-mono);
+        font-weight: 700;
+      }
+      .plan-section-card.data-privacy-card {
+        padding: 1.25rem;
+      }
+      .data-privacy-note {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid var(--border-subtle);
+        border-left: 3px solid var(--teal-primary);
+        border-radius: 0.45rem;
+        padding: 0.85rem 1rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .data-privacy-note-icon {
+        font-size: 1.15rem;
+        color: var(--teal-primary);
+      }
+      .data-privacy-note-text {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        font-family: var(--font-sans);
+      }
+      .data-privacy-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .data-privacy-actions-left {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .btn.data-privacy-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .btn.btn-secondary.data-privacy-delete-btn {
+        color: #f87171;
+        border-color: rgba(239, 68, 68, 0.4);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .hidden-file-input {
+        display: none;
+      }
+      #data-action-feedback {
+        display: none;
+        margin-top: 1rem;
+        border-radius: 0.45rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.825rem;
+        font-family: var(--font-sans);
+      }
+      #delete-confirm-box {
+        display: none;
+        margin-top: 1rem;
+        background: rgba(69, 10, 10, 0.5);
+        border: 1.5px solid #ef4444;
+        border-radius: 0.5rem;
+        padding: 1rem 1.15rem;
+        font-family: var(--font-sans);
+      }
+      .delete-confirm-title {
+        font-weight: 700;
+        color: #fee2e2;
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+      }
+      .delete-confirm-desc {
+        font-size: 0.8rem;
+        color: #fecaca;
+        line-height: 1.45;
+        margin-bottom: 0.85rem;
+      }
+      .confirm-actions-row {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .btn.btn-primary.delete-confirm-btn {
+        background: #dc2626;
+        border-color: #ef4444;
+        color: #ffffff;
+      }
+      #import-confirm-box {
+        display: none;
+        margin-top: 1rem;
+        background: rgba(30, 41, 59, 0.9);
+        border: 1.5px solid var(--amber-warning);
+        border-radius: 0.5rem;
+        padding: 1rem 1.15rem;
+        font-family: var(--font-sans);
+      }
+      .import-confirm-title {
+        font-weight: 700;
+        color: #fef3c7;
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+      }
+      #import-confirm-details {
+        font-size: 0.8rem;
+        color: #e2e8f0;
+        line-height: 1.45;
+        margin-bottom: 0.85rem;
+      }
+      .btn.btn-primary.import-confirm-btn {
+        background: var(--amber-dark);
+        border-color: var(--amber-warning);
+        color: #ffffff;
+      }
+      .app-footer {
+        border-top: 1px solid var(--border-subtle);
+        background: #070c18;
+        padding: 1.25rem 1.5rem;
+        text-align: center;
+        font-size: 0.775rem;
+        color: var(--text-muted);
+        font-family: var(--font-sans);
+        line-height: 1.5;
+      }
+      .app-footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      #prescriber-summary-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(5, 8, 16, 0.95);
+        z-index: 10000;
+        overflow-y: auto;
+        padding: 1.5rem;
+        backdrop-filter: blur(8px);
+      }
+      #prescriber-summary-modal {
+        background: #0f172a;
+        border: 1.5px solid #334155;
+        border-radius: 0.85rem;
+        max-width: 1050px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem 2.25rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75);
+        font-family: var(--font-sans);
+      }
+      .summary-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 1.15rem;
+        margin-bottom: 1.5rem;
+      }
+      .summary-toolbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+      }
+      .summary-toolbar-icon {
+        font-size: 1.25rem;
+      }
+      .summary-toolbar-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+      }
+      .summary-toolbar-subtitle {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+      .summary-toolbar-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .btn.summary-print-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 0.85rem;
+        font-weight: 700;
+      }
+      .btn.summary-close-btn {
+        padding: 0.45rem 0.75rem;
+      }
+      .summary-filter-bar {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.5rem;
+        padding: 0.85rem 1rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .summary-filter-pills {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .summary-filter-label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+      }
+      .summary-filter-dates {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+      .summary-date-label {
+        margin: 0;
+      }
+      .form-control.summary-date-input {
+        width: 135px;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.45rem;
+      }
+      #modal-title {
+        font-size: 1.25rem;
+        color: var(--text-primary);
+        font-weight: 700;
+      }
+      #app-toast-container {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        pointer-events: none;
+        max-width: 420px;
+        width: calc(100% - 3rem);
+      }
+      .app-toast-msg {
+        flex: 1;
+        line-height: 1.4;
+      }
+      .app-toast-close {
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 0 0 0 0.5rem;
+        line-height: 1;
+      }
+      .summary-doc-wrap {
+        margin-bottom: 1.25rem;
+      }
+      .summary-doc-header {
+        border-bottom: 2px solid #334155;
+        padding-bottom: 0.85rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .summary-doc-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+        line-height: 1.3;
+      }
+      .summary-doc-subtitle {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+      }
+      .summary-doc-timestamp {
+        text-align: right;
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+      }
+      .summary-meta-grid {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid var(--border-subtle);
+        border-radius: 0.5rem;
+        padding: 0.85rem 1.15rem;
+        margin-bottom: 1.25rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.85rem;
+        font-size: 0.825rem;
+      }
+      .summary-meta-label {
+        color: var(--text-muted);
+        display: block;
+        font-size: 0.725rem;
+        text-transform: uppercase;
+      }
+      .summary-meta-value {
+        color: var(--text-primary);
+        font-family: var(--font-mono);
+      }
+      .summary-meta-value.is-teal {
+        color: var(--teal-primary);
+      }
+      .summary-meta-value.is-alert {
+        color: #f87171;
+      }
+      .summary-indication-line {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.85rem;
+      }
+      .summary-table-scroll {
+        overflow-x: auto;
+      }
+      .prescriber-summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8rem;
+      }
+      .prescriber-summary-table thead tr {
+        background: rgba(30, 41, 59, 0.7);
+        border-bottom: 2px solid #475569;
+        text-align: left;
+      }
+      .prescriber-summary-table th {
+        padding: 0.6rem 0.65rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      .prescriber-summary-table th.is-nowrap {
+        white-space: nowrap;
+      }
+      .prescriber-summary-table tbody tr {
+        border-bottom: 1px solid var(--border-subtle);
+      }
+      .summary-empty-cell {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: #94a3b8;
+        font-style: italic;
+      }
+      .summary-cell-date {
+        padding: 0.55rem 0.65rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+      .summary-cell-dose {
+        padding: 0.55rem 0.65rem;
+        white-space: nowrap;
+      }
+      .summary-dose-val {
+        font-family: var(--font-mono);
+      }
+      .summary-dose-pill {
+        font-size: 0.725rem;
+        color: var(--text-muted);
+      }
+      .summary-cell-change {
+        padding: 0.55rem 0.65rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+      }
+      .summary-muted-text {
+        color: #94a3b8;
+      }
+      .summary-change-sub {
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+      .summary-cell-safety {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+      .summary-safety-yes {
+        color: #ef4444;
+        font-weight: 800;
+        background: rgba(239, 68, 68, 0.15);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .summary-safety-sometimes {
+        color: #f59e0b;
+        font-weight: 800;
+        background: rgba(245, 158, 11, 0.15);
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+      .summary-cell-mood {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        font-family: var(--font-mono);
+      }
+      .summary-mood-high {
+        color: #f87171;
+      }
+      .summary-cell-symptoms {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        font-family: var(--font-mono);
+      }
+      .summary-cell-notes {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        max-width: 260px;
+        word-break: break-word;
+      }
+      .summary-doc-footer {
+        margin-top: 1.5rem;
+        padding-top: 0.85rem;
+        border-top: 1px solid var(--border-subtle);
+        font-size: 0.725rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        font-family: var(--font-sans);
+      }
+
       /* Clean Document Printing Support */
       @media print {
         body {
@@ -2382,7 +3787,7 @@
         #app-modal-backdrop:not(.open) {
           display: none !important;
         }
-        #prescriber-summary-overlay[style*="display: none"],
+        #prescriber-summary-overlay:not([style*="display: block"]),
         body.modal-open #prescriber-summary-overlay {
           display: none !important;
         }
@@ -2496,13 +3901,13 @@
     <aside id="mobile-nav-drawer" class="mobile-nav-drawer" aria-label="Navigation Menu">
       <div class="mobile-drawer-header">
         <div class="mobile-drawer-brand">
-          <span class="brand-icon" style="color: var(--teal-primary); display: flex; align-items: center;">
+          <span class="brand-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
               <path d="m8.5 8.5 7 7"></path>
             </svg>
           </span>
-          <span style="font-weight: 800; font-size: 1.15rem; color: var(--text-primary); letter-spacing: -0.02em;">Taper<span style="color: var(--teal-primary);"> Diary</span></span>
+          <span class="mobile-drawer-brand-text">Taper<span class="accent"> Diary</span></span>
         </div>
         <button type="button" class="mobile-drawer-close" aria-label="Close navigation" onclick="app.closeMobileMenu()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2512,7 +3917,7 @@
         </button>
       </div>
 
-      <nav class="mobile-drawer-nav">
+      <nav class="mobile-drawer-nav" aria-label="Mobile menu">
         <a href="#chart-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
           <span class="mobile-nav-icon">📈</span>
           <span>Trajectory Chart</span>
@@ -2548,7 +3953,7 @@
       </nav>
 
       <div class="mobile-drawer-footer">
-        <div style="font-size: 0.725rem; color: var(--text-muted); line-height: 1.45;">
+        <div class="mobile-drawer-note">
           Taper Diary · Private, on-device tapering & symptom journal.
         </div>
       </div>
@@ -2578,7 +3983,7 @@
         </div>
 
         <!-- Navigation Links Zone -->
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Main">
           <a href="#chart-section">Trajectory Chart</a>
           <a href="#calendar-section">Calendar</a>
           <a href="#tablets-section">My Tablets</a>
@@ -2595,22 +4000,22 @@
     <main class="app-container" id="overview">
 
       <!-- PROMINENT CRISIS & SAFETY WARNING BANNER (RED, ABOVE EVERYTHING ELSE) -->
-      <div id="crisis-safety-banner" style="display: none; background: #450a0a; border: 2px solid #ef4444; border-radius: 0.75rem; padding: 1.15rem 1.35rem; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);">
-        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1.25rem; flex-wrap: wrap;">
-          <div style="display: flex; align-items: flex-start; gap: 0.85rem; max-width: 860px;">
-            <span style="font-size: 1.6rem; line-height: 1; flex-shrink: 0;">🚨</span>
+      <div id="crisis-safety-banner" class="crisis-safety-banner">
+        <div class="crisis-banner-row">
+          <div class="crisis-banner-main">
+            <span class="crisis-banner-icon">🚨</span>
             <div>
-              <div style="font-size: 0.95rem; font-weight: 800; color: #fee2e2; font-family: var(--font-sans); letter-spacing: 0.01em;">
+              <div class="crisis-banner-title">
                 Safety Advisory
               </div>
-              <div style="font-size: 0.875rem; color: #fecaca; margin-top: 0.35rem; line-height: 1.5; font-family: var(--font-sans);">
+              <div class="crisis-banner-desc">
                 Your log shows signs you may be struggling. Please contact your doctor or pharmacist today. If you are in danger or thinking of harming yourself, call your local emergency number (112 in the EU) or a crisis line now.
               </div>
-              <div id="crisis-custom-contact-display" style="display: none; font-size: 0.825rem; font-weight: 700; color: #ffffff; margin-top: 0.45rem; font-family: var(--font-mono); background: rgba(0,0,0,0.3); padding: 0.3rem 0.6rem; border-radius: 0.35rem; border: 1px solid rgba(239, 68, 68, 0.4); width: fit-content;"></div>
+              <div id="crisis-custom-contact-display" class="crisis-custom-contact"></div>
             </div>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.25rem;">
-            <button type="button" class="btn btn-secondary btn-sm" onclick="app.markDiscussedWithDoctor()" style="background: rgba(0, 0, 0, 0.35); border-color: #fca5a5; color: #ffffff; font-weight: 700;">
+          <div class="crisis-banner-actions">
+            <button type="button" class="btn btn-secondary btn-sm crisis-ack-btn" onclick="app.markDiscussedWithDoctor()">
               Mark as discussed with my doctor
             </button>
           </div>
@@ -2636,7 +4041,7 @@
         </div>
 
         <!-- New Horizontal Square Progress Graphs -->
-        <div class="square-charts-container" id="chart-wrap" style="position: relative;">
+        <div class="square-charts-container chart-wrap-rel" id="chart-wrap">
           <!-- Square Chart 1: Daily Dose Trajectory -->
           <div class="square-chart-card">
             <div class="square-chart-header">
@@ -2645,17 +4050,17 @@
                 <h3 class="square-chart-title">Dose Trajectory</h3>
               </div>
               <div class="square-chart-stat">
-                <span id="chart-stat-dose" class="square-stat-val" style="color: #38bdf8;">—</span>
-                <span id="chart-stat-dose-sub" class="square-stat-sub" style="color: #94a3b8;">Awaiting first entry</span>
+                <span id="chart-stat-dose" class="square-stat-val chart-color-dose">—</span>
+                <span id="chart-stat-dose-sub" class="square-stat-sub chart-color-muted">Awaiting first entry</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
               <svg id="chart-svg-dose" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #38bdf8;">Goal: 0 mg</span>
-              <span id="chart-dose-progress-tag" style="color: #38bdf8;">Awaiting entry</span>
-              <span style="color: #38bdf8;">Max: 30 mg</span>
+              <span class="chart-color-dose">Goal: 0 mg</span>
+              <span id="chart-dose-progress-tag" class="chart-color-dose">Awaiting entry</span>
+              <span class="chart-color-dose">Max: 30 mg</span>
             </div>
           </div>
 
@@ -2667,17 +4072,17 @@
                 <h3 class="square-chart-title">Symptom Stability</h3>
               </div>
               <div class="square-chart-stat">
-                <span id="chart-stat-symptoms" class="square-stat-val" style="color: #fb7185;">—</span>
-                <span id="chart-stat-symptoms-sub" class="square-stat-sub" style="color: #94a3b8;">Awaiting first entry</span>
+                <span id="chart-stat-symptoms" class="square-stat-val chart-color-symptoms">—</span>
+                <span id="chart-stat-symptoms-sub" class="square-stat-sub chart-color-muted">Awaiting first entry</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
               <svg id="chart-svg-symptoms" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #fb7185;">Mild: &le;2</span>
-              <span style="color: #fb7185;">Alert: &ge;5</span>
-              <span style="color: #fb7185;">Max: 10</span>
+              <span class="chart-color-symptoms">Mild: &le;2</span>
+              <span class="chart-color-symptoms">Alert: &ge;5</span>
+              <span class="chart-color-symptoms">Max: 10</span>
             </div>
           </div>
 
@@ -2689,33 +4094,33 @@
                 <h3 class="square-chart-title">Dose change</h3>
               </div>
               <div class="square-chart-stat">
-                <span id="chart-stat-speed" class="square-stat-val" style="color: #34d399;">-</span>
-                <span id="chart-stat-speed-sub" class="square-stat-sub" style="color: #94a3b8;">Awaiting first entry</span>
+                <span id="chart-stat-speed" class="square-stat-val chart-color-speed">-</span>
+                <span id="chart-stat-speed-sub" class="square-stat-sub chart-color-muted">Awaiting first entry</span>
               </div>
             </div>
             <div class="square-chart-svg-box">
               <svg id="chart-svg-speed" class="square-chart-svg" viewBox="0 0 280 200" preserveAspectRatio="none"></svg>
             </div>
             <div class="square-chart-footer">
-              <span style="color: #34d399;">Min: 0%</span>
-              <span style="color: #34d399;">Step change</span>
-              <span style="color: #34d399;">Max: 100%</span>
+              <span class="chart-color-speed">Min: 0%</span>
+              <span class="chart-color-speed">Step change</span>
+              <span class="chart-color-speed">Max: 100%</span>
             </div>
           </div>
 
           <!-- Interactive Hover Tooltip -->
-          <div id="chart-tooltip" class="chart-tooltip" style="opacity: 0; pointer-events: none;"></div>
+          <div id="chart-tooltip" class="chart-tooltip"></div>
         </div>
 
         <!-- Total Summary of Intake Button below graphs -->
-        <div id="total-summary-intake-section" style="margin-top: 1.25rem; display: flex; justify-content: center; scroll-margin-top: 5rem;">
-          <button type="button" class="btn btn-primary" onclick="app.openPrescriberSummary()" style="padding: 0.75rem 1.6rem; font-size: 0.95rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.55rem; box-shadow: 0 4px 14px rgba(20, 184, 166, 0.25);">
+        <div id="total-summary-intake-section" class="summary-intake-cta-wrap">
+          <button type="button" class="btn btn-primary summary-intake-cta-btn" onclick="app.openPrescriberSummary()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             Total Summary of Intake
           </button>
         </div>
 
-        <div style="margin-top: 0.85rem; font-size: 0.775rem; color: var(--text-muted); text-align: center; font-family: var(--font-sans);">
+        <div class="chart-disclaimer">
           This chart only records your changes. It doesn't tell you what pace is right for you. Agree that with your prescriber.
         </div>
       </section>
@@ -2736,7 +4141,7 @@
               <div class="calendar-title-wrap">
                 <span class="calendar-title" id="calendar-month-year">October 2026</span>
               </div>
-              <div style="display: flex; gap: 0.4rem;">
+              <div class="calendar-nav-controls">
                 <button class="btn btn-secondary btn-sm" onclick="app.prevMonth()" title="Previous Month">&larr; Prev</button>
                 <button class="btn btn-secondary btn-sm" onclick="app.currentMonth()">This Month</button>
                 <button class="btn btn-secondary btn-sm" onclick="app.nextMonth()" title="Next Month">Next &rarr;</button>
@@ -2745,7 +4150,7 @@
 
             <!-- Calendar Color Coding Legend -->
             <div class="calendar-color-legend">
-              <span style="font-weight: 700; color: var(--text-primary); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.04em;">Calendar Color Code:</span>
+              <span class="calendar-legend-label">Calendar Color Code:</span>
               <div class="legend-color-item" title="Both medication taken and scheduled plan are in sync">
                 <span class="legend-swatch swatch-both"></span>
                 <span><strong>Both Taken & Plan</strong> (In Sync)</span>
@@ -2786,7 +4191,7 @@
             </div>
 
             <!-- VIEW 1: TEXT-ONLY CONCLUDED REGISTRY WINDOW -->
-            <div class="panel-registry-view" id="panel-view-registry" style="display: none;">
+            <div class="panel-registry-view is-hidden-init" id="panel-view-registry">
               <div class="registry-concluded-badge">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <span>Concluded Registry Entry</span>
@@ -2807,14 +4212,14 @@
                 </div>
                 <div class="registry-row">
                   <span class="reg-label">Taper Plan Alignment:</span>
-                  <span class="reg-value" id="reg-adherence" style="color: var(--teal-primary); font-weight: 700;">100% In Sync</span>
+                  <span class="reg-value reg-adherence-val" id="reg-adherence">100% In Sync</span>
                 </div>
               </div>
 
               <div class="registry-symptom-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.4rem;">
-                  <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Registered Symptom Severity:</span>
-                  <span id="reg-avg-symptom" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--teal-primary);">Avg: 1.5/10</span>
+                <div class="reg-symptom-header">
+                  <span class="reg-symptom-heading">Registered Symptom Severity:</span>
+                  <span id="reg-avg-symptom" class="reg-avg-symptom">Avg: 1.5/10</span>
                 </div>
                 <div class="registry-symptom-grid" id="reg-symptom-grid">
                   <!-- Dynamically populated via JS -->
@@ -2822,18 +4227,18 @@
               </div>
 
               <div class="registry-notes-card">
-                <span style="font-size: 0.725rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 0.35rem;">Pill Observations & Registry Notes:</span>
-                <p id="reg-notes" style="font-size: 0.825rem; color: var(--text-secondary); line-height: 1.5; font-style: italic; margin: 0;">
+                <span class="reg-notes-label">Pill Observations & Registry Notes:</span>
+                <p id="reg-notes" class="reg-notes-text">
                   No observations recorded.
                 </p>
               </div>
 
-              <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem;">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="app.enableDayEditMode()" style="flex: 1;">
+              <div class="reg-actions-row">
+                <button type="button" class="btn btn-secondary btn-sm flex-1" onclick="app.enableDayEditMode()">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                   Edit Concluded Entry
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="app.clearDayLog()" style="color: #f87171;" title="Clear this entry">
+                <button type="button" class="btn btn-secondary btn-sm btn-clear-danger" onclick="app.clearDayLog()" title="Clear this entry">
                   Clear
                 </button>
               </div>
@@ -2859,102 +4264,102 @@
               </div>
 
               <!-- Discontinuation Symptom Rating Sliders (5 Physical Symptoms) -->
-              <div class="symptom-section-header" style="margin-top: 1rem;">
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Physical Discontinuation Symptoms (0–10)</label>
-                <span id="symptom-avg-display" class="tabular-nums" style="font-size: 0.775rem; font-weight: 700; color: var(--teal-primary);">Avg: 0.0/10</span>
+              <div class="symptom-section-header physical-header">
+                <label class="symptom-section-title">Physical Discontinuation Symptoms (0–10)</label>
+                <span id="symptom-avg-display" class="tabular-nums symptom-avg-display">Avg: 0.0/10</span>
               </div>
 
               <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span>⚡ Brain Zaps (Electric Shocks)</span>
+                  <span id="label-zaps">⚡ Brain Zaps (Electric Shocks)</span>
                   <span class="val" id="val-zaps">0</span>
                 </div>
-                <input type="range" min="0" max="10" value="0" id="range-zaps" oninput="app.updateSliderVal('zaps', this.value)" />
+                <input type="range" min="0" max="10" value="0" id="range-zaps" aria-labelledby="label-zaps" aria-valuetext="0 out of 10" oninput="app.updateSliderVal('zaps', this.value)" />
               </div>
 
               <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span>〰 Dizziness & Motion Instability</span>
+                  <span id="label-vertigo">〰 Dizziness & Motion Instability</span>
                   <span class="val" id="val-vertigo">0</span>
                 </div>
-                <input type="range" min="0" max="10" value="0" id="range-vertigo" oninput="app.updateSliderVal('vertigo', this.value)" />
+                <input type="range" min="0" max="10" value="0" id="range-vertigo" aria-labelledby="label-vertigo" aria-valuetext="0 out of 10" oninput="app.updateSliderVal('vertigo', this.value)" />
               </div>
 
               <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span>💤 Insomnia & Night Sweats</span>
+                  <span id="label-sleep">💤 Insomnia & Night Sweats</span>
                   <span class="val" id="val-sleep">0</span>
                 </div>
-                <input type="range" min="0" max="10" value="0" id="range-sleep" oninput="app.updateSliderVal('sleep', this.value)" />
+                <input type="range" min="0" max="10" value="0" id="range-sleep" aria-labelledby="label-sleep" aria-valuetext="0 out of 10" oninput="app.updateSliderVal('sleep', this.value)" />
               </div>
 
               <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span>🤢 Nausea & GI Spasms</span>
+                  <span id="label-gi">🤢 Nausea & GI Spasms</span>
                   <span class="val" id="val-gi">0</span>
                 </div>
-                <input type="range" min="0" max="10" value="0" id="range-gi" oninput="app.updateSliderVal('gi', this.value)" />
+                <input type="range" min="0" max="10" value="0" id="range-gi" aria-labelledby="label-gi" aria-valuetext="0 out of 10" oninput="app.updateSliderVal('gi', this.value)" />
               </div>
 
               <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span>🤕 Headaches & Sensory Sensitivity</span>
+                  <span id="label-headache">🤕 Headaches & Sensory Sensitivity</span>
                   <span class="val" id="val-headache">0</span>
                 </div>
-                <input type="range" min="0" max="10" value="0" id="range-headache" oninput="app.updateSliderVal('headache', this.value)" />
+                <input type="range" min="0" max="10" value="0" id="range-headache" aria-labelledby="label-headache" aria-valuetext="0 out of 10" oninput="app.updateSliderVal('headache', this.value)" />
               </div>
 
               <!-- PSYCHOLOGICAL SYMPTOMS GROUP -->
-              <div class="symptom-section-header" style="margin-top: 1.15rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle);">
-                <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Psychological Symptoms</label>
+              <div class="symptom-section-header psych-header">
+                <label class="symptom-section-title">Psychological Symptoms</label>
               </div>
 
               <!-- LOW MOOD SLIDER -->
               <div class="symptom-slider-item">
                 <div class="symptom-slider-header">
-                  <span style="font-weight: 700; color: #e2e8f0;">💭 Low mood (0–10)</span>
+                  <span id="label-low-mood" class="low-mood-label">💭 Low mood (0–10)</span>
                   <span class="val" id="val-low-mood">0</span>
                 </div>
-                <input type="range" min="0" max="10" value="0" id="range-low-mood" oninput="app.updateSliderVal('low-mood', this.value)" />
-                <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">
+                <input type="range" min="0" max="10" value="0" id="range-low-mood" aria-labelledby="label-low-mood" aria-valuetext="0 out of 10" oninput="app.updateSliderVal('low-mood', this.value)" />
+                <div class="low-mood-hint">
                   Kept separate from physical symptom average; checked for safety triggers.
                 </div>
               </div>
 
               <!-- REQUIRED DAILY SAFETY QUESTION (GROUPED WITH PSYCHOLOGICAL SYMPTOMS) -->
-              <div class="form-group" style="background: rgba(15, 23, 42, 0.7); border: 1.5px solid #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-top: 0.75rem; margin-bottom: 0.85rem;">
-                <label style="font-size: 0.825rem; font-weight: 700; color: #f8fafc; display: block; margin-bottom: 0.45rem; line-height: 1.4;">
-                  Thoughts of harming yourself or not wanting to be alive today? <span style="color: #f43f5e; font-weight: 800;">*</span>
+              <div class="form-group safety-box">
+                <label class="safety-question-label">
+                  Thoughts of harming yourself or not wanting to be alive today? <span class="safety-required-star">*</span>
                 </label>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer;">
-                    <input type="radio" name="safety-check" value="No" id="safety-no" style="accent-color: var(--teal-primary);" /> No
+                <div class="safety-options-row">
+                  <label class="safety-option">
+                    <input type="radio" name="safety-check" value="No" id="safety-no" class="safety-radio-no" /> No
                   </label>
-                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #fbbf24; cursor: pointer;">
-                    <input type="radio" name="safety-check" value="Sometimes" id="safety-sometimes" style="accent-color: #f59e0b;" /> Sometimes
+                  <label class="safety-option opt-sometimes">
+                    <input type="radio" name="safety-check" value="Sometimes" id="safety-sometimes" class="safety-radio-sometimes" /> Sometimes
                   </label>
-                  <label style="display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; color: #f87171; cursor: pointer;">
-                    <input type="radio" name="safety-check" value="Yes" id="safety-yes" style="accent-color: #ef4444;" /> Yes
+                  <label class="safety-option opt-yes">
+                    <input type="radio" name="safety-check" value="Yes" id="safety-yes" class="safety-radio-yes" /> Yes
                   </label>
                 </div>
-                <div id="safety-validation-msg" style="display: none; color: #f87171; font-size: 0.75rem; margin-top: 0.4rem; font-weight: 600;">
+                <div id="safety-validation-msg" class="safety-validation-msg">
                   ⚠️ Please select an answer to this safety question to save your entry.
                 </div>
               </div>
 
-              <div class="form-group" style="margin-top: 0.85rem;">
+              <div class="form-group notes-group">
                 <label for="input-notes">Notes and observations</label>
                 <textarea id="input-notes" class="form-control" rows="2" placeholder="e.g. Took dose with breakfast; feeling stable."></textarea>
               </div>
 
-              <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                <button type="submit" class="btn btn-primary" style="flex: 1; opacity: 0.5; cursor: not-allowed;" id="btn-save-log" disabled title="Choose today's dose to enable saving">Save & Conclude Day</button>
-                <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-edit" onclick="app.cancelDayEdit()" style="display: none;">Cancel</button>
+              <div class="day-form-actions">
+                <button type="submit" class="btn btn-primary day-save-btn" id="btn-save-log" disabled title="Choose today's dose to enable saving">Save & Conclude Day</button>
+                <button type="button" class="btn btn-secondary btn-sm is-hidden-init" id="btn-cancel-edit" onclick="app.cancelDayEdit()">Cancel</button>
               </div>
             </form>
 
             <!-- Hidden container for orientation element references -->
-            <div id="panel-view-locked" style="display: none !important;">
+            <div id="panel-view-locked" class="panel-locked-hidden">
               <span id="locked-plan-badge"></span>
               <span id="locked-plan-dose"></span>
               <span id="locked-plan-pill"></span>
@@ -2975,11 +4380,11 @@
           </div>
         </div>
 
-        <div class="plan-section-card" style="margin-bottom: 2rem;">
+        <div class="plan-section-card tablets-card">
           <!-- My Tablets List -->
           <div>
-            <div style="margin-bottom: 0.75rem;">
-              <span style="font-size: 0.825rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">
+            <div class="tablets-list-header">
+              <span class="section-sub-heading">
                 Configured Tablets:
               </span>
             </div>
@@ -3007,11 +4412,11 @@
           </div>
 
           <!-- Multi-Plan Grid (All Created Plans with Weekday breakdowns) -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
-            <div style="font-size: 0.825rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">
+          <div class="plan-grid-header">
+            <div class="section-sub-heading">
               Configured Tapering Plans & Weekly Schedules:
             </div>
-            <span id="plan-header-hint" style="font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans);">
+            <span id="plan-header-hint" class="plan-header-hint">
               Click "Edit Plan" to customize daily amounts, duration, or dates
             </span>
           </div>
@@ -3021,8 +4426,8 @@
           </div>
 
           <!-- Action Plan Control Buttons in div below plans -->
-          <div id="plan-control-bar" style="margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
-            <div style="display: flex; gap: 0.65rem; align-items: center; flex-wrap: wrap;">
+          <div id="plan-control-bar" class="plan-control-bar">
+            <div class="plan-control-actions">
               <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
                 Add New Plan
@@ -3126,71 +4531,71 @@
       </section>
 
       <!-- SECTION: WHEN TO GET URGENT HELP -->
-      <section id="urgent-help-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.75rem;">
+      <section id="urgent-help-section" class="urgent-help-section">
         <div class="section-heading">
           <div class="section-heading-left">
-            <h2 style="color: #fca5a5; display: flex; align-items: center; gap: 0.5rem;">
+            <h2 class="urgent-help-heading">
               <span>🚨</span> When to Get Urgent Help
             </h2>
             <p>If you experience any of the following symptoms, take action immediately.</p>
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 0.75rem;">
+        <div class="urgent-help-grid">
           <!-- 1: Thoughts of self-harm -->
-          <div style="background: rgba(69, 10, 10, 0.45); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 0.65rem; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.45rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="color: #ef4444; font-size: 1.1rem; line-height: 1;">⚠️</span>
-              <strong style="color: #fee2e2; font-size: 0.95rem; font-family: var(--font-sans);">Thoughts of self-harm</strong>
+          <div class="urgent-help-card">
+            <div class="urgent-help-card-header">
+              <span class="urgent-help-icon">⚠️</span>
+              <strong class="urgent-help-title">Thoughts of self-harm</strong>
             </div>
-            <p style="font-size: 0.825rem; color: #fecaca; line-height: 1.5; margin: 0; font-family: var(--font-sans);">
+            <p class="urgent-help-text">
               Contact a doctor or pharmacist the same day. If there is immediate danger or you are thinking of harming yourself, call emergency services (such as 112 in the EU, 999 in the UK, 911 in the US) or a crisis line now.
             </p>
           </div>
 
           <!-- 2: Severe agitation or confusion -->
-          <div style="background: rgba(69, 10, 10, 0.45); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 0.65rem; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.45rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="color: #ef4444; font-size: 1.1rem; line-height: 1;">⚠️</span>
-              <strong style="color: #fee2e2; font-size: 0.95rem; font-family: var(--font-sans);">Severe agitation or confusion</strong>
+          <div class="urgent-help-card">
+            <div class="urgent-help-card-header">
+              <span class="urgent-help-icon">⚠️</span>
+              <strong class="urgent-help-title">Severe agitation or confusion</strong>
             </div>
-            <p style="font-size: 0.825rem; color: #fecaca; line-height: 1.5; margin: 0; font-family: var(--font-sans);">
+            <p class="urgent-help-text">
               Contact a doctor or pharmacist the same day. If there is immediate danger or severe disorientation, call emergency services now.
             </p>
           </div>
 
           <!-- 3: Symptoms that are getting worse -->
-          <div style="background: rgba(69, 10, 10, 0.45); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 0.65rem; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.45rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="color: #f87171; font-size: 1.1rem; line-height: 1;">⚠️</span>
-              <strong style="color: #fee2e2; font-size: 0.95rem; font-family: var(--font-sans);">Symptoms that are getting worse</strong>
+          <div class="urgent-help-card">
+            <div class="urgent-help-card-header">
+              <span class="urgent-help-icon is-soft">⚠️</span>
+              <strong class="urgent-help-title">Symptoms that are getting worse</strong>
             </div>
-            <p style="font-size: 0.825rem; color: #fecaca; line-height: 1.5; margin: 0; font-family: var(--font-sans);">
+            <p class="urgent-help-text">
               Contact a doctor or pharmacist the same day to discuss holding or reviewing your dose. Call emergency services if there is immediate danger.
             </p>
           </div>
 
           <!-- 4: Symptoms that make it hard to function -->
-          <div style="background: rgba(69, 10, 10, 0.45); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 0.65rem; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.45rem;">
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <span style="color: #f87171; font-size: 1.1rem; line-height: 1;">⚠️</span>
-              <strong style="color: #fee2e2; font-size: 0.95rem; font-family: var(--font-sans);">Symptoms that make it hard to function</strong>
+          <div class="urgent-help-card">
+            <div class="urgent-help-card-header">
+              <span class="urgent-help-icon is-soft">⚠️</span>
+              <strong class="urgent-help-title">Symptoms that make it hard to function</strong>
             </div>
-            <p style="font-size: 0.825rem; color: #fecaca; line-height: 1.5; margin: 0; font-family: var(--font-sans);">
+            <p class="urgent-help-text">
               Contact a doctor or pharmacist the same day for clinical guidance and support. Call emergency services if there is immediate danger.
             </p>
           </div>
         </div>
 
-        <div id="urgent-custom-contact-box" style="display: none; margin-top: 1rem; background: #0f172a; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.75rem 1rem; font-size: 0.825rem; color: var(--text-secondary); font-family: var(--font-sans);">
-          <strong style="color: var(--text-primary);">Your saved crisis helpline / contact:</strong>
-          <span id="urgent-custom-contact-val" style="margin-left: 0.35rem; color: var(--teal-primary); font-family: var(--font-mono); font-weight: 700;"></span>
+        <div id="urgent-custom-contact-box">
+          <strong class="urgent-custom-contact-label">Your saved crisis helpline / contact:</strong>
+          <span id="urgent-custom-contact-val"></span>
         </div>
 
       </section>
 
       <!-- SECTION: DATA & PRIVACY -->
-      <section id="data-privacy-section" style="margin-top: 2.5rem; border-top: 1px solid var(--border-subtle); padding-top: 1.75rem;">
+      <section id="data-privacy-section" class="data-privacy-section">
         <div class="section-heading">
           <div class="section-heading-left">
             <h2>Data & Privacy</h2>
@@ -3198,27 +4603,27 @@
           </div>
         </div>
 
-        <div class="plan-section-card" style="padding: 1.25rem;">
+        <div class="plan-section-card data-privacy-card">
           <!-- 1. Small Privacy Note -->
-          <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-subtle); border-left: 3px solid var(--teal-primary); border-radius: 0.45rem; padding: 0.85rem 1rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem;">
-            <span style="font-size: 1.15rem; color: var(--teal-primary);">🔒</span>
-            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; font-family: var(--font-sans);">
+          <div class="data-privacy-note">
+            <span class="data-privacy-note-icon">🔒</span>
+            <div class="data-privacy-note-text">
               Your entries are stored only in this browser on this device. Clearing browser data deletes them.
             </div>
           </div>
 
           <!-- 2. Export / Import / Delete Controls Grid -->
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <div class="data-privacy-actions">
+            <div class="data-privacy-actions-left">
               <!-- Export backup -->
-              <button type="button" class="btn btn-primary btn-sm" onclick="app.exportBackup()" style="display: inline-flex; align-items: center; gap: 0.45rem;">
+              <button type="button" class="btn btn-primary btn-sm data-privacy-btn" onclick="app.exportBackup()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Export backup
               </button>
 
               <!-- Import backup -->
-              <input type="file" id="backup-file-input" accept=".json,application/json" onchange="app.handleImportBackup(event)" style="display: none;" />
-              <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('backup-file-input').click()" style="display: inline-flex; align-items: center; gap: 0.45rem;">
+              <input type="file" id="backup-file-input" class="hidden-file-input" accept=".json,application/json" onchange="app.handleImportBackup(event)" />
+              <button type="button" class="btn btn-secondary btn-sm data-privacy-btn" onclick="document.getElementById('backup-file-input').click()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
                 Import backup
               </button>
@@ -3226,7 +4631,7 @@
 
             <!-- Delete all my data -->
             <div>
-              <button type="button" class="btn btn-secondary btn-sm" onclick="app.promptDeleteAllData()" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); display: inline-flex; align-items: center; gap: 0.45rem;">
+              <button type="button" class="btn btn-secondary btn-sm data-privacy-delete-btn" onclick="app.promptDeleteAllData()">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 Delete all my data
               </button>
@@ -3234,18 +4639,18 @@
           </div>
 
           <!-- Inline Feedback Message -->
-          <div id="data-action-feedback" style="display: none; margin-top: 1rem; border-radius: 0.45rem; padding: 0.75rem 1rem; font-size: 0.825rem; font-family: var(--font-sans);"></div>
+          <div id="data-action-feedback"></div>
 
           <!-- Confirmation Box: Delete All Data -->
-          <div id="delete-confirm-box" style="display: none; margin-top: 1rem; background: rgba(69, 10, 10, 0.5); border: 1.5px solid #ef4444; border-radius: 0.5rem; padding: 1rem 1.15rem; font-family: var(--font-sans);">
-            <div style="font-weight: 700; color: #fee2e2; font-size: 0.9rem; margin-bottom: 0.35rem;">
+          <div id="delete-confirm-box">
+            <div class="delete-confirm-title">
               Confirm: Delete all personal data?
             </div>
-            <div style="font-size: 0.8rem; color: #fecaca; line-height: 1.45; margin-bottom: 0.85rem;">
+            <div class="delete-confirm-desc">
               This will permanently delete all your logs, tapering plans, tablets, and notes from this browser. This cannot be undone. Consider exporting a backup first.
             </div>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <button type="button" class="btn btn-primary btn-sm" onclick="app.confirmDeleteAllData()" style="background: #dc2626; border-color: #ef4444; color: #ffffff;">
+            <div class="confirm-actions-row">
+              <button type="button" class="btn btn-primary btn-sm delete-confirm-btn" onclick="app.confirmDeleteAllData()">
                 Yes, Delete Everything
               </button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="app.cancelDeleteAllData()">
@@ -3255,15 +4660,15 @@
           </div>
 
           <!-- Confirmation Box: Import Overwrite -->
-          <div id="import-confirm-box" style="display: none; margin-top: 1rem; background: rgba(30, 41, 59, 0.9); border: 1.5px solid var(--amber-warning); border-radius: 0.5rem; padding: 1rem 1.15rem; font-family: var(--font-sans);">
-            <div style="font-weight: 700; color: #fef3c7; font-size: 0.9rem; margin-bottom: 0.35rem;">
+          <div id="import-confirm-box">
+            <div class="import-confirm-title">
               Confirm: Overwrite current data with backup?
             </div>
-            <div id="import-confirm-details" style="font-size: 0.8rem; color: #e2e8f0; line-height: 1.45; margin-bottom: 0.85rem;">
+            <div id="import-confirm-details">
               Importing this backup will replace all current logs, tapering plans, and settings in this browser.
             </div>
-            <div style="display: flex; gap: 0.5rem; align-items: center;">
-              <button type="button" class="btn btn-primary btn-sm" onclick="app.confirmImportBackup()" style="background: var(--amber-dark); border-color: var(--amber-warning); color: #ffffff;">
+            <div class="confirm-actions-row">
+              <button type="button" class="btn btn-primary btn-sm import-confirm-btn" onclick="app.confirmImportBackup()">
                 Yes, Overwrite & Load Backup
               </button>
               <button type="button" class="btn btn-secondary btn-sm" onclick="app.cancelImportBackup()">
@@ -3277,50 +4682,50 @@
     </main>
 
     <!-- Permanent Footer -->
-    <footer class="app-footer" style="border-top: 1px solid var(--border-subtle); background: #070c18; padding: 1.25rem 1.5rem; text-align: center; font-size: 0.775rem; color: var(--text-muted); font-family: var(--font-sans); line-height: 1.5;">
-      <div style="max-width: 1100px; margin: 0 auto;">
+    <footer class="app-footer">
+      <div class="app-footer-inner">
         This is a personal diary. It is not medical advice and it does not tell you how to taper. Do not change your dose because of anything this app shows. Stopping or reducing medication should be planned with your prescriber or pharmacist.
       </div>
     </footer>
 
     <!-- Total Summary of Intake Overlay (Print-Friendly Report) -->
-    <div id="prescriber-summary-overlay" style="display: none; position: fixed; inset: 0; background: rgba(5, 8, 16, 0.95); z-index: 10000; overflow-y: auto; padding: 1.5rem; backdrop-filter: blur(8px);">
-      <div id="prescriber-summary-modal" style="background: #0f172a; border: 1.5px solid #334155; border-radius: 0.85rem; max-width: 1050px; width: 100%; margin: 0 auto; padding: 2rem 2.25rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75); font-family: var(--font-sans);">
+    <div id="prescriber-summary-overlay">
+      <div id="prescriber-summary-modal">
         <!-- Top Toolbar (Screen Only, Hidden on Print) -->
-        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1.15rem; margin-bottom: 1.5rem;">
-          <div style="display: flex; align-items: center; gap: 0.65rem;">
-            <span style="font-size: 1.25rem;">📋</span>
+        <div class="no-print summary-toolbar">
+          <div class="summary-toolbar-brand">
+            <span class="summary-toolbar-icon">📋</span>
             <div>
-              <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin: 0;">Total Summary of Intake</h2>
-              <div style="font-size: 0.75rem; color: var(--text-muted);">Print-friendly report of doses, changes, mood, safety answers, and symptoms.</div>
+              <h2 class="summary-toolbar-title">Total Summary of Intake</h2>
+              <div class="summary-toolbar-subtitle">Print-friendly report of doses, changes, mood, safety answers, and symptoms.</div>
             </div>
           </div>
-          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-            <button type="button" class="btn btn-primary btn-sm" onclick="window.print()" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.85rem; font-weight: 700;">
+          <div class="summary-toolbar-actions">
+            <button type="button" class="btn btn-primary btn-sm summary-print-btn" onclick="window.print()">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
               Print / Save as PDF
             </button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="app.closePrescriberSummary()" style="padding: 0.45rem 0.75rem;">
+            <button type="button" class="btn btn-secondary btn-sm summary-close-btn" onclick="app.closePrescriberSummary()">
               Close
             </button>
           </div>
         </div>
 
         <!-- Date Range Filter Controls (Screen Only) -->
-        <div class="no-print" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-subtle); border-radius: 0.5rem; padding: 0.85rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
-          <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">Date Range:</span>
+        <div class="no-print summary-filter-bar">
+          <div class="summary-filter-pills">
+            <span class="summary-filter-label">Date Range:</span>
             <button type="button" class="cat-pill active" id="btn-summary-range-all" onclick="app.setSummaryRange('all')">All Entries</button>
             <button type="button" class="cat-pill" id="btn-summary-range-14" onclick="app.setSummaryRange(14)">Last 14 Days</button>
             <button type="button" class="cat-pill" id="btn-summary-range-30" onclick="app.setSummaryRange(30)">Last 30 Days</button>
             <button type="button" class="cat-pill" id="btn-summary-range-60" onclick="app.setSummaryRange(60)">Last 60 Days</button>
             <button type="button" class="cat-pill" id="btn-summary-range-90" onclick="app.setSummaryRange(90)">Last 90 Days</button>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--text-muted);">
-            <label for="summary-custom-start" style="margin: 0;">From:</label>
-            <input type="date" id="summary-custom-start" class="form-control" style="width: 135px; font-size: 0.75rem; padding: 0.25rem 0.45rem;" onchange="app.setSummaryCustomRange()" />
-            <label for="summary-custom-end" style="margin: 0;">To:</label>
-            <input type="date" id="summary-custom-end" class="form-control" style="width: 135px; font-size: 0.75rem; padding: 0.25rem 0.45rem;" onchange="app.setSummaryCustomRange()" />
+          <div class="summary-filter-dates">
+            <label for="summary-custom-start" class="summary-date-label">From:</label>
+            <input type="date" id="summary-custom-start" class="form-control summary-date-input" onchange="app.setSummaryCustomRange()" />
+            <label for="summary-custom-end" class="summary-date-label">To:</label>
+            <input type="date" id="summary-custom-end" class="form-control summary-date-input" onchange="app.setSummaryCustomRange()" />
           </div>
         </div>
 
@@ -3335,7 +4740,7 @@
     <div class="modal-backdrop" id="app-modal-backdrop" onmousedown="app.handleModalBackdropMouseDown(event)" onclick="app.closeModal(event)">
       <div class="modal-box" id="app-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" onclick="app.handleModalBoxClick(event)">
         <div class="modal-header" onclick="event.stopPropagation()">
-          <h3 id="modal-title" style="font-size: 1.25rem; color: var(--text-primary); font-weight: 700;">Document Overview</h3>
+          <h3 id="modal-title">Document Overview</h3>
           <button type="button" class="modal-close-btn" aria-label="Close modal" onclick="app.closeModal()">&times;<span class="library-close-text"> Close</span></button>
         </div>
         <div id="modal-body">
@@ -3345,7 +4750,7 @@
     </div>
 
     <!-- Toast Notification Container (Non-blocking replacement for alert popups) -->
-    <div id="app-toast-container" style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99999; display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none; max-width: 420px; width: calc(100% - 3rem);"></div>
+    <div id="app-toast-container"></div>
 
     <!-- Application Embedded Script -->
     <script>
@@ -3597,7 +5002,6 @@
             try { this.selectDate(dateToSelect); } catch (e) { console.error('Error selecting date:', e); }
           }
           try { this.renderChart(); } catch (e) { console.error('Error rendering trajectory chart:', e); }
-          try { this.checkAdherence(); } catch (e) { console.error('Error checking adherence:', e); }
           try { this.updateMetricBar(); } catch (e) { console.error('Error updating metric bar:', e); }
           try { this.syncPlanIndicationAndBaselineUI(); } catch (e) { console.error('Error syncing baseline UI:', e); }
         },
@@ -3723,7 +5127,7 @@
             borderColor = '#10b981';
           }
           toast.style.cssText = `background: #0f172a; border: 1px solid #334155; border-left: 4px solid ${borderColor}; border-radius: 0.5rem; padding: 0.85rem 1.15rem; color: #f8fafc; font-size: 0.85rem; font-family: var(--font-sans); box-shadow: 0 10px 25px rgba(0,0,0,0.5); pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; transition: opacity 0.25s ease, transform 0.25s ease; opacity: 0; transform: translateY(10px);`;
-          toast.innerHTML = `<span style="flex: 1; line-height: 1.4;">${this.escapeHtml(str)}</span><button type="button" aria-label="Close" style="background: transparent; border: none; color: #94a3b8; font-size: 1.25rem; cursor: pointer; padding: 0 0 0 0.5rem; line-height: 1;">&times;</button>`;
+          toast.innerHTML = `<span class="app-toast-msg">${this.escapeHtml(str)}</span><button type="button" class="app-toast-close" aria-label="Close">&times;</button>`;
           const closeBtn = toast.querySelector('button');
           if (closeBtn) closeBtn.onclick = () => {
             toast.style.opacity = '0';
@@ -3914,9 +5318,7 @@
               const data = parsed.state || parsed;
               const validation = this.validateImportData(data);
               if (!validation.valid) {
-                this._pendingImportData = null;
-                const confirmBox = document.getElementById('import-confirm-box');
-                if (confirmBox) confirmBox.style.display = 'none';
+                this.clearPendingImport();
                 this.showDataFeedback(validation.error, true);
                 return;
               }
@@ -3945,17 +5347,12 @@
 
           const validation = this.validateImportData(data);
           if (!validation.valid) {
-            this._pendingImportData = null;
-            const confirmBox = document.getElementById('import-confirm-box');
-            if (confirmBox) confirmBox.style.display = 'none';
+            this.clearPendingImport();
             this.showDataFeedback(validation.error, true);
             return;
           }
 
-          this._pendingImportData = null;
-
-          const confirmBox = document.getElementById('import-confirm-box');
-          if (confirmBox) confirmBox.style.display = 'none';
+          this.clearPendingImport();
 
           this.state.logs = data.logs || {};
           this.state.plans = Array.isArray(data.plans) ? data.plans : [];
@@ -3980,10 +5377,14 @@
           this.showDataFeedback(`Backup imported successfully. ${count} log entries loaded.`, false);
         },
 
-        cancelImportBackup() {
+        clearPendingImport() {
           this._pendingImportData = null;
           const confirmBox = document.getElementById('import-confirm-box');
           if (confirmBox) confirmBox.style.display = 'none';
+        },
+
+        cancelImportBackup() {
+          this.clearPendingImport();
         },
 
         promptDeleteAllData() {
@@ -4135,7 +5536,7 @@
           if (filteredDates.length === 0) {
             tableRowsHtml = `
               <tr>
-                <td colspan="7" style="text-align: center; padding: 2rem 1rem; color: #94a3b8; font-style: italic;">
+                <td colspan="7" class="summary-empty-cell">
                   No logged entries in this period. Select a different date range above or log daily entries in the calendar.
                 </td>
               </tr>
@@ -4162,39 +5563,39 @@
               const prevConsecutiveLog = idx > 0 ? this.state.logs[filteredDates[idx - 1]] : null;
               let doseChangeText = '—';
               if (idx === 0 && prevDiffDose === null) {
-                doseChangeText = '<span style="color:#94a3b8;">Baseline / Start</span>';
+                doseChangeText = '<span class="summary-muted-text">Baseline / Start</span>';
               } else if (prevConsecutiveLog && Math.abs(prevConsecutiveLog.dose - dose) < 0.01) {
                 if (prevDiffDose !== null && prevDiffDose > 0) {
                   const pct = ((dose - prevDiffDose) / prevDiffDose) * 100;
                   const pctStr = pct > 0 ? `+${pct.toFixed(0)}%` : `${pct.toFixed(0)}%`;
-                  doseChangeText = `<span style="color:#94a3b8;">Held (${pctStr})</span>`;
+                  doseChangeText = `<span class="summary-muted-text">Held (${pctStr})</span>`;
                 } else {
-                  doseChangeText = '<span style="color:#94a3b8;">Held</span>';
+                  doseChangeText = '<span class="summary-muted-text">Held</span>';
                 }
               } else if (prevDiffDose !== null && prevDiffDose > 0) {
                 const pct = ((dose - prevDiffDose) / prevDiffDose) * 100;
                 const pctStr = pct > 0 ? `+${pct.toFixed(0)}%` : `${pct.toFixed(0)}%`;
-                doseChangeText = `<strong>${pctStr}</strong> <span style="font-size:0.75rem; color:#94a3b8;">(${prevDiffDose.toFixed(1)}mg &rarr; ${dose.toFixed(1)}mg)</span>`;
+                doseChangeText = `<strong>${pctStr}</strong> <span class="summary-change-sub">(${prevDiffDose.toFixed(1)}mg &rarr; ${dose.toFixed(1)}mg)</span>`;
               } else if (prevDiffDose !== null && prevDiffDose === 0) {
-                doseChangeText = `<strong>+${dose.toFixed(1)}mg</strong> <span style="font-size:0.75rem; color:#94a3b8;">(0mg &rarr; ${dose.toFixed(1)}mg)</span>`;
+                doseChangeText = `<strong>+${dose.toFixed(1)}mg</strong> <span class="summary-change-sub">(0mg &rarr; ${dose.toFixed(1)}mg)</span>`;
               }
 
               // Safety answer
               const safetyVal = s.safety || '—';
               let safetyHtml = safetyVal;
               if (safetyVal === 'Yes') {
-                safetyHtml = '<span style="color: #ef4444; font-weight: 800; background: rgba(239, 68, 68, 0.15); padding: 2px 6px; border-radius: 4px;">⚠️ Yes</span>';
+                safetyHtml = '<span class="summary-safety-yes">⚠️ Yes</span>';
               } else if (safetyVal === 'Sometimes') {
-                safetyHtml = '<span style="color: #f59e0b; font-weight: 800; background: rgba(245, 158, 11, 0.15); padding: 2px 6px; border-radius: 4px;">⚠️ Sometimes</span>';
+                safetyHtml = '<span class="summary-safety-sometimes">⚠️ Sometimes</span>';
               } else if (safetyVal === 'No') {
-                safetyHtml = '<span style="color: #94a3b8;">No</span>';
+                safetyHtml = '<span class="summary-muted-text">No</span>';
               }
 
               // Low mood
               const lowMoodVal = s.lowMood !== undefined ? s.lowMood : (s.mood !== undefined ? s.mood : '—');
               let moodHtml = lowMoodVal !== '—' ? `${lowMoodVal} / 10` : '—';
               if (typeof lowMoodVal === 'number' && lowMoodVal >= 7) {
-                moodHtml = `<strong style="color: #f87171;">${lowMoodVal} / 10</strong>`;
+                moodHtml = `<strong class="summary-mood-high">${lowMoodVal} / 10</strong>`;
               }
 
               // Physical symptoms
@@ -4204,27 +5605,27 @@
               const notesText = log.notes ? this.escapeHtml(log.notes) : '—';
 
               tableRowsHtml += `
-                <tr style="border-bottom: 1px solid var(--border-subtle);">
-                  <td style="padding: 0.55rem 0.65rem; font-family: var(--font-mono); font-size: 0.8rem; white-space: nowrap;">
+                <tr>
+                  <td class="summary-cell-date">
                     ${dateStr}
                   </td>
-                  <td style="padding: 0.55rem 0.65rem; white-space: nowrap;">
-                    <strong style="font-family: var(--font-mono);">${dose.toFixed(1)} mg</strong>
-                    <div style="font-size: 0.725rem; color: var(--text-muted);">${this.escapeHtml(pillLabel)}</div>
+                  <td class="summary-cell-dose">
+                    <strong class="summary-dose-val">${dose.toFixed(1)} mg</strong>
+                    <div class="summary-dose-pill">${this.escapeHtml(pillLabel)}</div>
                   </td>
-                  <td style="padding: 0.55rem 0.65rem; font-family: var(--font-mono); font-size: 0.8rem;">
+                  <td class="summary-cell-change">
                     ${doseChangeText}
                   </td>
-                  <td style="padding: 0.55rem 0.65rem; font-size: 0.8rem; white-space: nowrap;">
+                  <td class="summary-cell-safety">
                     ${safetyHtml}
                   </td>
-                  <td style="padding: 0.55rem 0.65rem; font-size: 0.8rem; white-space: nowrap; font-family: var(--font-mono);">
+                  <td class="summary-cell-mood">
                     ${moodHtml}
                   </td>
-                  <td style="padding: 0.55rem 0.65rem; font-size: 0.75rem; color: var(--text-secondary); font-family: var(--font-mono);">
+                  <td class="summary-cell-symptoms">
                     ${symSummary}
                   </td>
-                  <td style="padding: 0.55rem 0.65rem; font-size: 0.8rem; color: var(--text-secondary); max-width: 260px; word-break: break-word;">
+                  <td class="summary-cell-notes">
                     ${notesText}
                   </td>
                 </tr>
@@ -4236,64 +5637,64 @@
           const baselineText = (this.state.plan && this.state.plan.baselineDose) ? `${this.state.plan.baselineDose} mg` : 'Not specified';
 
           container.innerHTML = `
-            <div style="margin-bottom: 1.25rem;">
-              <div style="border-bottom: 2px solid #334155; padding-bottom: 0.85rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem;">
+            <div class="summary-doc-wrap">
+              <div class="summary-doc-header">
                 <div>
-                  <h1 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary); margin: 0; line-height: 1.3;">
+                  <h1 class="summary-doc-title">
                     Taper Diary — Total Summary of Intake
                   </h1>
-                  <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                  <div class="summary-doc-subtitle">
                     Confidential patient self-report of doses, symptom scores, and safety answers.
                   </div>
                 </div>
-                <div style="text-align: right; font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">
+                <div class="summary-doc-timestamp">
                   <div>Generated: ${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
                   <div>Time: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                 </div>
               </div>
 
               <!-- Patient/Clinical Context Ribbon -->
-              <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-subtle); border-radius: 0.5rem; padding: 0.85rem 1.15rem; margin-bottom: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.85rem; font-size: 0.825rem;">
+              <div class="summary-meta-grid">
                 <div>
-                  <span style="color: var(--text-muted); display: block; font-size: 0.725rem; text-transform: uppercase;">Reporting Period</span>
-                  <strong style="color: var(--text-primary); font-family: var(--font-mono);">${rangeStart} &rarr; ${rangeEnd}</strong>
+                  <span class="summary-meta-label">Reporting Period</span>
+                  <strong class="summary-meta-value">${rangeStart} &rarr; ${rangeEnd}</strong>
                 </div>
                 <div>
-                  <span style="color: var(--text-muted); display: block; font-size: 0.725rem; text-transform: uppercase;">Total Entries Logged</span>
-                  <strong style="color: var(--text-primary); font-family: var(--font-mono);">${totalLogged} days</strong>
+                  <span class="summary-meta-label">Total Entries Logged</span>
+                  <strong class="summary-meta-value">${totalLogged} days</strong>
                 </div>
                 <div>
-                  <span style="color: var(--text-muted); display: block; font-size: 0.725rem; text-transform: uppercase;">Dose in Period</span>
-                  <strong style="color: var(--teal-primary); font-family: var(--font-mono);">
+                  <span class="summary-meta-label">Dose in Period</span>
+                  <strong class="summary-meta-value is-teal">
                     ${startDose !== null ? `${startDose.toFixed(1)} mg` : '—'} &rarr; ${endDose !== null ? `${endDose.toFixed(1)} mg` : '—'}
                   </strong>
                 </div>
                 <div>
-                  <span style="color: var(--text-muted); display: block; font-size: 0.725rem; text-transform: uppercase;">Safety / Low Mood Alerts</span>
-                  <strong style="color: ${safetyFlaggedDays > 0 || highMoodDays > 0 ? '#f87171' : 'var(--text-primary)'}; font-family: var(--font-mono);">
+                  <span class="summary-meta-label">Safety / Low Mood Alerts</span>
+                  <strong class="summary-meta-value${safetyFlaggedDays > 0 || highMoodDays > 0 ? ' is-alert' : ''}">
                     ${safetyFlaggedDays} safety / ${highMoodDays} mood &ge;7
                   </strong>
                 </div>
               </div>
 
               ${indicationText ? `
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+                <div class="summary-indication-line">
                   <strong>Indication:</strong> ${this.escapeHtml(indicationText)} · <strong>Baseline Dose:</strong> ${this.escapeHtml(baselineText)}
                 </div>
               ` : ''}
 
               <!-- Table of Daily Entries -->
-              <div style="overflow-x: auto;">
-                <table class="prescriber-summary-table" style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+              <div class="summary-table-scroll">
+                <table class="prescriber-summary-table">
                   <thead>
-                    <tr style="background: rgba(30, 41, 59, 0.7); border-bottom: 2px solid #475569; text-align: left;">
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary); white-space: nowrap;">Date</th>
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary); white-space: nowrap;">Dose</th>
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary); white-space: nowrap;">Dose Change</th>
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary); white-space: nowrap;">Thoughts of Self-Harm</th>
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary); white-space: nowrap;">Low Mood</th>
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary);">Physical Symptoms (0–10)</th>
-                      <th style="padding: 0.6rem 0.65rem; font-weight: 700; color: var(--text-primary);">Notes & Observations</th>
+                    <tr>
+                      <th class="is-nowrap">Date</th>
+                      <th class="is-nowrap">Dose</th>
+                      <th class="is-nowrap">Dose Change</th>
+                      <th class="is-nowrap">Thoughts of Self-Harm</th>
+                      <th class="is-nowrap">Low Mood</th>
+                      <th>Physical Symptoms (0–10)</th>
+                      <th>Notes & Observations</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -4302,7 +5703,7 @@
                 </table>
               </div>
 
-              <div style="margin-top: 1.5rem; padding-top: 0.85rem; border-top: 1px solid var(--border-subtle); font-size: 0.725rem; color: var(--text-muted); line-height: 1.5; font-family: var(--font-sans);">
+              <div class="summary-doc-footer">
                 This report is generated from personal logs recorded in Taper Diary. It is not medical advice and it does not tell you how to taper. Do not change your dose because of anything this app shows. Stopping or reducing medication should be planned with your prescriber or pharmacist.
               </div>
             </div>
@@ -4380,13 +5781,6 @@
         formatDisplayDate(dateStr) {
           const d = this.parseLocalDate(dateStr);
           return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-        },
-
-        formatShortDisplayDate(dateStr) {
-          if (!dateStr) return '';
-          const d = this.parseLocalDate(dateStr);
-          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-          return `${d.getDate()} ${months[d.getMonth()]}`;
         },
 
         getNextDateStr(dateStr) {
@@ -4471,12 +5865,12 @@
 
           if (!this.state.tablets || this.state.tablets.length === 0) {
             container.innerHTML = `
-              <div style="padding: 1.75rem 1.25rem; text-align: center; background: rgba(15, 23, 42, 0.5); border: 1px dashed #334155; border-radius: 0.5rem;">
-                <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">💊</div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 1rem; line-height: 1.5;">
+              <div class="empty-state-box">
+                <div class="empty-state-icon">💊</div>
+                <p class="empty-state-desc">
                   Check the strength and appearance against your own box and leaflet. They differ between countries and brands.
                 </p>
-                <div style="display: flex; justify-content: center;">
+                <div class="empty-state-actions">
                   <button class="btn btn-primary btn-sm" onclick="app.openTabletModal()">
                     + Add Tablet
                   </button>
@@ -4489,29 +5883,29 @@
           const cardsHtml = this.state.tablets.map(t => {
             const colorStyle = t.color ? (t.color.startsWith('#') || t.color.startsWith('rgb') ? t.color : '#cbd5e1') : '#cbd5e1';
             const splitLabel = t.splittable
-              ? `<span class="pill-badge" style="border-color:#10b981; color:#34d399; font-size:0.7rem; padding:0.15rem 0.45rem;">Splittable (scored): Yes (${(t.strength / 2).toFixed(1).replace(/\.0$/, '')} mg halves)</span>`
-              : `<span class="pill-badge" style="border-color:#64748b; color:#94a3b8; font-size:0.7rem; padding:0.15rem 0.45rem;">Splittable (scored): No (whole only)</span>`;
+              ? `<span class="pill-badge tablet-split-badge plan-badge-active">Splittable (scored): Yes (${(t.strength / 2).toFixed(1).replace(/\.0$/, '')} mg halves)</span>`
+              : `<span class="pill-badge tablet-split-badge plan-badge-paused">Splittable (scored): No (whole only)</span>`;
 
             return `
-              <div style="background: #192234; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                  <div style="width: 20px; height: 20px; border-radius: 50%; background: ${colorStyle}; border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="${this.escapeHtml(t.color)}"></div>
+              <div class="tablet-row-card">
+                <div class="tablet-row-info">
+                  <div class="tablet-dot" style="background: ${colorStyle};" title="${this.escapeHtml(t.color)}"></div>
                   <div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                      <strong style="font-size: 0.9rem; color: var(--text-primary);">${this.escapeHtml(t.name)}</strong>
-                      <span class="tabular-nums" style="font-size: 0.825rem; font-weight: 700; color: var(--teal-primary);">${t.strength} mg</span>
-                      <span style="font-size: 0.725rem; color: var(--text-muted);">(${this.escapeHtml(t.color || 'No colour')})</span>
+                    <div class="tablet-title-row">
+                      <strong class="tablet-row-name">${this.escapeHtml(t.name)}</strong>
+                      <span class="tabular-nums quick-pill-strength">${t.strength} mg</span>
+                      <span class="quick-pill-color">(${this.escapeHtml(t.color || 'No colour')})</span>
                     </div>
-                    <div style="margin-top: 0.25rem;">
+                    <div class="tablet-split-wrap">
                       ${splitLabel}
                     </div>
                   </div>
                 </div>
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <div class="tablet-row-actions">
                   <button class="btn btn-secondary btn-sm" onclick="app.openTabletModal('${t.id}')">
                     Edit
                   </button>
-                  <button class="btn btn-secondary btn-sm" style="color: #f87171;" onclick="app.deleteTablet('${t.id}')">
+                  <button class="btn btn-secondary btn-sm btn-clear-danger" onclick="app.deleteTablet('${t.id}')">
                     Delete
                   </button>
                 </div>
@@ -4520,10 +5914,10 @@
           }).join('');
 
           container.innerHTML = `
-            <div style="display: grid; gap: 0.65rem;">
+            <div class="tablets-grid">
               ${cardsHtml}
             </div>
-            <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <div class="tablets-footer-actions">
               <button class="btn btn-secondary btn-sm" onclick="app.openTabletModal()">
                 + Add Another Tablet
               </button>
@@ -4548,13 +5942,13 @@
           this._isNewTablet = isNew;
 
           const body = `
-            <div style="font-family: var(--font-sans);">
+            <div class="modal-form-wrap">
               <div class="form-group">
                 <label>Tablet Name</label>
                 <input type="text" id="tablet-modal-name" class="form-control" value="${this.escapeHtml(this._editingTablet.name || '')}" placeholder="e.g. Paroxetine 20mg" />
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="modal-two-col">
                 <div class="form-group">
                   <label>Strength in mg</label>
                   <input type="number" step="0.1" min="0.1" id="tablet-modal-strength" class="form-control" value="${this._editingTablet.strength || 20}" placeholder="e.g. 20" />
@@ -4565,18 +5959,18 @@
                 </div>
               </div>
 
-              <div class="form-group" style="margin-top: 0.5rem;">
+              <div class="form-group tablet-splittable-group">
                 <label>Splittable (scored)?</label>
                 <select id="tablet-modal-splittable" class="form-control">
                   <option value="true" ${this._editingTablet.splittable ? 'selected' : ''}>Yes — scored (can be split into halves)</option>
                   <option value="false" ${!this._editingTablet.splittable ? 'selected' : ''}>No — whole tablet only (unscored)</option>
                 </select>
-                <div style="font-size: 0.725rem; color: var(--text-muted); margin-top: 0.3rem;">
+                <div class="tablet-splittable-hint">
                   If splittable, half-tablet doses will be generated automatically for daily logging and plans.
                 </div>
               </div>
 
-              <div style="display: flex; justify-content: flex-end; gap: 0.75rem; border-top: 1px solid var(--border-subtle); padding-top: 1rem; margin-top: 1.25rem;">
+              <div class="modal-actions-row tablet-actions">
                 <button type="button" class="btn btn-secondary" onclick="app.closeModal()">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="app.saveTabletFromModal()">
                   Save Tablet
@@ -4644,9 +6038,13 @@
             });
           }
 
+          this.saveAndCloseModal();
+          this.renderAll(this.state.selectedDate);
+        },
+
+        saveAndCloseModal() {
           this.saveStorage();
           this.closeModal();
-          this.renderAll(this.state.selectedDate);
         },
 
         deleteTablet(tabletId) {
@@ -4696,13 +6094,13 @@
 
           if (!this.state.tablets || this.state.tablets.length === 0) {
             buttonsHtml += `
-              <div style="background: rgba(15, 23, 42, 0.6); border: 1px dashed #334155; border-radius: 0.5rem; padding: 0.85rem 1rem; margin-bottom: 0.4rem;">
-                <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.6rem;">
+              <div class="no-tablets-callout">
+                <div class="no-tablets-desc">
                   This is where you will choose the dosages of the tablets you take, but you need to register them first in the <strong>My Tablets</strong> section.
                 </div>
-                <a href="#tablets-section" onclick="app.scrollToTablets(event)" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; font-size: 0.775rem; padding: 0.35rem 0.75rem; border-color: rgba(16, 185, 129, 0.35);">
-                  <span style="color: #10b981; font-weight: 600;">Go to My Tablets</span>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" style="color: #10b981;"><path d="M7 13l5 5 5-5M12 4v14"/></svg>
+                <a href="#tablets-section" onclick="app.scrollToTablets(event)" class="btn btn-secondary btn-sm go-tablets-link">
+                  <span class="go-tablets-text">Go to My Tablets</span>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" class="go-tablets-icon"><path d="M7 13l5 5 5-5M12 4v14"/></svg>
                 </a>
               </div>
             `;
@@ -4712,20 +6110,20 @@
               const wholeIsActive = hasDose && ((formKey === tab.id) || (!formKey && Math.abs(doseVal - tab.strength) < 0.01));
               buttonsHtml += `
                 <div class="quick-pill-card ${wholeIsActive ? 'active' : ''}" data-form-key="${tab.id}" data-dose="${tab.strength}" onclick="app.quickSelectTablet('${tab.id}', false)">
-                  <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 0;">
-                    <div style="width: 18px; height: 18px; border-radius: 50%; background: ${colorStyle}; border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="${this.escapeHtml(tab.color || 'Tablet color')}"></div>
-                    <div style="display: flex; flex-direction: column; min-width: 0;">
-                      <div style="display: flex; align-items: baseline; gap: 0.45rem; flex-wrap: wrap;">
-                        <strong style="font-size: 0.85rem; color: var(--text-primary);">${this.escapeHtml(tab.name)}</strong>
-                        <span class="tabular-nums" style="font-size: 0.825rem; font-weight: 700; color: var(--teal-primary);">${tab.strength} mg</span>
-                        <span style="font-size: 0.725rem; color: var(--text-muted);">(${this.escapeHtml(tab.color || 'No colour')})</span>
+                  <div class="quick-pill-row">
+                    <div class="quick-pill-dot" style="background: ${colorStyle};" title="${this.escapeHtml(tab.color || 'Tablet color')}"></div>
+                    <div class="quick-pill-col">
+                      <div class="quick-pill-title-row">
+                        <strong class="quick-pill-name">${this.escapeHtml(tab.name)}</strong>
+                        <span class="tabular-nums quick-pill-strength">${tab.strength} mg</span>
+                        <span class="quick-pill-color">(${this.escapeHtml(tab.color || 'No colour')})</span>
                       </div>
-                      <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.1rem;">
+                      <div class="quick-pill-sub">
                         Whole tablet
                       </div>
                     </div>
                   </div>
-                  <span class="pill-check-indicator" style="font-size: 0.85rem; font-weight: 700; color: ${wholeIsActive ? 'var(--teal-primary)' : 'var(--text-muted)'}; margin-left: 0.5rem; flex-shrink: 0;">${wholeIsActive ? '✓' : '○'}</span>
+                  <span class="pill-check-indicator${wholeIsActive ? ' is-active' : ''}">${wholeIsActive ? '✓' : '○'}</span>
                 </div>
               `;
               if (tab.splittable) {
@@ -4734,20 +6132,20 @@
                 const halfIsActive = hasDose && ((formKey === halfKey) || (!formKey && Math.abs(doseVal - halfDose) < 0.01));
                 buttonsHtml += `
                   <div class="quick-pill-card ${halfIsActive ? 'active' : ''}" data-form-key="${halfKey}" data-dose="${halfDose}" onclick="app.quickSelectTablet('${tab.id}', true)">
-                    <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 0;">
-                      <div style="width: 18px; height: 18px; border-radius: 50%; background: linear-gradient(90deg, ${colorStyle} 50%, #1e293b 50%); border: 1.5px solid rgba(255,255,255,0.3); flex-shrink: 0;" title="Half ${this.escapeHtml(tab.color || '')}"></div>
-                      <div style="display: flex; flex-direction: column; min-width: 0;">
-                        <div style="display: flex; align-items: baseline; gap: 0.45rem; flex-wrap: wrap;">
-                          <strong style="font-size: 0.85rem; color: var(--text-primary);">1/2 ${this.escapeHtml(tab.name)}</strong>
-                          <span class="tabular-nums" style="font-size: 0.825rem; font-weight: 700; color: var(--teal-primary);">${halfDose.toFixed(1).replace(/\.0$/, '')} mg</span>
-                          <span style="font-size: 0.725rem; color: var(--text-muted);">(${this.escapeHtml(tab.color || 'No colour')} Half)</span>
+                    <div class="quick-pill-row">
+                      <div class="quick-pill-dot" style="background: linear-gradient(90deg, ${colorStyle} 50%, #1e293b 50%);" title="Half ${this.escapeHtml(tab.color || '')}"></div>
+                      <div class="quick-pill-col">
+                        <div class="quick-pill-title-row">
+                          <strong class="quick-pill-name">1/2 ${this.escapeHtml(tab.name)}</strong>
+                          <span class="tabular-nums quick-pill-strength">${halfDose.toFixed(1).replace(/\.0$/, '')} mg</span>
+                          <span class="quick-pill-color">(${this.escapeHtml(tab.color || 'No colour')} Half)</span>
                         </div>
-                        <div style="font-size: 0.7rem; color: #34d399; margin-top: 0.1rem;">
+                        <div class="quick-pill-sub is-half">
                           Scored half tablet
                         </div>
                       </div>
                     </div>
-                    <span class="pill-check-indicator" style="font-size: 0.85rem; font-weight: 700; color: ${halfIsActive ? 'var(--teal-primary)' : 'var(--text-muted)'}; margin-left: 0.5rem; flex-shrink: 0;">${halfIsActive ? '✓' : '○'}</span>
+                    <span class="pill-check-indicator${halfIsActive ? ' is-active' : ''}">${halfIsActive ? '✓' : '○'}</span>
                   </div>
                 `;
               }
@@ -4758,16 +6156,16 @@
           const zeroIsActive = hasDose && (doseVal === 0 || formKey === 'zero');
           buttonsHtml += `
             <div class="quick-pill-card ${zeroIsActive ? 'active' : ''}" data-form-key="zero" data-dose="0" onclick="app.quickSelectPill(0.0, 'zero')">
-              <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 0;">
-                <div style="width: 18px; height: 18px; border-radius: 50%; border: 1.5px dashed #64748b; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--text-muted);">○</div>
-                <div style="display: flex; flex-direction: column; min-width: 0;">
-                  <div style="display: flex; align-items: baseline; gap: 0.45rem; flex-wrap: wrap;">
-                    <strong style="font-size: 0.85rem; color: var(--text-secondary);">0 mg / No Intake</strong>
-                    <span style="font-size: 0.725rem; color: var(--text-muted);">(Cessation / skipped dose)</span>
+              <div class="quick-pill-row">
+                <div class="quick-pill-dot-zero">○</div>
+                <div class="quick-pill-col">
+                  <div class="quick-pill-title-row">
+                    <strong class="quick-pill-name is-muted">0 mg / No Intake</strong>
+                    <span class="quick-pill-color">(Cessation / skipped dose)</span>
                   </div>
                 </div>
               </div>
-              <span class="pill-check-indicator" style="font-size: 0.85rem; font-weight: 700; color: ${zeroIsActive ? 'var(--teal-primary)' : 'var(--text-muted)'}; margin-left: 0.5rem; flex-shrink: 0;">${zeroIsActive ? '✓' : '○'}</span>
+              <span class="pill-check-indicator${zeroIsActive ? ' is-active' : ''}">${zeroIsActive ? '✓' : '○'}</span>
             </div>
           `;
 
@@ -4781,52 +6179,6 @@
           const formKey = isHalf ? `${tab.id}-half` : tab.id;
           this.quickSelectPill(dose, formKey);
         },
-
-        setDirectDose(val) {
-          const raw = String(val).trim();
-          const saveBtn = document.getElementById('btn-save-log');
-          const doseInp = document.getElementById('input-dose');
-          const formSel = document.getElementById('input-formulation');
-
-          if (raw === '') {
-            this.state.currentEntryDose = null;
-            this.state.currentEntryFormulation = null;
-            if (doseInp) doseInp.value = '';
-            if (formSel) formSel.value = '';
-            this.updateQuickPillButtons(null, null);
-            if (saveBtn) {
-              saveBtn.disabled = true;
-              saveBtn.style.opacity = '0.5';
-              saveBtn.style.cursor = 'not-allowed';
-              saveBtn.title = "Choose today's dose to enable saving";
-            }
-            const badge = document.getElementById('panel-adherence-badge');
-            if (badge && (!this.state.logs[this.state.selectedDate])) {
-              badge.textContent = "Choose today's dose";
-            }
-            return;
-          }
-
-          const mg = parseFloat(raw);
-          if (!isNaN(mg) && mg >= 0) {
-            this.state.currentEntryDose = mg;
-            this.state.currentEntryFormulation = mg === 0 ? 'zero' : 'custom';
-            if (doseInp) doseInp.value = mg;
-            if (formSel) formSel.value = this.state.currentEntryFormulation;
-            this.updateQuickPillButtons(mg, this.state.currentEntryFormulation);
-            if (saveBtn) {
-              saveBtn.disabled = false;
-              saveBtn.style.opacity = '1';
-              saveBtn.style.cursor = 'pointer';
-              saveBtn.title = '';
-            }
-            const badge = document.getElementById('panel-adherence-badge');
-            if (badge && (!this.state.logs[this.state.selectedDate])) {
-              badge.textContent = `Dose Selected: ${mg} mg`;
-            }
-          }
-        },
-
 
         // CALENDAR METHODS
         prevMonth() {
@@ -4959,14 +6311,14 @@
           } else if (plannedInfo) {
             if (isOverlapping) {
               const dosesText = plannedInfo.allMatches.map(m => `${m.dose.toFixed(1).replace(/\.0$/, '')}mg`).join('/');
-              doseDisplay = `<span class="day-dose-conflict" style="color:#fbbf24; font-weight:700;" title="Schedule overlap between active plans">ℹ️ Overlap (${dosesText})</span>`;
-              pillVisual = `<span class="day-dose-conflict" style="font-size:0.625rem; color:#fde68a;">Overlapping Plans (${plannedInfo.allMatches.length})</span>`;
+              doseDisplay = `<span class="day-dose-conflict" title="Schedule overlap between active plans">ℹ️ Overlap (${dosesText})</span>`;
+              pillVisual = `<span class="day-dose-conflict day-dose-conflict-sub">Overlapping Plans (${plannedInfo.allMatches.length})</span>`;
             } else {
-              doseDisplay = `<span class="day-dose-planned" style="color:#60a5fa; font-weight:700;">📅 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
+              doseDisplay = `<span class="day-dose-planned day-dose-planned-main">📅 Plan: ${plannedInfo.dose.toFixed(1)}mg</span>`;
               pillVisual = `<span class="day-dose-planned">${this.getPillIcon(plannedInfo.dose, plannedInfo.formulation)} ${this.getPillLabel(plannedInfo.dose, plannedInfo.formulation)}</span>`;
             }
           } else {
-            doseDisplay = `<span style="font-size:0.7rem; color:var(--text-muted);">⏳ Ready for entry</span>`;
+            doseDisplay = `<span class="day-ready-label">⏳ Ready for entry</span>`;
           }
 
           cell.innerHTML = `
@@ -5123,27 +6475,26 @@
                 { name: 'Headache & Sensitivity', score: s.headache || 0, icon: '🤕' },
                 { name: 'Low Mood', score: lowMoodVal, icon: '💭' }
               ];
-              const safetyColor = s.safety === 'Yes' ? '#ef4444' : s.safety === 'Sometimes' ? '#f59e0b' : '#10b981';
-              const safetyBg = s.safety === 'Yes' ? 'rgba(239, 68, 68, 0.15)' : s.safety === 'Sometimes' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(16, 185, 129, 0.12)';
+              const safetyCls = s.safety === 'Yes' ? 'is-yes' : s.safety === 'Sometimes' ? 'is-sometimes' : 'is-no';
               const safetyRow = s.safety
                 ? `
-                  <div style="grid-column: 1 / -1; background: ${safetyBg}; padding: 0.5rem 0.65rem; border-radius: 4px; border: 1px solid ${safetyColor}; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.725rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem;">
+                  <div class="reg-safety-row ${safetyCls}">
+                    <span class="reg-safety-label">
                       <span>🛡️</span> Safety: Thoughts of harming self or not wanting to be alive:
                     </span>
-                    <strong style="font-size: 0.775rem; font-family: var(--font-sans); color: ${safetyColor}; font-weight: 800;">${s.safety}</strong>
+                    <strong class="reg-safety-val ${safetyCls}">${s.safety}</strong>
                   </div>
                 `
                 : '';
 
               symptomGrid.innerHTML = symptomList.map(item => {
-                const color = item.score <= 2 ? 'var(--teal-primary)' : item.score <= 5 ? 'var(--amber-warning)' : '#f43f5e';
+                const scoreCls = item.score <= 2 ? 'score-low' : item.score <= 5 ? 'score-mid' : 'score-high';
                 return `
-                  <div style="background: #0f172a; padding: 0.4rem 0.5rem; border-radius: 4px; border: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.725rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.25rem;">
+                  <div class="reg-symptom-cell">
+                    <span class="reg-symptom-cell-label">
                       <span>${item.icon}</span> ${item.name}
                     </span>
-                    <strong style="font-size: 0.75rem; font-family: var(--font-mono); color: ${color};">${item.score}/10</strong>
+                    <strong class="reg-symptom-cell-score ${scoreCls}">${item.score}/10</strong>
                   </div>
                 `;
               }).join('') + safetyRow;
@@ -5183,11 +6534,8 @@
               if (log) {
                 if (saveBtn) {
                   saveBtn.textContent = 'Save & Conclude Day';
-                  saveBtn.disabled = false;
-                  saveBtn.style.opacity = '1';
-                  saveBtn.style.cursor = 'pointer';
-                  saveBtn.title = '';
                 }
+                this.setDaySaveButtonEnabled(true);
                 if (badge) {
                   badge.style.color = 'var(--teal-primary)';
                   badge.textContent = `Logged Intake: ${log.dose.toFixed(1)} mg`;
@@ -5195,11 +6543,8 @@
               } else {
                 if (saveBtn) {
                   saveBtn.textContent = 'Save & Conclude Day';
-                  saveBtn.disabled = true;
-                  saveBtn.style.opacity = '0.5';
-                  saveBtn.style.cursor = 'not-allowed';
-                  saveBtn.title = "Choose today's dose to enable saving";
                 }
+                this.setDaySaveButtonEnabled(false);
                 if (badge) {
                   badge.style.color = 'var(--teal-primary)';
                   badge.textContent = "Choose today's dose";
@@ -5216,32 +6561,32 @@
                 if (plannedInfo.hasOverlap) {
                   const overlapText = plannedInfo.allMatches.map(m => `<strong>${this.escapeHtml(m.plan.name)}</strong> (${m.dose.toFixed(1)} mg)`).join(' and ');
                   formBanner.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <div class="form-banner-row">
                       <span>⚠️ <strong>Overlapping Plans:</strong> This date is covered by both ${overlapText}.</span>
-                      <span style="font-size:0.7rem; color:#f59e0b; font-weight:700;">● Overlap review</span>
+                      <span class="form-banner-status is-overlap">● Overlap review</span>
                     </div>
-                    <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                    <div class="form-banner-sub">
                       Review your action plans if you wish to adjust start dates or pause an overlapping phase.
                     </div>
                   `;
                 } else {
                   formBanner.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <div class="form-banner-row">
                       <span>🧭 <strong>Plan Orientation:</strong> Recommended target is <strong>${plannedInfo.dose.toFixed(1)} mg (${this.getPillLabel(plannedInfo.dose)})</strong> from <em>${this.escapeHtml(plannedInfo.planName)}</em>.</span>
-                      <span style="font-size:0.7rem; color:var(--teal-primary); font-weight:700;">● Ideal for taper success</span>
+                      <span class="form-banner-status is-sync">● Ideal for taper success</span>
                     </div>
-                    <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                    <div class="form-banner-sub">
                       Plans guide orientation; your actual daily intake is independent. Register what you take below.
                     </div>
                   `;
                 }
               } else {
                 formBanner.innerHTML = `
-                  <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                  <div class="form-banner-row">
                     <span>🗓️ <strong>Independent Intake Registry:</strong> No orientation plan active for this date.</span>
-                    <span style="font-size:0.7rem; color:var(--text-muted);">Free registry mode</span>
+                    <span class="form-banner-status">Free registry mode</span>
                   </div>
-                  <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">
+                  <div class="form-banner-sub">
                     Select your administered pill dosage below to record your entry.
                   </div>
                 `;
@@ -5263,12 +6608,7 @@
               if (formSel) formSel.value = currentFormulation;
               if (timeInput) timeInput.value = log.time || '08:30';
               if (notesInput) notesInput.value = log.notes || '';
-              if (saveBtn) {
-                saveBtn.disabled = false;
-                saveBtn.style.opacity = '1';
-                saveBtn.style.cursor = 'pointer';
-                saveBtn.title = '';
-              }
+              this.setDaySaveButtonEnabled(true);
               const s = log.symptoms || {};
               this.setSlider('zaps', s.zaps || 0);
               this.setSlider('vertigo', s.vertigo || 0);
@@ -5292,12 +6632,7 @@
               if (formSel) formSel.value = '';
               if (timeInput) timeInput.value = '08:30';
               if (notesInput) notesInput.value = '';
-              if (saveBtn) {
-                saveBtn.disabled = true;
-                saveBtn.style.opacity = '0.5';
-                saveBtn.style.cursor = 'not-allowed';
-                saveBtn.title = "Choose today's dose to enable saving";
-              }
+              this.setDaySaveButtonEnabled(false);
               this.setSlider('zaps', 0);
               this.setSlider('vertigo', 0);
               this.setSlider('sleep', 0);
@@ -5323,6 +6658,15 @@
           }
         },
 
+        setDaySaveButtonEnabled(enabled) {
+          const saveBtn = document.getElementById('btn-save-log');
+          if (!saveBtn) return;
+          saveBtn.disabled = !enabled;
+          saveBtn.style.opacity = enabled ? '1' : '0.5';
+          saveBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+          saveBtn.title = enabled ? '' : "Choose today's dose to enable saving";
+        },
+
         quickSelectPill(doseVal, formulationKey) {
           this.state.currentEntryDose = doseVal;
           this.state.currentEntryFormulation = formulationKey;
@@ -5332,13 +6676,7 @@
           if (formSel) formSel.value = formulationKey;
           this.updateQuickPillButtons(doseVal, formulationKey);
 
-          const saveBtn = document.getElementById('btn-save-log');
-          if (saveBtn) {
-            saveBtn.disabled = false;
-            saveBtn.style.opacity = '1';
-            saveBtn.style.cursor = 'pointer';
-            saveBtn.title = '';
-          }
+          this.setDaySaveButtonEnabled(true);
           const badge = document.getElementById('panel-adherence-badge');
           if (badge && (!this.state.logs[this.state.selectedDate])) {
             badge.textContent = `Dose Chosen: ${doseVal} mg`;
@@ -5383,11 +6721,16 @@
         setSlider(key, val) {
           const r = document.getElementById(`range-${key}`);
           const v = document.getElementById(`val-${key}`);
-          if (r) r.value = val;
+          if (r) {
+            r.value = val;
+            r.setAttribute('aria-valuetext', `${val} out of 10`);
+          }
           if (v) v.textContent = val;
         },
 
         updateSliderVal(key, val) {
+          const r = document.getElementById(`range-${key}`);
+          if (r) r.setAttribute('aria-valuetext', `${val} out of 10`);
           const v = document.getElementById(`val-${key}`);
           if (v) v.textContent = val;
           this.recalcAvgSymptom();
@@ -5476,7 +6819,6 @@
           this.renderCrisisBanner();
           this.renderCalendar();
           this.renderChart();
-          this.checkAdherence();
           this.updateMetricBar();
 
           // Immediately present the concluded text registry window
@@ -5491,7 +6833,6 @@
             this.saveStorage();
             this.renderCalendar();
             this.renderChart();
-            this.checkAdherence();
             this.updateMetricBar();
             this.selectDate(dateStr);
           }
@@ -5569,10 +6910,10 @@
 
           overlay.innerHTML = `
             <div class="plan-conflict-header">
-              <span style="font-size: 1.25rem;">ℹ️</span>
+              <span class="plan-conflict-icon">ℹ️</span>
               <div>
                 <div class="plan-conflict-title">Overlapping Plans Notice</div>
-                <div style="font-size: 0.775rem; color: #fde68a;">
+                <div class="plan-conflict-window">
                   Overlap window: <strong>${this.formatDisplayDate(c.overlapStart)}</strong> &rarr; <strong>${this.formatDisplayDate(c.overlapEnd)}</strong>
                 </div>
               </div>
@@ -5581,7 +6922,7 @@
               <strong>${this.escapeHtml(c.planA.name)}</strong> and <strong>${this.escapeHtml(c.planB.name)}</strong> both have active dates here. If you did this on purpose, you're good to go! If not, feel free to give it a look and change at your own will — you can adjust dates, pause a phase, or chain them sequentially whenever you like.
             </div>
             <div class="plan-conflict-actions">
-              <button class="btn btn-secondary btn-sm" onclick="app.autoResolveConflicts()" style="border-color: #d97706; color: #fde68a;">
+              <button class="btn btn-secondary btn-sm plan-resolve-btn" onclick="app.autoResolveConflicts()">
                 Chain Dates Sequentially
               </button>
               <button class="btn btn-secondary btn-sm" onclick="app.openPlanEditModal('${c.planB.id}')">
@@ -5614,11 +6955,14 @@
           });
 
           this.saveStorage();
+          this.refreshPlanViews();
+          this.showToast('Plans have been scheduled sequentially without date overlap.', 'success');
+        },
+
+        refreshPlanViews() {
           this.renderConflictOverlay();
           this.renderPlans();
           this.renderCalendar();
-          this.checkAdherence();
-          this.showToast('Plans have been scheduled sequentially without date overlap.', 'success');
         },
 
         getSymptomFeedback() {
@@ -5638,20 +6982,6 @@
             const log = this.state.logs[dStr];
             return log && log.dose !== undefined && log.dose !== null;
           });
-
-          // Show "Not enough data" if fewer than 3 of those days were logged
-          if (loggedDatesInWindow.length < 3) {
-            return {
-              avg: 0,
-              maxZaps: 0,
-              maxVertigo: 0,
-              maxSingle: 0,
-              level: 'not_enough_data',
-              loggedCount: loggedDatesInWindow.length,
-              windowDates: last7CalendarDates,
-              isWarningActive: this.isCrisisWarningActive()
-            };
-          }
 
           let sumAvg = 0;
           let maxZaps = 0;
@@ -5683,7 +7013,34 @@
             }
           });
 
-          const avg7d = sumAvg / loggedDatesInWindow.length;
+          const avg7d = loggedDatesInWindow.length > 0 ? (sumAvg / loggedDatesInWindow.length) : 0;
+
+          // Show "Not enough data" if fewer than 3 of those days were logged, unless a severe symptom (>= 7) or safety trigger occurred
+          if (loggedDatesInWindow.length < 3) {
+            if (maxSingle >= 7 || hasSafetyTrigger) {
+              return {
+                avg: avg7d,
+                maxZaps,
+                maxVertigo,
+                maxSingle,
+                level: 'danger',
+                loggedCount: loggedDatesInWindow.length,
+                windowDates: last7CalendarDates,
+                isWarningActive: true
+              };
+            }
+            return {
+              avg: 0,
+              maxZaps: 0,
+              maxVertigo: 0,
+              maxSingle: 0,
+              level: 'not_enough_data',
+              loggedCount: loggedDatesInWindow.length,
+              windowDates: last7CalendarDates,
+              isWarningActive: this.isCrisisWarningActive()
+            };
+          }
+
           let level = 'stable';
 
           // Any single symptom at 7 or higher in the last 7 days must set level to 'danger', whatever the average is.
@@ -5772,12 +7129,12 @@
 
           if (!prevInfo || prevInfo.dose === undefined || prevInfo.dose === null || prevInfo.dose === 0) {
             box.innerHTML = `
-              <div style="background: #111827; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.85rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-                  <span style="font-size: 0.8rem; color: var(--text-secondary);">Phase Average Daily Dose:</span>
-                  <strong class="tabular-nums" style="font-size: 0.95rem; color: var(--teal-primary);">${currentAvg.toFixed(1)} mg/day</strong>
+              <div class="plan-calc-card">
+                <div class="plan-calc-row">
+                  <span class="plan-calc-avg-label">Phase Average Daily Dose:</span>
+                  <strong class="tabular-nums plan-calc-avg-val">${currentAvg.toFixed(1)} mg/day</strong>
                 </div>
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+                <div class="plan-calc-hint">
                   Starting phase (no previous phase dose or baseline dose recorded for percentage comparison).
                 </div>
               </div>
@@ -5795,9 +7152,9 @@
           let noticeHtml = '';
           if (isLargeStep) {
             noticeHtml = `
-              <div style="margin-top: 0.65rem; background: rgba(245, 158, 11, 0.12); border: 1px solid #f59e0b; border-radius: 0.45rem; padding: 0.65rem 0.85rem; display: flex; align-items: flex-start; gap: 0.5rem;">
-                <span style="color: #f59e0b; font-size: 0.95rem; line-height: 1.2;">⚠️</span>
-                <div style="font-size: 0.8rem; color: #fbbf24; line-height: 1.45;">
+              <div class="plan-large-notice">
+                <span class="plan-large-notice-icon">⚠️</span>
+                <div class="plan-large-notice-text">
                   This is a large step. Please discuss it with your prescriber or pharmacist before starting.
                 </div>
               </div>
@@ -5806,22 +7163,23 @@
 
           const sourceLabel = prevInfo.isBaseline ? 'Baseline dose' : `Previous phase (${this.escapeHtml(prevInfo.source)})`;
           const changeLabel = prevInfo.isBaseline ? 'Percentage change from baseline dose:' : 'Percentage change from previous phase:';
+          const pctCls = pctChange < 0 ? 'is-neg' : pctChange > 0 ? 'is-pos' : 'is-zero';
 
           box.innerHTML = `
-            <div style="background: #111827; border: 1px solid #334155; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-top: 0.85rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div class="plan-calc-card">
+              <div class="plan-calc-row">
                 <div>
-                  <span style="font-size: 0.775rem; color: var(--text-muted);">${sourceLabel}:</span>
-                  <strong class="tabular-nums" style="font-size: 0.85rem; color: var(--text-primary); margin-left: 0.35rem;">${prevDose.toFixed(1)} mg/day</strong>
+                  <span class="plan-calc-sub">${sourceLabel}:</span>
+                  <strong class="tabular-nums plan-calc-val-prev">${prevDose.toFixed(1)} mg/day</strong>
                 </div>
                 <div>
-                  <span style="font-size: 0.775rem; color: var(--text-muted);">Current phase:</span>
-                  <strong class="tabular-nums" style="font-size: 0.85rem; color: var(--teal-primary); margin-left: 0.35rem;">${currentAvg.toFixed(1)} mg/day</strong>
+                  <span class="plan-calc-sub">Current phase:</span>
+                  <strong class="tabular-nums plan-calc-val-curr">${currentAvg.toFixed(1)} mg/day</strong>
                 </div>
               </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.45rem; padding-top: 0.45rem; border-top: 1px solid #1e293b;">
-                <span style="font-size: 0.825rem; font-weight: 600; color: var(--text-secondary);">${changeLabel}</span>
-                <span class="tabular-nums" style="font-size: 0.95rem; font-weight: 700; color: ${pctChange < 0 ? '#38bdf8' : pctChange > 0 ? '#f59e0b' : 'var(--text-muted)'};">
+              <div class="plan-calc-change-row">
+                <span class="plan-calc-change-label">${changeLabel}</span>
+                <span class="tabular-nums plan-calc-pct ${pctCls}">
                   ${formattedPct}
                 </span>
               </div>
@@ -5853,12 +7211,12 @@
 
           if (!hasPlans) {
             grid.innerHTML = `
-              <div style="grid-column: 1 / -1; padding: 1.75rem 1.25rem; text-align: center; background: rgba(15, 23, 42, 0.5); border: 1px dashed #334155; border-radius: 0.5rem;">
-                <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">🧭</div>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 1rem; line-height: 1.5;">
+              <div class="empty-state-box grid-span-all">
+                <div class="empty-state-icon">🧭</div>
+                <p class="empty-state-desc">
                   Your daily intake registry is completely independent and operates normally without plans. Create an orientation plan whenever you are ready to structure a tapering schedule.
                 </p>
-                <div style="display: flex; justify-content: center;">
+                <div class="empty-state-actions">
                   <button class="btn btn-primary btn-sm" onclick="app.openNewPlanModal()">
                     Prepare your plan
                   </button>
@@ -5926,10 +7284,10 @@
               const pct = ((currentAvg - prevInfo.dose) / prevInfo.dose) * 100;
               const isLarge = (Math.abs(currentAvg - prevInfo.dose) / prevInfo.dose > 0.25) || (currentAvg === 0);
               const label = prevInfo.isBaseline ? 'vs baseline' : 'vs prev phase';
-              pctBadge = `<span class="pill-badge" style="border-color:#38bdf8; color:#7dd3fc; font-size:0.7rem; padding:0.15rem 0.5rem;">${pct > 0 ? '+' : ''}${pct.toFixed(1)}% ${label}</span>`;
+              pctBadge = `<span class="pill-badge plan-badge plan-badge-pct">${pct > 0 ? '+' : ''}${pct.toFixed(1)}% ${label}</span>`;
               if (isLarge) {
                 largeNotice = `
-                  <div style="font-size:0.75rem; color:#fbbf24; margin-top:0.35rem; background:rgba(245, 158, 11, 0.1); border:1px solid #f59e0b; border-radius:0.35rem; padding:0.35rem 0.6rem; display:flex; align-items:center; gap:0.4rem;">
+                  <div class="plan-card-large-notice">
                     <span>⚠️</span>
                     <span>This is a large step. Please discuss it with your prescriber or pharmacist before starting.</span>
                   </div>
@@ -5942,9 +7300,9 @@
                 <div class="plan-list-heading-line">
                   <span class="plan-list-name">${this.escapeHtml(plan.name)}</span>
                   <div class="plan-list-badges">
-                    ${plan.active ? '<span class="pill-badge" style="border-color:#10b981; color:#34d399; font-size:0.7rem; padding:0.15rem 0.5rem;">● Active Plan</span>' : '<span class="pill-badge" style="border-color:#64748b; color:#94a3b8; font-size:0.7rem; padding:0.15rem 0.5rem;">○ Paused</span>'}
+                    ${plan.active ? '<span class="pill-badge plan-badge plan-badge-active">● Active Plan</span>' : '<span class="pill-badge plan-badge plan-badge-paused">○ Paused</span>'}
                     ${pctBadge}
-                    ${isConflicted ? '<span class="pill-badge" style="border-color:#d97706; color:#fde68a; font-size:0.7rem; padding:0.15rem 0.5rem;">ℹ️ Overlapping Dates</span>' : ''}
+                    ${isConflicted ? '<span class="pill-badge plan-badge plan-badge-overlap">ℹ️ Overlapping Dates</span>' : ''}
                   </div>
                 </div>
 
@@ -5952,13 +7310,13 @@
                   ${daysChipsHtml}
                 </div>
 
-                <div style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-secondary); margin-top:0.25rem;">
-                  Schedule: <strong style="color:var(--teal-primary);">${formattedStartDate}</strong> &rarr; <strong style="color:var(--teal-primary);">${formattedEndDate}</strong> (${plan.durationDays} days)
-                  ${!plan.active ? '<span style="color:#94a3b8; font-style:italic; margin-left:0.5rem;">(Paused — not applied to calendar)</span>' : ''}
+                <div class="plan-schedule-line">
+                  Schedule: <strong class="plan-schedule-date">${formattedStartDate}</strong> &rarr; <strong class="plan-schedule-date">${formattedEndDate}</strong> (${plan.durationDays} days)
+                  ${!plan.active ? '<span class="plan-paused-note">(Paused — not applied to calendar)</span>' : ''}
                 </div>
 
                 ${largeNotice}
-                ${plan.notes ? `<div style="font-size:0.775rem; color:var(--text-muted); font-style:italic; margin-top:0.1rem;">· ${this.escapeHtml(plan.notes)}</div>` : ''}
+                ${plan.notes ? `<div class="plan-card-notes">· ${this.escapeHtml(plan.notes)}</div>` : ''}
               </div>
 
               <div class="plan-list-actions">
@@ -5972,7 +7330,7 @@
                 <button class="btn btn-secondary btn-sm" onclick="app.duplicatePlan('${plan.id}')" title="Duplicate plan">
                   📋 Copy
                 </button>
-                <button class="btn btn-secondary btn-sm" onclick="app.deletePlan('${plan.id}')" style="color:#f87171;" title="Delete orientation plan">
+                <button class="btn btn-secondary btn-sm btn-clear-danger" onclick="app.deletePlan('${plan.id}')" title="Delete orientation plan">
                   🗑 Delete
                 </button>
               </div>
@@ -6018,8 +7376,8 @@
             return `
               <div class="editor-day-card">
                 <label>${dayLabels[i]}</label>
-                <input type="number" step="0.1" min="0" id="modal-day-${k}" class="form-control" value="${rawVal}" oninput="app.updatePlanEditorCalculation()" style="font-size:0.85rem; padding:0.4rem 0.5rem; text-align:center;" />
-                <span id="modal-day-label-${k}" style="font-size:0.65rem; color:var(--text-muted); display:block; margin-top:0.2rem; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${this.getPillLabel(rawVal)}</span>
+                <input type="number" step="0.1" min="0" id="modal-day-${k}" class="form-control editor-day-input" value="${rawVal}" oninput="app.updatePlanEditorCalculation()" />
+                <span id="modal-day-label-${k}" class="editor-day-pill-sub">${this.getPillLabel(rawVal)}</span>
               </div>
             `;
           }).join('');
@@ -6040,13 +7398,13 @@
           const endDate = this.getPlanEndDate(this._editingPlan);
 
           const body = `
-            <div style="font-family: var(--font-sans);">
+            <div class="modal-form-wrap">
               <div class="form-group">
                 <label>Plan Name / Phase Description</label>
                 <input type="text" id="modal-plan-name" class="form-control" value="${this.escapeHtml(this._editingPlan.name)}" placeholder="e.g. Phase 1: Stabilization Hold" />
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="modal-two-col">
                 <div class="form-group">
                   <label>Start Date</label>
                   <input type="date" id="modal-plan-start" class="form-control" value="${this._editingPlan.startDate}" onchange="app.updateModalEndDate(); app.updatePlanEditorCalculation();" />
@@ -6057,23 +7415,23 @@
                 </div>
               </div>
 
-              <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:0.75rem;">
-                <div id="modal-computed-end-date" style="font-size:0.8rem; font-family:var(--font-mono); color:var(--teal-primary); font-weight:700;">
+              <div class="plan-end-date-row">
+                <div id="modal-computed-end-date" class="plan-computed-end-date">
                   End Date: ${this.formatDisplayDate(endDate)}
                 </div>
               </div>
 
-              <div style="margin-top:1.25rem; border-top:1px solid var(--border-subtle); padding-top:1rem;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
-                  <label style="font-size:0.85rem; font-weight:700; color:var(--text-primary); margin:0;">
+              <div class="plan-weekly-section">
+                <div class="plan-weekly-header">
+                  <label class="plan-weekly-title">
                     Daily Dose (mg) for Every Day of the Week:
                   </label>
-                  <div style="display:flex; align-items:center; gap:0.4rem;">
-                    <span style="font-size:0.75rem; color:var(--text-muted);">Quick set all:</span>
-                    <select id="modal-quick-preset" class="form-control" style="font-size:0.775rem; padding:0.25rem 0.5rem; width:auto;">
+                  <div class="plan-preset-controls">
+                    <span class="plan-preset-label">Quick set all:</span>
+                    <select id="modal-quick-preset" class="form-control modal-quick-preset">
                       ${presetOptionsHtml}
                     </select>
-                    <button type="button" class="btn btn-secondary btn-sm" style="font-size:0.75rem; padding:0.25rem 0.6rem;" onclick="app.applyModalPresetToAllDays()">
+                    <button type="button" class="btn btn-secondary btn-sm modal-preset-apply" onclick="app.applyModalPresetToAllDays()">
                       Apply
                     </button>
                   </div>
@@ -6089,19 +7447,19 @@
                 </div>
               </div>
 
-              <div class="form-group" style="margin-top: 1.15rem;">
+              <div class="form-group plan-notes-group">
                 <label>Clinical Notes / Splitting Instructions</label>
                 <textarea id="modal-plan-notes" class="form-control" rows="2" placeholder="e.g. Take with breakfast.">${this.escapeHtml(this._editingPlan.notes || '')}</textarea>
               </div>
 
-              <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.75rem; margin-bottom:1.15rem;">
-                <input type="checkbox" id="modal-plan-active" ${this._editingPlan.active ? 'checked' : ''} style="width:16px; height:16px; accent-color:var(--teal-primary);" />
-                <label for="modal-plan-active" style="font-size:0.85rem; font-weight:600; color:var(--text-primary); cursor:pointer; margin:0;">
+              <div class="plan-active-row">
+                <input type="checkbox" id="modal-plan-active" ${this._editingPlan.active ? 'checked' : ''} class="plan-active-checkbox" />
+                <label for="modal-plan-active" class="plan-active-label">
                   Set this plan as Active immediately
                 </label>
               </div>
 
-              <div style="display:flex; justify-content:flex-end; gap:0.75rem; border-top:1px solid var(--border-subtle); padding-top:1rem;">
+              <div class="modal-actions-row">
                 <button type="button" class="btn btn-secondary" onclick="app.closeModal()">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="app.savePlanFromModal()">
                   Save Plan & Update Calendar
@@ -6189,12 +7547,8 @@
             if (idx >= 0) this.state.plans[idx] = this._editingPlan;
           }
 
-          this.saveStorage();
-          this.closeModal();
-          this.renderConflictOverlay();
-          this.renderPlans();
-          this.renderCalendar();
-          this.checkAdherence();
+          this.saveAndCloseModal();
+          this.refreshPlanViews();
           this.updateMetricBar();
 
           const conflicts = this.checkPlanConflicts();
@@ -6220,10 +7574,7 @@
 
           this.state.plans.push(copy);
           this.saveStorage();
-          this.renderConflictOverlay();
-          this.renderPlans();
-          this.renderCalendar();
-          this.checkAdherence();
+          this.refreshPlanViews();
           this.showToast(`Plan duplicated! Starts on ${this.formatDisplayDate(copy.startDate)}.`, 'success');
         },
 
@@ -6232,10 +7583,7 @@
           if (!plan) return;
           plan.active = !plan.active;
           this.saveStorage();
-          this.renderConflictOverlay();
-          this.renderPlans();
-          this.renderCalendar();
-          this.checkAdherence();
+          this.refreshPlanViews();
         },
 
         deletePlan(planId) {
@@ -6244,10 +7592,7 @@
           if (confirm(`Delete orientation plan "${plan.name}"? Your recorded daily intake registry is completely independent and will remain intact.`)) {
             this.state.plans = this.state.plans.filter(p => p.id !== planId);
             this.saveStorage();
-            this.renderConflictOverlay();
-            this.renderPlans();
-            this.renderCalendar();
-            this.checkAdherence();
+            this.refreshPlanViews();
           }
         },
 
@@ -6262,17 +7607,12 @@
             return;
           }
           this.renderCalendar();
-          this.checkAdherence();
           const conflicts = this.checkPlanConflicts();
           if (conflicts.length > 0) {
             this.showToast(`Calendar updated with ${activePlans.length} active plan(s). Note: ${conflicts.length} overlapping date window(s) present on the calendar.`, 'info');
           } else {
             this.showToast(`All ${activePlans.length} active plan schedule(s) (${activePlans.map(p => p.name).join(', ')}) successfully updated across the calendar.`, 'success');
           }
-        },
-
-        checkAdherence() {
-          // Plan adherence banner removed
         },
 
         // BIG-PICTURE CHART ENGINE
@@ -6653,7 +7993,7 @@
           points.forEach((pt, idx) => {
             const isLast = idx === points.length - 1;
             doseNodesHtml += `
-              <g onmouseenter="app.showChartTooltip(event, ${idx}, 'dose')" onmouseleave="app.hideChartTooltip()" style="cursor: crosshair;">
+              <g class="chart-hover-target" onmouseenter="app.showChartTooltip(event, ${idx}, 'dose')" onmouseleave="app.hideChartTooltip()">
                 <rect x="${(pt.x - 10).toFixed(1)}" y="${padding.top}" width="20" height="${innerH}" fill="transparent" />
                 <line x1="${pt.x.toFixed(1)}" y1="${pt.yDose.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${bottomY}" stroke="#38bdf8" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35" />
                 <circle cx="${pt.x.toFixed(1)}" cy="${pt.yDose.toFixed(1)}" r="${isLast ? 4 : 2.5}" fill="#38bdf8" stroke="#0b1120" stroke-width="1.3" />
@@ -6676,7 +8016,7 @@
             ${dosePathsHtml}
             ${doseNodesHtml}
             <!-- Dynamic Interactive Crosshair Reticle -->
-            <g id="crosshair-dose" style="display:none; pointer-events:none;">
+            <g id="crosshair-dose" class="chart-crosshair">
               <line class="crosshair-line-x" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${bottomY}" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2" />
               <line class="crosshair-line-y" x1="${padding.left}" y1="${padding.top}" x2="${width - padding.right}" y2="${padding.top}" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3,2" />
               <circle class="crosshair-dot" cx="0" cy="0" r="4.5" fill="#38bdf8" stroke="#0f172a" stroke-width="2" />
@@ -6732,7 +8072,7 @@
           points.forEach((pt, idx) => {
             const isLast = idx === points.length - 1;
             symNodesHtml += `
-              <g onmouseenter="app.showChartTooltip(event, ${idx}, 'symptoms')" onmouseleave="app.hideChartTooltip()" style="cursor: crosshair;">
+              <g class="chart-hover-target" onmouseenter="app.showChartTooltip(event, ${idx}, 'symptoms')" onmouseleave="app.hideChartTooltip()">
                 <rect x="${(pt.x - 10).toFixed(1)}" y="${padding.top}" width="20" height="${innerH}" fill="transparent" />
                 <line x1="${pt.x.toFixed(1)}" y1="${pt.ySymptom.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${bottomY}" stroke="#f43f5e" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35" />
                 <circle cx="${pt.x.toFixed(1)}" cy="${pt.ySymptom.toFixed(1)}" r="${isLast ? 4 : 2.5}" fill="#f43f5e" stroke="#0b1120" stroke-width="1.3" />
@@ -6755,7 +8095,7 @@
             ${symPathsHtml}
             ${symNodesHtml}
             <!-- Dynamic Interactive Crosshair Reticle -->
-            <g id="crosshair-symptoms" style="display:none; pointer-events:none;">
+            <g id="crosshair-symptoms" class="chart-crosshair">
               <line class="crosshair-line-x" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${bottomY}" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="3,2" />
               <line class="crosshair-line-y" x1="${padding.left}" y1="${padding.top}" x2="${width - padding.right}" y2="${padding.top}" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="3,2" />
               <circle class="crosshair-dot" cx="0" cy="0" r="4.5" fill="#f43f5e" stroke="#0f172a" stroke-width="2" />
@@ -6820,7 +8160,7 @@
           points.forEach((pt, idx) => {
             const isLast = idx === points.length - 1;
             speedNodesHtml += `
-              <g onmouseenter="app.showChartTooltip(event, ${idx}, 'speed')" onmouseleave="app.hideChartTooltip()" style="cursor: crosshair;">
+              <g class="chart-hover-target" onmouseenter="app.showChartTooltip(event, ${idx}, 'speed')" onmouseleave="app.hideChartTooltip()">
                 <rect x="${(pt.x - 10).toFixed(1)}" y="${padding.top}" width="20" height="${innerH}" fill="transparent" />
                 <line x1="${pt.x.toFixed(1)}" y1="${pt.ySpeed.toFixed(1)}" x2="${pt.x.toFixed(1)}" y2="${bottomY}" stroke="#10b981" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.35" />
                 <circle cx="${pt.x.toFixed(1)}" cy="${pt.ySpeed.toFixed(1)}" r="${isLast ? 4 : 2.5}" fill="#10b981" stroke="#0b1120" stroke-width="1.3" />
@@ -6843,7 +8183,7 @@
             ${speedPathsHtml}
             ${speedNodesHtml}
             <!-- Dynamic Interactive Crosshair Reticle -->
-            <g id="crosshair-speed" style="display:none; pointer-events:none;">
+            <g id="crosshair-speed" class="chart-crosshair">
               <line class="crosshair-line-x" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${bottomY}" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,2" />
               <line class="crosshair-line-y" x1="${padding.left}" y1="${padding.top}" x2="${width - padding.right}" y2="${padding.top}" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,2" />
               <circle class="crosshair-dot" cx="0" cy="0" r="4.5" fill="#10b981" stroke="#0f172a" stroke-width="2" />
@@ -6895,33 +8235,33 @@
 
           const s = (this.state.logs[pt.dateStr] && this.state.logs[pt.dateStr].symptoms) || {};
 
-          const activeColor = chartType === 'dose' ? '#38bdf8' : chartType === 'symptoms' ? '#fb7185' : '#34d399';
+          const activeColorCls = chartType === 'dose' ? 'chart-color-dose' : chartType === 'symptoms' ? 'chart-color-symptoms' : 'chart-color-speed';
           const activeYValue = chartType === 'dose' ? `${pt.dose.toFixed(1)} mg` : chartType === 'symptoms' ? `${pt.symptomAvg.toFixed(1)} / 10` : pt.speedText;
 
           tooltip.innerHTML = `
-            <div style="font-weight:700; border-bottom:1px solid #334155; padding-bottom:5px; margin-bottom:6px; color:#f8fafc; display:flex; justify-content:space-between; align-items:center;">
+            <div class="chart-tip-header">
               <span>${this.formatDisplayDate(pt.dateStr)}</span>
-              <span style="font-size:0.7rem; color:var(--text-muted);">${dayName}</span>
+              <span class="chart-tip-day">${dayName}</span>
             </div>
-            <div style="font-size:0.7rem; background:#1e293b; padding:0.25rem 0.5rem; border-radius:4px; margin-bottom:6px; color:${activeColor}; font-family:var(--font-mono); border: 1px solid #334155;">
+            <div class="chart-tip-grid ${activeColorCls}">
               ✛ Grid Intersection: X = ${pt.dateStr} · Y = ${activeYValue}
             </div>
-            <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px;">
-              <span style="color:#38bdf8; font-weight:600;">Daily Dose:</span>
-              <strong class="tabular-nums" style="color:#38bdf8;">${pt.dose.toFixed(1)} mg (${this.getPillLabel(pt.dose, pt.formulation)})</strong>
+            <div class="chart-tip-row">
+              <span class="chart-tip-label-dose">Daily Dose:</span>
+              <strong class="tabular-nums chart-color-dose">${pt.dose.toFixed(1)} mg (${this.getPillLabel(pt.dose, pt.formulation)})</strong>
             </div>
-            <div style="display:flex; justify-content:space-between; gap:12px; margin-bottom:3px;">
-              <span style="color:#fb7185; font-weight:600;">Symptom Score:</span>
-              <strong class="tabular-nums" style="color:#fb7185;">${pt.symptomAvg.toFixed(1)} / 10 (${pt.symptomAvg <= 2 ? 'Mild' : pt.symptomAvg <= 5 ? 'Moderate' : 'Elevated'})</strong>
+            <div class="chart-tip-row">
+              <span class="chart-tip-label-sym">Symptom Score:</span>
+              <strong class="tabular-nums chart-color-symptoms">${pt.symptomAvg.toFixed(1)} / 10 (${pt.symptomAvg <= 2 ? 'Mild' : pt.symptomAvg <= 5 ? 'Moderate' : 'Elevated'})</strong>
             </div>
-            <div style="font-size:0.675rem; color:#94a3b8; margin-bottom:4px; font-family:var(--font-mono);">
+            <div class="chart-tip-detail">
               ⚡ Zaps: ${s.zaps || 0}/10 · 〰 Vertigo: ${s.vertigo || 0}/10 · 💤 Sleep: ${s.sleep || 0}/10
             </div>
-            <div style="display:flex; justify-content:space-between; gap:12px; padding-top:4px; border-top:1px solid #1e293b;">
-              <span style="color:#10b981; font-weight:600;">Dose change:</span>
-              <strong class="tabular-nums" style="color:#34d399;">${pt.speedText}</strong>
+            <div class="chart-tip-speed-row">
+              <span class="chart-tip-label-speed">Dose change:</span>
+              <strong class="tabular-nums chart-color-speed">${pt.speedText}</strong>
             </div>
-            ${pt.notes ? `<div style="font-size:0.7rem; color:#94a3b8; margin-top:5px; border-top:1px solid #334155; padding-top:4px; font-style:italic;">"${this.escapeHtml(pt.notes)}"</div>` : ''}
+            ${pt.notes ? `<div class="chart-tip-note">"${this.escapeHtml(pt.notes)}"</div>` : ''}
           `;
 
           // Move the interactive crosshair on all charts
@@ -7338,8 +8678,7 @@
             delete this.state.libraryNotes[id];
           }
           this.state._confirmDeleteCustomId = null;
-          this.saveStorage();
-          this.closeModal();
+          this.saveAndCloseModal();
           this.renderLibrary();
           const nextFocusTarget = document.querySelector('#library-grid button, #library-grid a') || document.getElementById('library-search');
           if (nextFocusTarget) nextFocusTarget.focus();
