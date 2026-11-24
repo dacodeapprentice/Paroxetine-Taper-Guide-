@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0a0f1d" />
+    </linearGradient>
+    <linearGradient id="teal-half" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <clipPath id="capsule-clip">
+      <rect x="12" y="22" width="40" height="20" rx="10" />
+    </clipPath>
+  </defs>
+
+  <!-- App badge background -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg-grad)" stroke="#1e293b" stroke-width="2" />
+  <rect x="3" y="3" width="58" height="58" rx="13" fill="none" stroke="#14b8a6" stroke-opacity="0.35" stroke-width="1" />
+
+  <!-- Diagonal two-tone capsule matching Taper Diary brand icon -->
+  <g transform="rotate(-45 32 32)">
+    <g clip-path="url(#capsule-clip)">
+      <rect x="12" y="22" width="20" height="20" fill="#f8fafc" />
+      <rect x="32" y="22" width="20" height="20" fill="url(#teal-half)" />
+      <line x1="32" y1="21" x2="32" y2="43" stroke="#0a0f1d" stroke-width="2.2" />
+    </g>
+    <rect x="12" y="22" width="40" height="20" rx="10" fill="none" stroke="#14b8a6" stroke-opacity="0.45" stroke-width="1.2" />
+  </g>
+</svg>
