@@ -3927,13 +3927,13 @@
           <span class="mobile-nav-icon">📈</span>
           <span>Trajectory Chart</span>
         </a>
-        <a href="#calendar-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
-          <span class="mobile-nav-icon">📅</span>
-          <span>Calendar & Intake Log</span>
-        </a>
         <a href="#tablets-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
           <span class="mobile-nav-icon">💊</span>
           <span>My Tablets</span>
+        </a>
+        <a href="#calendar-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
+          <span class="mobile-nav-icon">📅</span>
+          <span>Calendar & Intake Log</span>
         </a>
         <a href="#plan-section" onclick="app.closeMobileMenu()" class="mobile-nav-link">
           <span class="mobile-nav-icon">📋</span>
@@ -3990,8 +3990,8 @@
         <!-- Navigation Links Zone -->
         <nav class="nav-links" aria-label="Main">
           <a href="#chart-section">Trajectory Chart</a>
-          <a href="#calendar-section">Calendar</a>
           <a href="#tablets-section">My Tablets</a>
+          <a href="#calendar-section">Calendar</a>
           <a href="#plan-section">Action Plan</a>
           <a href="#total-summary-intake-section">Total Summary of Intake</a>
           <a href="#library-section">Digital Library</a>
@@ -4130,7 +4130,31 @@
         </div>
       </section>
 
-      <!-- SECTION 2: CALENDAR WORKSPACE (OCCUPIES MOST SCREEN SPACE) -->
+      <!-- SECTION 2: MY TABLETS SETTINGS AREA -->
+      <section id="tablets-section">
+        <div class="section-heading">
+          <div class="section-heading-left">
+            <h2>My Tablets</h2>
+            <p>Configure your prescribed tablets and strengths to match your specific prescription.</p>
+          </div>
+        </div>
+
+        <div class="plan-section-card tablets-card">
+          <!-- My Tablets List -->
+          <div>
+            <div class="tablets-list-header">
+              <span class="section-sub-heading">
+                Configured Tablets:
+              </span>
+            </div>
+            <div id="tablets-container">
+              <!-- Dynamically populated via app.renderTablets() -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: CALENDAR WORKSPACE (OCCUPIES MOST SCREEN SPACE) -->
       <section id="calendar-section">
         <div class="section-heading">
           <div class="section-heading-left">
@@ -4371,30 +4395,6 @@
               <span id="locked-plan-name"></span>
               <span id="locked-plan-dayname"></span>
               <div id="locked-plan-conflict-alert"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 2B: MY TABLETS SETTINGS AREA -->
-      <section id="tablets-section">
-        <div class="section-heading">
-          <div class="section-heading-left">
-            <h2>My Tablets</h2>
-            <p>Configure your prescribed tablets and strengths to match your specific prescription.</p>
-          </div>
-        </div>
-
-        <div class="plan-section-card tablets-card">
-          <!-- My Tablets List -->
-          <div>
-            <div class="tablets-list-header">
-              <span class="section-sub-heading">
-                Configured Tablets:
-              </span>
-            </div>
-            <div id="tablets-container">
-              <!-- Dynamically populated via app.renderTablets() -->
             </div>
           </div>
         </div>
